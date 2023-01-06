@@ -1,0 +1,21 @@
+{
+  "name": "movie-website",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "npm run generate-meta-tag && react-scripts build",
+    "start": "next start",
+    "lint": "next lint",
+    "generate-meta-tag": "node ./node_modules/react-cache-buster/dist/generate-meta-tag.js"
+  },
+  "dependencies": {
+    "@material-ui/core": "^4.12.4",
+    "@material-ui/lab": "^4.0.0-alpha.61",
+    "eslint": "8.29.0",
+    "eslint-config-next": "13.0.6",
+    "next": "^12.3.4",
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
+  }
+}

@@ -1,0 +1,33 @@
+
+.main {
+    width: 400px;
+    height: 400px;
+    display: flex;
+    justify-content: space-around;
+    border-style:double;
+    border-color: black;
+}
+
+.content {
+    display:flexbox;
+    align-content: space-around;
+    justify-content:space-around;
+    color:aqua;
+}
+
+.datalist {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    writing-mode: vertical-lr;
+    width: 200px;
+  }
+  
+  .option {
+    padding: 0;
+  }
+  
+  .input[type="range"] {
+    width: 200px;
+    margin: 0;
+  }

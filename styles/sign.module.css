@@ -1,0 +1,12 @@
+.buttons {
+    position: relative;
+    width:fit-content;
+}
+
+.dropdown {
+    position: absolute;
+    border: 2px;
+    padding: 2px;
+    background-color: grey;
+    color: aqua;
+}

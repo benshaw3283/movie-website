@@ -1,0 +1,28 @@
+
+.nav {
+    background-color: gray;
+    align-items: center;
+    padding: 10px;
+}
+
+.a {
+    margin: 10;
+    color: whitesmoke;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.home, .about {
+    padding: none;
+}
+.contact {
+    padding: none;
+}
+
+.sign {
+    padding: none;
+    list-style-type: none;
+    color:black;
+    font-weight: bolder;
+}
