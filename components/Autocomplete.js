@@ -23,7 +23,7 @@ const MovieAutocomplete = () => {
         variant="outlined" 
         />)
     }
-        getOptionLabel_={option => option.name}
+        getoptionlabel_={option => option.name}
         style={{ width: 270 }}  
         value={selectedMovie}
         onChange={(_event, newMovie) => {

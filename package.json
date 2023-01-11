@@ -12,6 +12,7 @@
   "dependencies": {
     "@material-ui/core": "^4.12.4",
     "@material-ui/lab": "^4.0.0-alpha.61",
+    "@radix-ui/react-dialog": "^1.0.2",
     "@radix-ui/react-popover": "1.0.2",
     "eslint": "8.29.0",
     "eslint-config-next": "13.0.6",
