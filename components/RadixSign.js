@@ -1,8 +1,10 @@
+import React from 'react';
 import * as Dialog from '@radix-ui/react-dialog';
+import '../styles/radixSign.module.css'
 import { Cross2Icon } from '@radix-ui/react-icons';
-import './styles.css';
 
-const DialogDemo = () => (
+
+export const RadixDialog = () => (
   <Dialog.Root>
     <Dialog.Trigger asChild>
       <button className="Button violet" size="large">
@@ -12,35 +14,38 @@ const DialogDemo = () => (
     <Dialog.Portal>
       <Dialog.Overlay className="DialogOverlay" />
       <Dialog.Content className="DialogContent">
-        <Dialog.Title className="DialogTitle">Edit profile</Dialog.Title>
+        <Dialog.Title className="DialogTitle">Sign Up</Dialog.Title>
         <Dialog.Description className="DialogDescription">
-          Make changes to your profile here.
+          Sign up here! Click the sign up button when you have entered your details.
         </Dialog.Description>
-        <fieldset className="Fieldset">
-          <label className="Label" htmlFor="name">
-            Name
-          </label>
-          <input className="Input" id="name" defaultValue="Pedro Duarte" />
-        </fieldset>
         <fieldset className="Fieldset">
           <label className="Label" htmlFor="username">
             Username
           </label>
-          <input className="Input" id="username" defaultValue="@peduarte" />
+          <input className="Input" id="name" defaultValue="..." />
+        </fieldset>
+        <fieldset className="Fieldset">
+          <label className="Label" htmlFor="password">
+            Password
+          </label>
+          <input className="Input" id="username" defaultValue="..." />
+        </fieldset>
+        <fieldset className='Fieldset'>
+          <label className='Label' htmlFor='email'>
+            Email 
+          </label>
+          <input className='Input' id='email' defaultValue='...' />
         </fieldset>
         <div style={{ display: 'flex', marginTop: 25, justifyContent: 'flex-end' }}>
           <Dialog.Close asChild>
-            <button className="Button green">Save changes</button>
+            <button className="Button green">Sign Up</button>
           </Dialog.Close>
         </div>
         <Dialog.Close asChild>
           <button className="IconButton" aria-label="Close">
-            <Cross2Icon />
           </button>
         </Dialog.Close>
       </Dialog.Content>
     </Dialog.Portal>
   </Dialog.Root>
 );
-
-export default DialogDemo;

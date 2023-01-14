@@ -2,7 +2,7 @@ import Link from 'next/link'
 import navBar from '../styles/nav.module.css'
 import { Signup, Login } from './Sign'
 import { PageWithJSbasedForm } from './Sign'
-import DialogDemo from './RadixSign'
+import { RadixDialog } from './RadixSign'
 
 const Nav = () => {
 
@@ -16,7 +16,7 @@ const Nav = () => {
                 <li><PageWithJSbasedForm/></li>
                 <li><Login/></li>
             </ul>
-            <DialogDemo/>
+            <RadixDialog/>
             </nav>
             </div>
     )

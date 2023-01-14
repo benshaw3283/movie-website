@@ -5,6 +5,7 @@ import movieList from '../pages/movieList';
 import styles from '../styles/review.module.css';
 import Image from 'next/image';
 import Avatar from '../public/Avatar.jpg';
+import { radixDialog } from './RadixSign';
 
 
 const MovieAutocomplete = () => { 
@@ -30,7 +31,6 @@ const MovieAutocomplete = () => {
             setSelectedMovie(newMovie)
         }}
         /> 
-            
             <button id='reviewButton' onClick={handleClick}><strong>Review This Movie</strong></button>
             <div>
                 {clicked ? (
