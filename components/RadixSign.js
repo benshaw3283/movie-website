@@ -42,7 +42,7 @@ export const RadixDialog = () => (
 
           <div style={{ display: "flex", marginTop: 25, justifyContent: "flex-end" }}>
             <Dialog.Close asChild>
-              <button className={styles.button}>Sign Up</button>
+              <button className={styles.Button}>Sign Up</button>
             </Dialog.Close>
           </div>
 
