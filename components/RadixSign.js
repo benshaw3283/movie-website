@@ -1,12 +1,29 @@
-import React from "react";
+import React, {useState, useRef, useEffect} from "react";
 import * as Dialog from "@radix-ui/react-dialog";
 import styles from "../styles/radixSign.module.css";
+import { CheckboxPassword } from "./RadixComponents";
+import { red } from "@radix-ui/colors";
 
-export const RadixDialog = () => (
+
+export const RadixDialogSign = () => {
+  const ref = useRef('password')
+
+////////NOT WORKING////////
+  const handleClick = () => {
+      if (ref.current === 'password') {
+        ref.current.setAttribute('type','text')
+      } else {
+        ref.current.setAttribute('type','password')
+      }         
+  }
+////////
+
+  
+  return (
   <Dialog.Root>
     <Dialog.Trigger asChild>
       <button className="Button violet" size="large">
-        Edit profile
+        Sign Up
       </button>
     </Dialog.Trigger>
 
@@ -23,22 +40,28 @@ export const RadixDialog = () => (
             <label className={styles.Label} htmlFor="username">
               Username
             </label>
-            <input className="Input" id="name" defaultValue="..." />
+            <input className={styles.Input} id="username" placeholder="username" />
           </fieldset>
 
           <fieldset className={styles.Fieldset}>
             <label className={styles.Label} htmlFor="password">
               Password
-            </label>
-            <input className="Input" id="username" defaultValue="..." />
+            </label>                     
+            <input className={styles.Input} id="password"  ref={ref} placeholder="password" type={handleClick}/>
+            <button onClick={handleClick} >
+              <CheckboxPassword/>
+              </button>  
+      
+            
           </fieldset>
 
           <fieldset className={styles.Fieldset}>
             <label className={styles.Label} htmlFor="email">
               Email
             </label>
-            <input className={styles.Input} id="email" defaultValue="..." />
+            <input className={styles.Input} id="email" placeholder="email" />
           </fieldset>
+          
 
           <div style={{ display: "flex", marginTop: 25, justifyContent: "flex-end" }}>
             <Dialog.Close asChild>
@@ -53,4 +76,70 @@ export const RadixDialog = () => (
       </Dialog.Overlay>
     </Dialog.Portal>
   </Dialog.Root>
-);
+  );
+}
+
+
+
+export const RadixDialogLog = () => {
+  const ref = useRef('password')
+
+////////NOT WORKING////////
+  const handleClick = () => {
+      if (ref.current === 'password') {
+        ref.current.setAttribute('type','text')
+      } else {
+        ref.current.setAttribute('type','password')
+      }         
+  }
+////////
+
+  
+  return (
+  <Dialog.Root>
+    <Dialog.Trigger asChild>
+      <button className="Button violet" size="large">
+        Log In
+      </button>
+    </Dialog.Trigger>
+
+    <Dialog.Portal>
+      <Dialog.Overlay className={styles.DialogOverlay}>
+        <Dialog.Content className={styles.DialogContent}>
+          <Dialog.Title className={styles.DialogTitle}><strong>Log In</strong></Dialog.Title>
+    <br></br>
+          <fieldset className={styles.Fieldset}>
+            <label className={styles.Label} htmlFor="username">
+              Username
+            </label>
+            <input className={styles.Input} id="username" placeholder="username" />
+          </fieldset>
+
+          <fieldset className={styles.Fieldset}>
+            <label className={styles.Label} htmlFor="password">
+              Password
+            </label>                     
+            <input className={styles.Input} id="password"  ref={ref} placeholder="password" type={handleClick}/>
+            <button onClick={handleClick} >
+              <CheckboxPassword/>
+              </button>  
+      
+            
+          </fieldset>          
+
+          <div style={{ display: "flex", marginTop: 25, justifyContent: "flex-end" }}>
+            <Dialog.Close asChild>
+              <button className={styles.Button}>Log In</button>
+            </Dialog.Close>
+          </div>
+
+          <Dialog.Close asChild>
+            <button className={styles.IconButton} aria-label="Close"></button>
+          </Dialog.Close>
+        </Dialog.Content>
+      </Dialog.Overlay>
+    </Dialog.Portal>
+  </Dialog.Root>
+  );
+}
+
