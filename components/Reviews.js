@@ -4,6 +4,7 @@ import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import MovieAutocomplete from "./Autocomplete";
 import styles from '../styles/review.module.css';
+import { whiteA } from "@radix-ui/colors";
 
 
 const Createreviews = () => {
@@ -15,12 +16,12 @@ const Createreviews = () => {
 
     return (
         <div>
-            <MovieAutocomplete/>        
+            <MovieAutocomplete />        
             <div>
             { clicked ? (
                 <div className={styles.main}>
                     <MovieAutocomplete/>
-                <h1>HI</h1>
+                
                 </div>
             ): null
         }

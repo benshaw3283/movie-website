@@ -1,11 +1,11 @@
 
 .main {
     width: 400px;
-    height: 400px;
+    height: 600px;
     display: flex;
     justify-content: space-around;
     border-style:double;
-    border-color: black;
+    border-color: rgb(172, 29, 29);
 }
 
 .content {
@@ -30,4 +30,9 @@
   .input[type="range"] {
     width: 200px;
     margin: 0;
+  }
+
+  .input[type='text'] {
+    width: 350px;
+    height: 400px;
   }

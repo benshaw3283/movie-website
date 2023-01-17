@@ -50,10 +50,19 @@ export const RadixDialogSign = () => {
             <input className={styles.Input} id="password"  ref={ref} placeholder="password" type={handleClick}/>
             <button onClick={handleClick} >
               <CheckboxPassword/>
-              </button>  
-      
-            
+              </button>                
           </fieldset>
+
+          <fieldset className={styles.Fieldset}>
+            <label className={styles.Label} htmlFor='confirmPassword'>
+              Confirm Password
+            </label>
+            <input className={styles.Input} id='confirmPassword' ref={ref} placeholder='confirm password' type={handleClick}/>
+          <button onClick={handleClick}>
+            <CheckboxPassword />
+          </button>
+          </fieldset>
+
 
           <fieldset className={styles.Fieldset}>
             <label className={styles.Label} htmlFor="email">

@@ -6,6 +6,7 @@ import styles from '../styles/review.module.css';
 import Image from 'next/image';
 import Avatar from '../public/Avatar.jpg';
 import { radixDialog } from './RadixSign';
+import { whiteA } from '@radix-ui/colors';
 
 
 const MovieAutocomplete = () => { 
@@ -17,25 +18,31 @@ const MovieAutocomplete = () => {
     }
     return ( 
         <div>
-    <Autocomplete id="movies" 
-    options={movieList} 
-    renderInput={params => ( <TextField {...params} 
-        label="Movie" 
-        variant="outlined" 
+    
+            <button id='reviewButton' onClick={handleClick}><strong>Create Movie Review</strong></button>
+            <div>
+                {clicked ? (
+                   
+                <div className={styles.main}>
+                     
+                    <div className={styles.content}>
+                        <br></br>
+                    <Autocomplete id="movies" 
+    
+                     options={movieList} 
+                    renderInput={params => ( <TextField {...params} 
+                    label="Movie" 
+                    variant="outlined" 
+                     style={{}}
         />)
     }
-        getoptionlabel_={option => option.name}
+        getOptionLabel_={option => option.name}
         style={{ width: 270 }}  
         value={selectedMovie}
         onChange={(_event, newMovie) => {
             setSelectedMovie(newMovie)
         }}
         /> 
-            <button id='reviewButton' onClick={handleClick}><strong>Review This Movie</strong></button>
-            <div>
-                {clicked ? (
-                <div className={styles.main}>
-                    <div className={styles.content}>
                         <h1>{selectedMovie}</h1>
                        <Image alt='Avatar' src={Avatar} width='200px' height='200px'></Image>
                         <form>
@@ -53,6 +60,9 @@ const MovieAutocomplete = () => {
                                     <option value='9' label='9'></option>
                                     <option value='10' label='10'></option>
                                 </datalist>
+                                <br></br>
+                                <label id='reviewText'>Review:</label>
+                                <input type='text'></input>
                         </form>
                     </div>
                     </div>
