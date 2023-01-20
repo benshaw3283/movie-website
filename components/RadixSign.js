@@ -8,7 +8,7 @@ import { red } from "@radix-ui/colors";
 export const RadixDialogSign = () => {
   const ref = useRef('password')
 
-////////NOT WORKING////////
+////////NOT WORKING RIGHT////////
   const handleClick = () => {
       if (ref.current === 'password') {
         ref.current.setAttribute('type','text')

@@ -1,3 +1,4 @@
+import * as Dialog from '@radix-ui/react-dialog';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import React, {useState} from 'react';
@@ -5,17 +6,33 @@ import movieList from '../pages/movieList';
 import styles from '../styles/review.module.css';
 import Image from 'next/image';
 import Avatar from '../public/Avatar.jpg';
-import { radixDialog } from './RadixSign';
 
-
-
-const MovieAutocomplete = () => { 
+const Test = () => {
     const [selectedMovie, setSelectedMovie] = useState(null);
     const [clicked, setClicked] = useState(false);
 
     const handleClick = () => {
         setClicked(!clicked)
     }
+    return (
+  <Dialog.Root>
+    <Dialog.Trigger asChild>
+    <button id='reviewButton' onClick={handleClick}><strong>Create Movie Review</strong></button>
+    </Dialog.Trigger>
+    <Dialog.Portal>
+      <Dialog.Overlay />
+      <Dialog.Content>
+        <Dialog.Title />
+        <Dialog.Description />
+        <Dialog.Close />
+      </Dialog.Content>
+    </Dialog.Portal>
+  </Dialog.Root>
+    );
+ }
+
+const MovieAutocomplete = () => { 
+   
     return ( 
         <div>
     
@@ -77,4 +94,4 @@ const MovieAutocomplete = () => {
         ); 
     };
 
-export default MovieAutocomplete
+    export default Test

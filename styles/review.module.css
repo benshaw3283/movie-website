@@ -1,7 +1,7 @@
 
 .main {
-    width: 400px;
-    height: 600px;
+    width: fit-content;
+    height: fit-content;
     display: flex;
     justify-content: space-around;
     border-style:double;
@@ -12,7 +12,7 @@
     display:flexbox;
     align-content: space-around;
     justify-content:space-around;
-    color:aqua;
+
 }
 
 .datalist {
@@ -32,7 +32,21 @@
     margin: 0;
   }
 
-  .input[type='text'] {
-    width: 350px;
-    height: 400px;
+  .reviewInput {
+    width: 280px;
+    height: 100px;
+    background-color: aliceblue;
+    color:black;
+    overflow-wrap: break-word;
+    margin-left: 1%;
+    
+  }
+
+  .label {
+    display: flex;
+    justify-content: center;
+  }
+
+  .autocompleteInput {
+    background-color:whitesmoke;
   }

@@ -1,7 +1,5 @@
 import Link from 'next/link'
 import navBar from '../styles/nav.module.css'
-import { Signup, Login } from './Sign'
-import { PageWithJSbasedForm } from './Sign'
 import { RadixDialogSign, RadixDialogLog } from './RadixSign'
 
 const Nav = () => {
