@@ -17,6 +17,7 @@
     "@radix-ui/react-dialog": "^1.0.2",
     "@radix-ui/react-icons": "^1.1.1",
     "@radix-ui/react-popover": "1.0.2",
+    "@radix-ui/react-slider": "^1.1.0",
     "eslint": "8.29.0",
     "eslint-config-next": "13.0.6",
     "next": "^12.3.4",

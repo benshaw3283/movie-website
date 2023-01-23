@@ -5,27 +5,16 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 import MovieAutocomplete from "./Autocomplete";
 import styles from '../styles/review.module.css';
 import { whiteA } from "@radix-ui/colors";
+import * as Dialog from '@radix-ui/react-dialog';
+
 
 
 const Createreviews = () => {
-    const [clicked, setClicked] = useState(false);
-
-    const handleClick = () => {
-        setClicked(!clicked)  
-    }
+    
 
     return (
         <div>
-            <MovieAutocomplete />        
-            <div>
-            { clicked ? (
-                <div className={styles.main}>
-                    <MovieAutocomplete/>
-                
-                </div>
-            ): null
-        }
-            </div>
+   <MovieAutocomplete/>
         </div>  
     )
  }

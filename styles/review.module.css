@@ -5,13 +5,17 @@
     display: flex;
     justify-content: space-around;
     border-style:double;
-    border-color: rgb(172, 29, 29);
+    border-color:dimgray;
+    position: relative;
+    z-index: 0;
 }
 
 .content {
     display:flexbox;
     align-content: space-around;
     justify-content:space-around;
+    position: relative;
+    z-index: 1;
 
 }
 
@@ -33,7 +37,7 @@
   }
 
   .reviewInput {
-    width: 280px;
+    width: 276px;
     height: 100px;
     background-color: aliceblue;
     color:black;
@@ -49,4 +53,17 @@
 
   .autocompleteInput {
     background-color:whitesmoke;
+  }
+
+  .movies {
+    position: relative;
+    z-index: 1;
+    color: black;
+  }
+
+  .fuck {
+    width: 270;
+    position: relative;
+    z-index: 1;
+    background-color: aqua;
   }
