@@ -6,6 +6,8 @@ import styles from '../styles/review.module.css';
 import Image from 'next/image';
 import Avatar from '../public/Avatar.jpg';
 import { radixDialog } from './RadixSign';
+import Test from '../pages/test'
+
 
 
 
@@ -64,8 +66,8 @@ const MovieAutocomplete = () => {
                                 <br></br>
                                 <br></br>
                                 <label id='reviewText' className={styles.label}htmlFor='reviewInput'>Review</label>                            
-                                <textarea id ='reviewInput' className={styles.reviewInput} type='text'></textarea>
-                
+                                <textarea id ='reviewInput' className={styles.reviewInput} type='text' placeholder='Create Review...'></textarea>
+                            <Test/>
                         </form>
                     </div>
                     </div>

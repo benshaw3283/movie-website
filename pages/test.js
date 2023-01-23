@@ -3,9 +3,10 @@ import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import React, {useState} from 'react';
 import movieList from '../pages/movieList';
-import styles from '../styles/review.module.css';
+import styles from '../styles/radixSign.module.css';
 import Image from 'next/image';
 import Avatar from '../public/Avatar.jpg';
+import MovieAutocomplete from '../components/Autocomplete';
 
 const Test = () => {
     const [selectedMovie, setSelectedMovie] = useState(null);
@@ -15,23 +16,72 @@ const Test = () => {
         setClicked(!clicked)
     }
     return (
-  <Dialog.Root>
-    <Dialog.Trigger asChild>
-    <button id='reviewButton' onClick={handleClick}><strong>Create Movie Review</strong></button>
-    </Dialog.Trigger>
-    <Dialog.Portal>
-      <Dialog.Overlay />
-      <Dialog.Content>
-        <Dialog.Title />
-        <Dialog.Description />
-        <Dialog.Close />
-      </Dialog.Content>
-    </Dialog.Portal>
-  </Dialog.Root>
-    );
+        <Dialog.Root>
+          <Dialog.Trigger asChild>
+            <button className="Button violet" size="large">
+              Sign Up
+            </button>
+          </Dialog.Trigger>
+      
+          <Dialog.Portal>
+            <Dialog.Overlay className={styles.DialogOverlay}>
+              <Dialog.Content className={styles.DialogContent}>
+                <Dialog.Title className={styles.DialogTitle}>Sign Up</Dialog.Title>
+      
+                <Dialog.Description className={styles.DialogDescription}>
+                  Sign up here! Click the sign up button when you have entered your details.
+                </Dialog.Description>
+      
+                <fieldset className={styles.Fieldset}>
+                  <label className={styles.Label} htmlFor="username">
+                    Username
+                  </label>
+                  <input className={styles.Input} id="username" placeholder="username" />
+                </fieldset>
+      
+                <fieldset className={styles.Fieldset}>
+                  <label className={styles.Label} htmlFor="password">
+                    Password
+                  </label>                     
+                  <input className={styles.Input} id="password"  placeholder="password" type={handleClick}/>                
+                </fieldset>
+      
+                <fieldset className={styles.Fieldset}>
+                  <label className={styles.Label} htmlFor='confirmPassword'>
+                    Confirm Password
+                  </label>
+                  <input className={styles.Input} id='confirmPassword'  placeholder='confirm password' />
+                <button onClick={handleClick}>
+                
+                </button>
+                </fieldset>
+      
+      
+                <fieldset className={styles.Fieldset}>
+                  <label className={styles.Label} htmlFor="email">
+                    Email
+                  </label>
+                  <input className={styles.Input} id="email" placeholder="email" />
+                </fieldset>
+                
+      
+                <div style={{ display: "flex", marginTop: 25, justifyContent: "flex-end" }}>
+                  <Dialog.Close asChild>
+                    <button className={styles.Button}>Sign Up</button>
+                  </Dialog.Close>
+                </div>
+      
+                <Dialog.Close asChild>
+                  <button className={styles.IconButton} aria-label="Close"></button>
+                </Dialog.Close>
+              </Dialog.Content>
+            </Dialog.Overlay>
+          </Dialog.Portal>
+        </Dialog.Root>
+        );
  }
 
-const MovieAutocomplete = () => { 
+const fuckkk = () => { 
    
     return ( 
         <div>
