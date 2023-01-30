@@ -26,7 +26,15 @@ export {CheckboxPassword};
 
 const RadixSlider = () => (
   <form>
-    <Slider.Root className="SliderRoot" defaultValue={[50]} max={100} step={1} aria-label="Volume">
+    <Slider.Root className={styles.SliderRoot} 
+    defaultValue={[80]} 
+    value={[]}
+    min ={0} 
+    max={100} 
+    step={1} 
+    inverted= 'true' 
+    aria-label="Volume"
+    >
       <Slider.Track className={styles.SliderTrack}>
         <Slider.Range className={styles.SliderRange} />
       </Slider.Track>

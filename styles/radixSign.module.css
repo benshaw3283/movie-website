@@ -171,7 +171,7 @@
 }
 
 .SliderTrack {
-  background-color: var(--blackA10);
+  background-color: black;
   position: relative;
   flex-grow: 1;
   border-radius: 9999px;
@@ -185,16 +185,16 @@
 
 .SliderRange {
   position: absolute;
-  background-color: white;
+  background-color:cornflowerblue;
   border-radius: 9999px;
   height: 100%;
 }
 
 .SliderThumb {
   display: block;
-  width: 20px;
-  height: 20px;
-  background-color: white;
+  width: 10px;
+  height: 10px;
+  background-color: black;
   box-shadow: 0 2px 10px var(--blackA7);
   border-radius: 10px;
 }
