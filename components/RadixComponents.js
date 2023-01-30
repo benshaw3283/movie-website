@@ -1,39 +1,36 @@
-import React from 'react';
-import * as Checkbox from '@radix-ui/react-checkbox';
-import { CheckIcon } from '@radix-ui/react-icons';
+import React from "react";
+import * as Checkbox from "@radix-ui/react-checkbox";
+import { CheckIcon } from "@radix-ui/react-icons";
 import { EyeOpenIcon } from "@radix-ui/react-icons";
-import * as Slider from '@radix-ui/react-slider';
-import styles from '../styles/radixSign.module.css'
+import * as Slider from "@radix-ui/react-slider";
+import styles from "../styles/radixSign.module.css";
 
-const CheckboxPassword = () => 
- (
+const CheckboxPassword = () => (
   <form>
-    <div style={{ display:'flex', alignItems: 'center' }}>
+    <div style={{ display: "flex", alignItems: "center" }}>
       <Checkbox.Root className="CheckboxRoot" defaultChecked id="c1">
         <Checkbox.Indicator className="CheckboxIndicator">
           <EyeOpenIcon />
         </Checkbox.Indicator>
       </Checkbox.Root>
-      <label className="Label" htmlFor="c1">
-      </label>
+      <label className="Label" htmlFor="c1"></label>
     </div>
   </form>
 );
 
-
-export {CheckboxPassword};
-
+export { CheckboxPassword };
 
 const RadixSlider = () => (
   <form>
-    <Slider.Root className={styles.SliderRoot} 
-    defaultValue={[80]} 
-    value={[]}
-    min ={0} 
-    max={100} 
-    step={1} 
-    inverted= 'true' 
-    aria-label="Volume"
+    <Slider.Root
+      className={styles.SliderRoot}
+      defaultValue={[80]}
+      value={[]}
+      min={0}
+      max={100}
+      step={1}
+      inverted="true"
+      aria-label="Volume"
     >
       <Slider.Track className={styles.SliderTrack}>
         <Slider.Range className={styles.SliderRange} />
@@ -43,4 +40,4 @@ const RadixSlider = () => (
   </form>
 );
 
-export {RadixSlider}
+export { RadixSlider };
