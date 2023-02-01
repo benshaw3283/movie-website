@@ -51,18 +51,22 @@ const MovieAutocomplete = () => {
                 <Image alt="Avatar" src={Avatar} width="200px" height="200px"></Image>
                 <form>
                   <br></br>
+                  <div style={{display: 'inline-block', verticalAlign: 'center'}}>
                   <RadixSlider
                     min={0}
                     step={1}
                     max={100}
-                    inverted="true"
+                    inverted="false"
+                    dir='RTL'
                     aria-label="Volume"
                     defaultValue={[80]}
                     value={[sliderValue]}
                     onValueChange={([value]) => setSliderValue(value)}
                   />
-                  <div style={{ color: "black" }}>{sliderValue}</div>
 
+                  <div style={{ color: "black", display: 'inline-block' }}><strong>{sliderValue}</strong></div> 
+                  </div>
+                  
                   <br></br>
                   <label id="reviewText" className={styles.label} htmlFor="reviewInput">
                     Review
