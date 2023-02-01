@@ -13,7 +13,7 @@ export default function Home() {
     <div>
       <title>Movie Website</title>
       <h1>Homepage</h1>
-      <MovieAutocomplete/>        
+      <MovieAutocomplete      />        
     </div>
   )
   

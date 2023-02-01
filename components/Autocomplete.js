@@ -16,21 +16,22 @@ const MovieAutocomplete = () => {
   const [sliderValue, setSliderValue] = useState(0);
 
   return (
-    <Dialog.Root>
+    <Dialog.Root >
       <Dialog.Trigger asChild>
         <button id="reviewButton">
           <strong>Create Movie Review</strong>
         </button>
       </Dialog.Trigger>
 
-      <Dialog.Portal>
-        <Dialog.Overlay className={radixStyles.DialogOverlay}>
+      <Dialog.Portal >
+        <Dialog.Overlay className={radixStyles.DialogOverlay} >
           <Dialog.Content className={radixStyles.DialogContent}>
             <div className={styles.main}>
               <div className={styles.content}>
                 <br></br>
                 <fieldset className={radixStyles.Fieldset}>
                   <Autocomplete
+                  
                     id="movies"
                     options={movieList}
                     renderInput={(params) => (
@@ -39,6 +40,7 @@ const MovieAutocomplete = () => {
                     getOptionLabel_={(option) => option.name}
                     style={{ width: 280 }}
                     value={selectedMovie}
+                    
                     onChange={(_event, newMovie) => {
                       setSelectedMovie(newMovie);
                     }}
@@ -51,7 +53,8 @@ const MovieAutocomplete = () => {
                 <Image alt="Avatar" src={Avatar} width="200px" height="200px"></Image>
                 <form>
                   <br></br>
-                  <div style={{display: 'inline-block', verticalAlign: 'center'}}>
+                  <div >
+                    <div style={{display: 'inline-block', paddingLeft:'20px'}}>
                   <RadixSlider
                     min={0}
                     step={1}
@@ -63,8 +66,8 @@ const MovieAutocomplete = () => {
                     value={[sliderValue]}
                     onValueChange={([value]) => setSliderValue(value)}
                   />
-
-                  <div style={{ color: "black", display: 'inline-block' }}><strong>{sliderValue}</strong></div> 
+                  </div>
+                  <div style={{display: 'inline-block', paddingLeft: '20px'}}><strong>{sliderValue}</strong></div> 
                   </div>
                   
                   <br></br>
