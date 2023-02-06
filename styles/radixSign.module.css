@@ -9,6 +9,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  pointer-events: all;
 }
 
 .DialogContent {
@@ -19,10 +20,12 @@
   width: 450px;
   padding: 25px;
   animation: contentShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: all;
 }
 
 .DialogContent:focus {
   outline: none;
+  pointer-events: all;
 }
 
 .DialogTitle {

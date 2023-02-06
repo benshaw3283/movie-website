@@ -11,6 +11,7 @@ import { radixDialog } from "./RadixSign";
 import { RadixSlider } from "./RadixComponents";
 import { Slider } from "@radix-ui/react-slider";
 
+
 const MovieAutocomplete = () => {
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [sliderValue, setSliderValue] = useState(0);
@@ -23,34 +24,37 @@ const MovieAutocomplete = () => {
         </button>
       </Dialog.Trigger>
 
-      <Dialog.Portal >
-        <Dialog.Overlay className={radixStyles.DialogOverlay} >
-          <Dialog.Content className={radixStyles.DialogContent}>
+        <Dialog.Portal >
+        <Dialog.Overlay  className={radixStyles.DialogOverlay} >
+          <Dialog.Content className={radixStyles.DialogContent} >
+          
             <div className={styles.main}>
               <div className={styles.content}>
                 <br></br>
                 <fieldset className={radixStyles.Fieldset}>
+       
                   <Autocomplete
-                  
+                    
                     id="movies"
                     options={movieList}
                     renderInput={(params) => (
                       <TextField {...params} label="Movie" variant="outlined" style={{ backgroundColor: "white" }} />
                     )}
-                    getOptionLabel_={(option) => option.name}
-                    style={{ width: 280 }}
+                    getOptionLabel_={(option) => option.name }
+                    style={{ width: 280, overflowY: 'visible'}}
                     value={selectedMovie}
                     
                     onChange={(_event, newMovie) => {
                       setSelectedMovie(newMovie);
                     }}
                   />
+                  
                 </fieldset>
 
                 <div className={styles.movies}>
                   <h1>{selectedMovie}</h1>
                 </div>
-                <Image alt="Avatar" src={Avatar} width="200px" height="200px"></Image>
+                <Image alt="Avatar" src={Avatar} width="200px" height="200px" ></Image>
                 <form>
                   <br></br>
                   <div >
@@ -67,7 +71,7 @@ const MovieAutocomplete = () => {
                     onValueChange={([value]) => setSliderValue(value)}
                   />
                   </div>
-                  <div style={{display: 'inline-block', paddingLeft: '20px'}}><strong>{sliderValue}</strong></div> 
+                  <div style={{display: 'inline-block', paddingLeft: '20px', color: 'black'}}><strong>{sliderValue}</strong></div> 
                   </div>
                   
                   <br></br>

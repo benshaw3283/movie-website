@@ -9,7 +9,16 @@ const movieList = [
 'Avatar: The Way of Water',
 'Sausage Party',
 'Finding Nemo',
-'Monsters Inc'
+'Monsters Inc',
+'Scooby Doo',
+'Interstellar',
+'The Old Guard',
+'The Dark Knight',
+'The Dark Knight Rises',
+'Batman Begins',
+'Den of Thieves',
+'The Godfather',
+'Seven'
 ]
 
 
