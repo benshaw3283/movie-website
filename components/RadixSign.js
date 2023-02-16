@@ -3,10 +3,16 @@ import * as Dialog from "@radix-ui/react-dialog";
 import styles from "../styles/radixSign.module.css";
 import { CheckboxPassword } from "./RadixComponents";
 import { red } from "@radix-ui/colors";
+import { useSession, signIn, signOut } from 'next-auth/react'
+import { grey } from "@material-ui/core/colors";
+import googleIcon from '../public/googleIcon.png'
+import facebookIcon from '../public/facebookIcon.png'
+import Image from "next/image";
 
 
 export const RadixDialogSign = () => {
   const ref = useRef('password')
+  
 
 ////////NOT WORKING RIGHT////////
   const handleClick = () => {
@@ -132,9 +138,23 @@ export const RadixDialogLog = () => {
             <button onClick={handleClick} >
               <CheckboxPassword/>
               </button>  
-      
+     
             
-          </fieldset>          
+          </fieldset>   
+
+          <div>
+             <p style={{color: "black", justifyContent: 'space-around', position: 'relative', display: 'flex'}}>================ OR ================</p>
+          </div>
+
+          <div style={{display: 'flex', justifyContent: 'space-around', position:'relative'}}>
+          <button onClick={()=> signIn('google')} >
+            <Image src={googleIcon} alt='googleIcon'/>
+          </button>
+
+          <button onClick={()=> signIn('facebook')}>
+            <Image src={facebookIcon} alt='facebookIcon'/>
+          </button>
+          </div>
 
           <div style={{ display: "flex", marginTop: 25, justifyContent: "flex-end" }}>
             <Dialog.Close asChild>

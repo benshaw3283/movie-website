@@ -10,7 +10,7 @@ import MovieAutocomplete from '../components/Autocomplete'
 export default function Home() {
   return (
 
-    <div>
+    <div >
       <title>Movie Website</title>
       <h1>Homepage</h1>
       <MovieAutocomplete      />        
