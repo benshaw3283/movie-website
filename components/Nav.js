@@ -3,12 +3,17 @@ import navBar from '../styles/nav.module.css'
 import { RadixDialogSign, RadixDialogLog } from './RadixSign'
 import { useSession, signIn, signOut } from 'next-auth/react'
 import Image from 'next/image'
+import { AvatarIcon,Dropdown } from './RadixComponents'
+import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
+import radixStyle from '../styles/radixSign.module.css'
 
 const Nav = () => {
     const {data: session} = useSession();
-
+             
+    
     if (!session) {
-    return (
+        
+        return (
         <div className={navBar.nav}>
             <nav className={navBar.a}>
             <Link href='/' className={navBar.home}>Home</Link>
@@ -28,20 +33,44 @@ const Nav = () => {
             <Link href='/' className={navBar.home}>Home</Link>
             <Link href='../about' className={navBar.about}>About</Link>
             <Link href='../contact' className={navBar.contact}>Contact</Link>
-            <div style={{position: 'center'}}>
+            
+            
+            <DropdownMenu.Root >
+    <DropdownMenu.Trigger asChild>
+    <div style={{position: 'center', cursor:'pointer'}} >
                 <div style={{display: 'inline-block'}}>
                     <p> {session.user.name} </p>
                 </div>
-                <div style={{display:'inline-block', paddingLeft: '10px'}}>
-                    <picture>              
-                    <img alt ='userImage' src={session.user.image} width={50} height={50}/>
-                    </picture>
-                </div>
-                <div style={{display:'flex', position:'absolute'}}>
 
-                <button onClick={()=> signOut()}>Sign Out</button>
-                </div>
-            </div>        
+                <div style={{display:'inline-block', paddingLeft: '10px'}}>
+                    
+                    <AvatarIcon/>
+                                      
+                </div>            
+            </div>
+    </DropdownMenu.Trigger>
+
+    <DropdownMenu.Portal>
+      <DropdownMenu.Content className={radixStyle.DropdownMenuContent}>
+        <DropdownMenu.Item className={radixStyle.DropdownMenuItem}>
+            Account
+        </DropdownMenu.Item>
+        
+        <DropdownMenu.Item className={radixStyle.DropdownMenuItem}>
+            Settings
+        </DropdownMenu.Item>
+    <div >
+        <DropdownMenu.Item className={radixStyle.DropdownMenuItem} onClick={()=> signOut()}>
+           Sign Out
+        </DropdownMenu.Item>
+    </div>
+
+
+      </DropdownMenu.Content>
+    </DropdownMenu.Portal>
+  </DropdownMenu.Root>
+    
+    
             </nav>
             </div>
         )
