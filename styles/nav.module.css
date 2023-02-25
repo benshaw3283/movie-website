@@ -1,28 +1,27 @@
 
 .nav {
-    background-color: gray;
-    align-items: center;
-    padding: 5px;
-
-}
-
-.a {
-    margin: 10;
-    color: whitesmoke;
     display: flex;
-    justify-content: space-around;
-    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: baseline;
+    background-color: grey;
+
 }
 
-.home, .about {
-    padding: none;
+.home {
+    color: whitesmoke;
+    padding-left: 35px;
 }
-.contact {
-    padding: none;
+
+.account {
+    color: whitesmoke;
+    padding-right: 35px;
+    
 }
+
 
 .sign {
-    padding: none;
+    padding-right: 35px;
     list-style-type: none;
     color:black;
     font-weight: bolder;

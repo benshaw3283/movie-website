@@ -15,10 +15,10 @@ const Nav = () => {
         
         return (
         <div className={navBar.nav}>
-            <nav className={navBar.a}>
-            <Link href='/' className={navBar.home}>Home</Link>
-            <Link href='../about' className={navBar.about}>About</Link>
-            <Link href='../contact' className={navBar.contact}>Contact</Link>
+            <nav className={navBar.home}>
+            <Link href='/' >Home</Link>
+            </nav>
+            <nav>
             <ul className={navBar.sign}>
                 <li><RadixDialogSign/></li>
                 <li><RadixDialogLog/></li>
@@ -29,10 +29,16 @@ const Nav = () => {
     } else {
         return (
             <div className={navBar.nav}>
-            <nav className={navBar.a}>
-            <Link href='/' className={navBar.home}>Home</Link>
-            <Link href='../about' className={navBar.about}>About</Link>
-            <Link href='../contact' className={navBar.contact}>Contact</Link>
+            
+
+            
+            <nav className={navBar.home}>
+            <Link href='/' >Home</Link>
+            </nav>              
+           
+            <nav className={navBar.account}>
+            
+            
             
             
             <DropdownMenu.Root >
@@ -73,6 +79,7 @@ const Nav = () => {
     
             </nav>
             </div>
+            
         )
     }
 }
