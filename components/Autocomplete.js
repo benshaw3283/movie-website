@@ -19,9 +19,7 @@ const MovieAutocomplete = () => {
   return (
     <Dialog.Root >
       <Dialog.Trigger asChild>
-        <button id="reviewButton">
-          <strong>Create Movie Review</strong>
-        </button>
+      <button className={styles.button90} role="button">Create Movie Review</button>
       </Dialog.Trigger>
 
         <Dialog.Portal >
@@ -54,7 +52,7 @@ const MovieAutocomplete = () => {
                 <div className={styles.movies}>
                   <h1>{selectedMovie}</h1>
                 </div>
-                <Image alt="Avatar" src={Avatar} width="200px" height="200px" ></Image>
+                <Image alt="Avatar" src={Avatar} width="200px" height="200px" style={{position: 'realative' ,left: '40%'}}></Image>
                 <form>
                   <br></br>
                   <div >

@@ -7,13 +7,34 @@ import MovieAutocomplete from '../components/Autocomplete'
 
 
 
+
 export default function Home() {
   return (
 
     <div >
       <title>Movie Website</title>
-      <h1>Homepage</h1>
-      <MovieAutocomplete      />        
+
+      <div className={styles.homeTopDiv}>
+      <h1 className={styles.homepage}>Homepage</h1>
+      <MovieAutocomplete  />  
+      </div>
+
+      <div className={styles.homeMainDiv}>
+
+        <div className={styles.homeMainDivLeft}>
+          <p>gg</p>
+        </div>
+
+        <div className={styles.homeMainDivMiddle}>
+          <p>dgdg</p>
+        </div>
+
+        <div className={styles.homeMainDivRight}>
+          <p>dsggs</p>
+        </div>
+
+      </div>
+
     </div>
   )
   

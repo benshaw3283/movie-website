@@ -20,8 +20,8 @@ const Nav = () => {
             </nav>
             <nav>
             <ul className={navBar.sign}>
-                <li><RadixDialogSign/></li>
-                <li><RadixDialogLog/></li>
+                <li style={{display: 'inline-block', paddingRight:' 10px'}}><RadixDialogSign/></li>
+                <li style={{display: 'inline-block', paddingLeft: '10px'}}><RadixDialogLog/></li>
             </ul>         
             </nav>
             </div>
@@ -59,7 +59,9 @@ const Nav = () => {
     <DropdownMenu.Portal>
       <DropdownMenu.Content className={radixStyle.DropdownMenuContent}>
         <DropdownMenu.Item className={radixStyle.DropdownMenuItem}>
-            Account
+            
+            <Link href='/account'>Account</Link>
+            
         </DropdownMenu.Item>
         
         <DropdownMenu.Item className={radixStyle.DropdownMenuItem}>

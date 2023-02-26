@@ -7,7 +7,7 @@ const Account = () => {
   if (status === 'authenticated') {
     return (
         <div>
-            <p>Welcome {session.user.email}</p>
+            <p>Welcome {session.user.name}</p>
         </div>
       );
   } else {

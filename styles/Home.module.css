@@ -128,11 +128,34 @@
   }
 }
 
-.about {
-  justify-content: center;
-  display: flex;
-  font-size: 25px;
-  font-weight: 300;
-  color:black;
+.homepage {
+  position: relative;
+  left: 40%;
+}
 
+.homeTopDiv {
+  background-color: grey;
+  display: relative;
+}
+
+.homeMainDiv {
+  display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items:center;
+}
+
+.homeMainDivLeft {
+  background-color: green;
+  width: 20%;
+}
+
+.homeMainDivMiddle {
+  background-color: aqua;
+  width: 60%;
+}
+
+.homeMainDivRight {
+  background-color: red;
+  width: 20%;
 }
