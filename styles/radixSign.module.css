@@ -55,6 +55,7 @@
   line-height: 1;
   font-weight: 500;
   height: 35px;
+  color: black;
 }
 
 .Button.violet {
@@ -108,9 +109,10 @@
 
 .Fieldset {
   display: flex;
-  gap: 6px;
+  gap: 10px;
   align-items: center;
   margin-bottom: 15px;
+  width: 350px;
 }
 
 .Label {

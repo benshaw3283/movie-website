@@ -43,6 +43,13 @@ export const RadixDialogSign = () => {
           </Dialog.Description>
 
           <fieldset className={styles.Fieldset}>
+            <label className={styles.Label} htmlFor="email">
+              Email
+            </label>
+            <input className={styles.Input} id="email" placeholder="email" />
+          </fieldset>
+
+          <fieldset className={styles.Fieldset}>
             <label className={styles.Label} htmlFor="username">
               Username
             </label>
@@ -67,14 +74,6 @@ export const RadixDialogSign = () => {
           <button onClick={handleClick}>
             <CheckboxPassword />
           </button>
-          </fieldset>
-
-
-          <fieldset className={styles.Fieldset}>
-            <label className={styles.Label} htmlFor="email">
-              Email
-            </label>
-            <input className={styles.Input} id="email" placeholder="email" />
           </fieldset>
           
 
@@ -158,7 +157,7 @@ export const RadixDialogLog = () => {
 
           <div style={{ display: "flex", marginTop: 25, justifyContent: "flex-end" }}>
             <Dialog.Close asChild>
-              <button className={styles.Button}>Log In</button>
+              <button className={styles.Button} >Log In</button>
             </Dialog.Close>
           </div>
 

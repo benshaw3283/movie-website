@@ -31,6 +31,7 @@ export default function Home() {
 
         <div className={styles.homeMainDivRight}>
           <p>dsggs</p>
+
         </div>
 
       </div>
