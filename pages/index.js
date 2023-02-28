@@ -4,6 +4,7 @@ import styles from '../styles/Home.module.css'
 import { Signup } from '../components/Sign'
 import Createreviews from '../components/Reviews'
 import MovieAutocomplete from '../components/Autocomplete'
+import Link from 'next/link'
 
 
 
@@ -26,7 +27,9 @@ export default function Home() {
         </div>
 
         <div className={styles.homeMainDivMiddle}>
-          <p>dgdg</p>
+          <Link href='/signup'>signup</Link>
+          
+          <Link href='/login'>login</Link>
         </div>
 
         <div className={styles.homeMainDivRight}>

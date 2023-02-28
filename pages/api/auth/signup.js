@@ -1,29 +1,37 @@
+import { data } from "autoprefixer";
 import { hash } from "bcryptjs";
 import connectMongo from "../../../database/connection";
 import Users from "../../../model/Schema";
 
+export default async function signUpHandler(req, res) {
+  try {
+    connectMongo();
+  } catch (error) {
+    return res.json({ error: "Connection Failed..." });
+  }
 
-export default async function signUpHandler(req,res){
-    connectMongo().catch(error => res.json({error: 'Connection Failed...'}))
+  //only post method accepted
+  if (req.method === "POST") {
+    if (!req.body)
+      return res.status(404).json({ error: "Don't have form data..." });
 
-    //only post method accepted
-    if(req.method === 'POST'){
+    const { username, email, password } = req.body;
 
-        if(!req.body) return res.status(404).json({error: "Don't have form data..."})
-        const {username, email, password} = req.body;
+    //check duplicate users
+    const checkExisting = await Users.findOne({ username });
+    if (checkExisting)
+      return res.status(422).json({ message: "User already exists..." });
 
-        //check duplicate users
-        const checkExisting = await Users.findOne({username});
-        if(checkExisting) return res.status(422).json({message: 'User already exists...'})
-
-        //hash password
-        Users.create({username, email, password : await hash(password, 12)}, function(err, data){
-            if(err) return res.status(404).json({err});
-            res.status(201).json({ status: true, user: data})
-        })
-
-        
-    } else {
-        res.status(500).json({message: 'HTTP method not valid, only POST Accepted'})
-    }
+    //hash password
+    const createUser = await Users.create({
+      username,
+      email,
+      password: await hash(password, 12),
+    });
+    return res.json(createUser);
+  } else {
+    return res
+      .status(500)
+      .json({ message: "HTTP method not valid, only POST Accepted" });
+  }
 }
