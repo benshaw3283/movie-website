@@ -2,10 +2,11 @@ import { data } from "autoprefixer";
 import { hash } from "bcryptjs";
 import connectMongo from "../../../database/connection";
 import Users from "../../../model/Schema";
+import { connectToDatabase } from "../../../lib/mongodb";
 
 export default async function signUpHandler(req, res) {
   try {
-    connectMongo();
+    connectToDatabase();
   } catch (error) {
     return res.json({ error: "Connection Failed..." });
   }
@@ -17,21 +18,25 @@ export default async function signUpHandler(req, res) {
 
     const { username, email, password } = req.body;
 
+
+
     //check duplicate users
     const checkExisting = await Users.findOne({ username });
     if (checkExisting)
       return res.status(422).json({ message: "User already exists..." });
 
-    //hash password
-    const createUser = await Users.create({
-      username,
-      email,
-      password: await hash(password, 12),
-    });
-    return res.json(createUser);
+     //hash password
+     const createUser = await Users.create({
+        username,
+        email,
+        password: await hash(password, 12),
+      });
+      return res.json(createUser);
+   
   } else {
     return res
       .status(500)
       .json({ message: "HTTP method not valid, only POST Accepted" });
   }
-}
+} 
+

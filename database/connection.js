@@ -5,9 +5,9 @@ mongoose.set('strictQuery', false);
 
 const connectMongo = async() => {
     try{
-       const {connection} =  mongoose.connect(process.env.MONGODB_URI) 
+       const connection =  mongoose.connect(process.env.MONGODB_URI) 
 
-       if (mongoose.connection.readyState === 1) {
+       if (connection.readyState === 1) {
         return Promise.resolve(true)
        }
 
