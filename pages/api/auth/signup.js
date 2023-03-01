@@ -1,42 +1,68 @@
-import { data } from "autoprefixer";
-import { hash } from "bcryptjs";
-import connectMongo from "../../../database/connection";
-import Users from "../../../model/Schema";
+
+import { hashPassword } from "../../../lib/auth";
+import { MongoClient } from "mongodb";
 import { connectToDatabase } from "../../../lib/mongodb";
 
+const uri = process.env.MONGODB_URI;
+const options = {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+};
+
+// Create a connection pool
+const client = new MongoClient(uri, options);
+client.connect();
+
 export default async function signUpHandler(req, res) {
-  try {
-    connectToDatabase();
-  } catch (error) {
-    return res.json({ error: "Connection Failed..." });
-  }
-
-  //only post method accepted
   if (req.method === "POST") {
-    if (!req.body)
-      return res.status(404).json({ error: "Don't have form data..." });
+    //Getting email and password from body
+    const { email, username, password } = req.body;
+    //Validate
+    if (!email || !email.includes("@") || !password || password.length < 7) {
+      res
+        .status(422)
+        .json({
+          message:
+            "Invalid input - password should be at least 7 characters long.",
+        });
+      return;
+    }
+    try {
 
-    const { username, email, password } = req.body;
+    const db = client.db();
+    //Check existing
+    const checkExisting = await db
+      .collection("users")
+      .findOne({ username: username });
+    //Send error response if duplicate user is found
+    if (checkExisting) {
+      res.status(422).json({ message: "User already exists" });
+      return;
+    }
+    //Hash password
+const hashedPassword = await hashPassword(password);
 
+    const status = await db.collection("users").insertOne({
+     
+      email: email,
+      username: username,
+      password: hashedPassword,
+    });
+    //Send success response
+    res.status(201).json({ message: "User created!", ...status });
+} catch (err) {
+    res.status(500).json({ message: 'Internal Server Error'})
+}
+  } 
+}
 
-
-    //check duplicate users
-    const checkExisting = await Users.findOne({ username });
-    if (checkExisting)
-      return res.status(422).json({ message: "User already exists..." });
-
-     //hash password
-     const createUser = await Users.create({
-        username,
-        email,
-        password: await hash(password, 12),
-      });
-      return res.json(createUser);
-   
-  } else {
-    return res
-      .status(500)
-      .json({ message: "HTTP method not valid, only POST Accepted" });
-  }
-} 
-
+// Close the connection pool when the Node.js process exits
+process.on("SIGINT", () => {
+    client.close();
+    process.exit();
+  });
+ 
+  
+  
+  
+  

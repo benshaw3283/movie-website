@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useFormik } from "formik";
-import { signUp_validate, logIn_validate } from "../lib/validate";
+import { signUp_validate, logIn_validate } from "../lib/auth";
 import styles from "../styles/radixSign.module.css";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/router";
@@ -133,7 +133,7 @@ const FormikLogIn = () => {
     if (_status.ok) router.push(_status.url);
   }
 
-  
+
   return (
     <form onSubmit={formik.handleSubmit}>
       <label htmlFor="username">Username</label>
