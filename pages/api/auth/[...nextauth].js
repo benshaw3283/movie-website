@@ -26,36 +26,36 @@ export const authOptions = {
       // The name to display on the sign in form (e.g. "Sign in with...")
       name: "Credentials",
 
-      async authorize(credentials) {
-        return connectToDatabase()
-          .then((client) => {
+      async  authorize(credentials) {
+        const client = await connectToDatabase()
+          
             const usersCollection = client.db().collection("users");
-            return usersCollection.findOne({ username: credentials.username });
-          })
-          .then((user) => {
+            const user = await usersCollection.findOne({ username: credentials.username });
+         
+          
             if (!user) {
               throw new Error("No user found with this username...");
             }
 
-            return verifyPassword(credentials.password, user.password);
-          })
-          .then((isValid) => {
+            const isValid= await verifyPassword(credentials.password, user.password);
+          
+          
             if (!isValid) {
               throw new Error("Could not log you in!");
+             
             }
+            client.close();
 
             return {
               id: user.id,
               username: user.username,
               email: user.email,
-            };
-          })
-          .finally(() => {
-            client.close();
-          });
+            };          
+      
       },
-    }),
+    } ),
   ],
+
   secret: process.env.JWT_SECRET,
 
   adapter: () =>

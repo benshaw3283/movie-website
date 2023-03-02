@@ -1,11 +1,9 @@
-import React from 'react'
-import { FormikSignUp } from '../components/FormikSign'
+import React from "react";
+
+import {AuthFormSU} from "../components/AuthForm";
 
 const SignUp = () => {
-    return (
-        <FormikSignUp/>
-    )
-}
+  return <AuthFormSU />;
+};
 
-export default SignUp
-
+export default SignUp;

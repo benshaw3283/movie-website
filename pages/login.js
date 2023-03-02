@@ -1,10 +1,10 @@
-import React from 'react'
-import { FormikLogIn } from '../components/FormikSign'
+import React from "react";
+import {AuthFormLI} from "../components/AuthForm";
+
+
 
 const Login = () => {
-    return (
-        <FormikLogIn/>
-    )
-}
+  return <AuthFormLI />;
+};
 
-export default Login
+export default Login;

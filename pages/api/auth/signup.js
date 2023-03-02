@@ -1,7 +1,6 @@
 
 import { hashPassword } from "../../../lib/auth";
 import { MongoClient } from "mongodb";
-import { connectToDatabase } from "../../../lib/mongodb";
 
 const uri = process.env.MONGODB_URI;
 const options = {
@@ -28,7 +27,7 @@ export default async function signUpHandler(req, res) {
       return;
     }
     try {
-
+ 
     const db = client.db();
     //Check existing
     const checkExisting = await db
