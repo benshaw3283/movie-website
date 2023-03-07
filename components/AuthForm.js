@@ -112,8 +112,8 @@ function AuthFormLI() {
       password: enteredPassword,
     });
 
-    if (!result.error) {
-      authorize();
+    if (result.ok) {
+      //authorize();
       // set some auth state
       router.replace("/account");
     }
