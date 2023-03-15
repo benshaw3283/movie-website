@@ -45,7 +45,7 @@ const Nav = () => {
     <DropdownMenu.Trigger asChild>
     <div style={{position: 'center', cursor:'pointer'}} >
                 <div style={{display: 'inline-block'}}>
-                    <p> {session.user.name} </p>
+                    <p> {session.user.email} </p>
                 </div>
 
                 <div style={{display:'inline-block', paddingLeft: '10px'}}>

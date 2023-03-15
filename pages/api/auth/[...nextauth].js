@@ -5,6 +5,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
 import connectToDatabase from "../../../lib/mongodb";
 import { verifyPassword } from "../../../lib/auth";
+import clientPromise from "../../../lib/fuck";
 
 export const authOptions = {
   providers: [
@@ -19,13 +20,12 @@ export const authOptions = {
     CredentialsProvider({
       // The name to display on the sign in form (e.g. "Sign in with...")
       name: "Credentials",
-      
 
       async authorize(credentials) {
         try {
           console.log("starting auth process...");
           const client = await connectToDatabase();
-          
+
           console.log("connected to database");
 
           const usersCollection = client.db().collection("users");
@@ -55,9 +55,7 @@ export const authOptions = {
             id: user._id,
             username: user.username,
             email: user.email,
-          }
-            
-          
+          };
         } catch (error) {
           console.error(error);
         }
@@ -66,14 +64,16 @@ export const authOptions = {
   ],
 
   session: {
-    strategy: 'jwt',
+    strategy: "jwt",
   },
 
-  callbacks: {
+  secret: process.env.JWT_SECRET,
 
-    async jwt({ token, user }) {
+  callbacks: {
+    async jwt({ token, user}) {
       if (user?._id) token._id = user._id;
       if (user?.isAdmin) token.isAdmin = user.isAdmin;
+      
       return token;
     },
 
@@ -82,13 +82,13 @@ export const authOptions = {
       if (token?.isAdmin) session.user.isAdmin = token.isAdmin;
       return session;
     },
-
-
   },
 
   debug: true,
 
-  adapter:  MongoDBAdapter(connectToDatabase)
+  adapter: MongoDBAdapter(clientPromise, {
+    databaseName: "movie-website",
+  }),
 };
 
 export default NextAuth(authOptions);
