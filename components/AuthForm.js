@@ -110,6 +110,7 @@ function AuthFormLI() {
       redirect: false,
       username: enteredUsername,
       password: enteredPassword,
+      callbackUrl: '/',
     });
 
     if (result.ok) {
