@@ -2,10 +2,27 @@
 .nav {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
     align-items:center;
     background-color:midnightblue;
+    height: 50px;
 
+}
+
+.nav1 {
+    order:1;
+    width:20%;
+}
+
+.nav2 {
+    order:2;
+    width:60%;
+    justify-content: space-around;
+    align-items: baseline;
+}
+
+.nav3 {
+    order:3;
+    width: 20%;
 }
 
 .home {
@@ -21,12 +38,14 @@
     padding-top: 3px;
     font-weight: bolder;
     
+    
 }
 
 
 .sign {
-    padding-right: 25px;
+    
     list-style-type: none;
-    color:black;
+    color:white;
     font-weight: bolder;
+    
 }

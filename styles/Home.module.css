@@ -143,19 +143,23 @@
     flex-direction: row;
     justify-content: space-between;
     align-items:center;
+    height: 100vh;
 }
 
 .homeMainDivLeft {
   background-color: green;
   width: 20%;
+  height: 100vh
 }
 
 .homeMainDivMiddle {
   background-color: aqua;
   width: 60%;
+  height: 100vh
 }
 
 .homeMainDivRight {
   background-color: red;
   width: 20%;
+  height:100vh;
 }

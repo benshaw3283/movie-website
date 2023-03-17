@@ -19,7 +19,7 @@ const MovieAutocomplete = () => {
   return (
     <Dialog.Root >
       <Dialog.Trigger asChild>
-      <button className={styles.button90} role="button">Create Movie Review</button>
+      <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" role="button">Create Movie Review</button>
       </Dialog.Trigger>
 
         <Dialog.Portal >
