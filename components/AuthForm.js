@@ -2,6 +2,7 @@ import { useState, useRef } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/router";
 import classes from "../styles/auth-form.module.css";
+import {HiEye,HiEyeOff } from 'react-icons/hi';
 
 async function createUser(email, username, password) {
   const response = await fetch("/api/auth/signup", {
@@ -76,6 +77,7 @@ function AuthFormSU() {
             required
             ref={passwordInputRef}
           />
+          
         </div>
         <div className={classes.actions}>
           <button type="submit">Create account</button>
@@ -125,6 +127,7 @@ function AuthFormLI() {
       <form onSubmit={submitHandler}>
         <div className={classes.control}>
           <label htmlFor="username">Username</label>
+          
           <input
             type="username"
             id="username"
@@ -133,7 +136,7 @@ function AuthFormLI() {
           />
         </div>
         <div className={classes.control}>
-          <label htmlFor="password">Your Password</label>
+          <label htmlFor="password"> Password</label>
           <input
             type="password"
             id="password"

@@ -24,14 +24,18 @@ export default async function signUpHandler(req, res) {
       return;
     }
     try {
-      const db =  client.db();
+      const db = client.db();
       //Check existing
       const checkExisting = await db
-        .collection("users")
-        .findOne({ username: username });
+        .collection("users", "accounts")
+        .findOne({ username: username, email: email });
       //Send error response if duplicate user is found
       if (checkExisting) {
-        res.status(422).json({ message: "User already exists" });
+        res
+          .status(422)
+          .json({
+            message: "Account with this username or email already exists",
+          });
         return;
       }
       //Hash password
