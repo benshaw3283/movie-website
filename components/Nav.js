@@ -14,7 +14,7 @@ const Nav = () => {
     return (
       <div className={navBar.nav}>
         <div className={navBar.nav1}>
-          <h1>SHAWmovies</h1>
+          <h1>LOGO</h1>
         </div>
 
         <div className={navBar.nav2}>

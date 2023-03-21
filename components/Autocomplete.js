@@ -16,16 +16,8 @@ const MovieAutocomplete = () => {
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [sliderValue, setSliderValue] = useState(0);
 
-  return (
-    <Dialog.Root >
-      <Dialog.Trigger asChild>
-      <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" role="button">Create Movie Review</button>
-      </Dialog.Trigger>
-
-        <Dialog.Portal >
-        <Dialog.Overlay  className={radixStyles.DialogOverlay} >
-          <Dialog.Content className={radixStyles.DialogContent} >
-          
+  return (     
+    <form>
             <div className={styles.main}>
               <div className={styles.content}>
                 <br></br>
@@ -86,19 +78,14 @@ const MovieAutocomplete = () => {
               </div>
             </div>
 
-            <div style={{ display: "flex", marginTop: 25, justifyContent: "flex-end" }}>
-              <Dialog.Close asChild>
-                <button className={styles.Button}>Submit</button>
-              </Dialog.Close>
+            <div style={{ display: "flex", marginTop: 25, justifyContent:'center' ,paddingBottom: '1%'}}>
+              
+              <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" role="button">Create Movie Review</button>
+              
             </div>
+            
+            </form> 
 
-            <Dialog.Close asChild>
-              <button className={radixStyles.IconButton} aria-label="Close"></button>
-            </Dialog.Close>
-          </Dialog.Content>
-        </Dialog.Overlay>
-      </Dialog.Portal>
-    </Dialog.Root>
   );
 };
 

@@ -136,30 +136,39 @@
 .homeTopDiv {
   background-color: grey;
   display: relative;
+  width: 100%;
+  height: 10vh;
+  
 }
 
 .homeMainDiv {
   display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items:center;
-    height: 100vh;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: 95vh;
 }
 
 .homeMainDivLeft {
   background-color: green;
   width: 20%;
-  height: 100vh
+  height: 95vh;
 }
 
 .homeMainDivMiddle {
   background-color: aqua;
   width: 60%;
-  height: 100vh
+  height: 95vh;
+  vertical-align: middle;
 }
 
 .homeMainDivRight {
   background-color: red;
   width: 20%;
-  height:100vh;
+  height: 95vh;
+}
+
+#mainDivMiddle {
+  scroll-behavior: smooth;
+  overflow-y: scroll;
 }
