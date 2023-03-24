@@ -16,7 +16,7 @@ export default async function signUpHandler(req, res) {
     //Getting email and password from body
     const { email, username, password } = req.body;
     //Validate
-    if (!email || !email.includes("@") || !password || password.length < 7) {
+    if (!email || !email.includes("@") || !password || password.length < 7 || !username || username.length < 5) {
       res.status(422).json({
         message:
           "Invalid input - password should be at least 7 characters long.",

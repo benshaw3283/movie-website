@@ -1,6 +1,15 @@
-export default async function signUpHandler(req, res) {
+export default async function postReviewHandler(req, res) {
   if (req.method === "POST") {
-    //Getting email and password from body
-    const { title, picture, sliderRating, textReview } = req.body;
+   
+    const { movieTitle, picture, sliderRating, textReview } = req.body;
+
+    if (!movieTitle || !sliderRating) {
+      res.status(422).json({
+        message: "Invalid review"
+      })
+    }
+
+    alert(movieTitle, sliderRating)
+
   }
 }
