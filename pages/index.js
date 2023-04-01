@@ -31,7 +31,7 @@ export default function Home() {
         </div>
 
         <div className={styles.homeMainDivRight}>
-          <p>dsggs</p>
+          <p>hello hello</p>
         </div>
       </div>
     </div>
