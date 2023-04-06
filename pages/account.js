@@ -1,13 +1,14 @@
 import React from "react";
 import { useSession, signOut, getSession } from "next-auth/react";
 
+
 const Account = () => {
   const { data: session, status } = useSession();
 
   if (status === "authenticated") {
     return (
       <div>
-        <p>Welcome {session.user.email}</p>
+        <p style={{color: 'black'}}>Welcome {session.user.email}  </p>
       </div>
     );
   } else {

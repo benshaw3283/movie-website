@@ -7,47 +7,67 @@ import radixStyles from "../styles/radixSign.module.css";
 import styles from "../styles/review.module.css";
 import Image from "next/image";
 import Avatar from "../public/Avatar.jpg";
-import { radixDialog } from "./RadixSign";
+
 import { RadixSlider } from "./RadixComponents";
-import { Slider } from "@radix-ui/react-slider";
+
+import { createContext } from "react";
+
+export const ReviewContext = createContext();
+
+
+async function createPost(movieTitle, sliderRating) {
+  const response = await fetch("/api/reviews/createReview", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      movieTitle,
+      sliderRating,
+    }),
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to create post.");
+  }
+
+  const result = await response.json();
+  return result;
+}
 
 
 const MovieAutocomplete = () => {
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [sliderValue, setSliderValue] = useState(0);
+  const [reviewResult, setReviewResult] = useState(null);
 
-  const selectedmovieref = useRef(selectedMovie);
-  const slidervalueref = useRef(sliderValue);
-  const textreviewref = useRef();
+  const movieRef = useRef();
+  movieRef.current = selectedMovie;
 
-  const fortmatResponse = (res) => {
-    return JSON.stringify(res, null, 2);
-  }
-
-  const movieTitle = selectedmovieref.current;
-  const sliderRating = slidervalueref.current;
-
-  
-    const postData = {
-      movieTitle: movieTitle,
-      sliderRating: sliderRating
-    }
-  
+  const sliderRef = useRef();
+  sliderRef.current = sliderValue;
 
   async function submitHandler(event) {
     event.preventDefault();
 
-   fetch("api/reviews/postReview",{
-    method: 'POST',
-    body: fortmatResponse(postData),
-    headers: {
-      "Content-Type": "application/json",
+    const movieTitle = selectedMovie;
+    const sliderRating = sliderValue;
+    
+
+    try {
+      const result = await createPost(
+        
+        movieTitle,
+        sliderRating
+      );
+      
+      setReviewResult(result);
+    } catch (error) {
+      console.log(error);
     }
-   })
   }
-
-
   return (
+    
     <div>
       
       <div className={styles.main}>
@@ -140,14 +160,15 @@ const MovieAutocomplete = () => {
         <button
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
           role="submit"
-          onSubmit={submitHandler}
+          onClick={submitHandler}
         >
           Create Movie Review
         </button>
       </div>
       
     </div>
+    
   );
-      };
+};
 
 export default MovieAutocomplete;
