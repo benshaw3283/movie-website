@@ -97,13 +97,7 @@ const MovieAutocomplete = () => {
           <div className={styles.movies}>
             <h1>{selectedMovie}</h1>
           </div>
-          <Image
-            alt="Avatar"
-            src={Avatar}
-            width="200px"
-            height="200px"
-            style={{ position: "realative", left: "40%" }}
-          ></Image>
+          
           <div>
             <br></br>
             <div>

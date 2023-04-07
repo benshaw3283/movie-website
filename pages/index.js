@@ -16,8 +16,8 @@ export default function Home() {
 
         <div id="mainDivMiddle" className={styles.homeMainDivMiddle}>
           <br></br>
-          <div className="bg-gray-500  text-white font-bold py-6 px-6 rounded w-3/4 ">
-            <div className="bg-white rounded float-center w-1/2">
+          <div className="bg-gray-500  text-white font-bold py-1 px-1 rounded w-3/4 ">
+            <div className="bg-white rounded float-center w-full">
             
 
               <MovieAutocomplete />
@@ -27,7 +27,7 @@ export default function Home() {
           </div>
           <br></br>
 
-          <div className="bg-gray-500 w-3/4 h-1/3">
+          <div className="">
             <ReviewFeed/>
           </div>
         </div>
