@@ -18,18 +18,18 @@ const ReviewFeed = () => {
     fetchReview();
   }, []);
 
-    console.log(reviews)
+    
     return (
         <div>
           {reviews.length ? (
             reviews.map((review, index) => (
               <div key={index}>
                
-        <div className="bg-neutral-50 container rounded-lg flex flex-col h-2/5 w-2/3 ">
+        <div className="bg-neutral-50 container rounded-lg flex flex-col h-2/5 w-full ">
           <div className="order-1  w-100% h-12 rounded-t-lg  bg-green-400">
-            <h1 className="text-red-400 flex inset-x-0 top-0 justify-start float-left">
+            <div className="text-red-400 flex inset-x-0 top-0 justify-start float-left">
               <h1>avatar</h1>
-            </h1>
+            </div>
             <h1 className="text-black">email</h1>
             <p className="text-blue-400 px-16">{new Date(review.createdAt).toString()}</p>
           </div>
@@ -44,7 +44,7 @@ const ReviewFeed = () => {
             
               </div>
               <div className="bg-white flex justify-start">
-                <h2 className="text-gray-500" >Release Date || Genre</h2>
+                <h2 className="text-gray-500" >Release Date || Genre || IMDB rating</h2>
               </div>
 
               <div className="bg-black h-5/6 flex flex-row">

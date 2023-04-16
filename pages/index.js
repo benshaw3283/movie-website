@@ -1,38 +1,52 @@
 
-import styles from "../styles/Home.module.css";
 import MovieAutocomplete from "../components/Autocomplete";
 import ReviewFeed from "../components/ReviewFeed";
-import { ReviewContext } from "../components/Autocomplete";
 
 export default function Home() {
   return (
     <div>
       <title>Movie Website</title>
 
-      <div className={styles.homeMainDiv}>
-        <div className={styles.homeMainDivLeft}>
+      <div className="flex flex-row justify-between align-center h-screen pt-12">
+        <div className="bg-slate-900 w-1/3 ">
           <p>gg</p>
         </div>
 
-        <div id="mainDivMiddle" className={styles.homeMainDivMiddle}>
-          <br></br>
-          <div className="bg-gray-500  text-white font-bold py-1 px-1 rounded w-3/4 ">
-            <div className="bg-white rounded float-center w-full">
+        <div
+          id="mainDivMiddle"
+          className="bg-slate-900 flex flex-col container items-center w-full h- "
+        >
+         
+
+          <div className="bg-slate-800 border-2 border-slate-700 rounded-lg container justify-center flex w-1/2 h-2/5 py-1 order-1 ">
+           
+
+            <MovieAutocomplete />
+      
+
+          </div>
+<br></br>
+          <div className="bg-white w-1/2 h-2/5 flex justify-center container items-center rounded-lg order-3  ">
+              
+              <div className="w-full">
+              <ReviewFeed />
+              </div>
+            </div>
+           
             
 
-              <MovieAutocomplete />
+          <div className="order-2 h-1/6"></div>
 
-           
+          <div className="bg-white w-1/2 h-2/5 flex justify-center container items-center rounded-lg order-3 ">
+              
+              <div className="w-full">
+              <ReviewFeed />
+              </div>
             </div>
-          </div>
-          <br></br>
 
-          <div className="">
-            <ReviewFeed/>
-          </div>
         </div>
 
-        <div className={styles.homeMainDivRight}>
+        <div className="bg-slate-900 w-1/3 ">
           <p>dsggs</p>
         </div>
       </div>

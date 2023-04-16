@@ -1,18 +1,13 @@
-import * as Dialog from "@radix-ui/react-dialog";
 import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import React, { useEffect, useRef, useState } from "react";
 import movieList from "../pages/movieList";
 import radixStyles from "../styles/radixSign.module.css";
 import styles from "../styles/review.module.css";
-import Image from "next/image";
-import Avatar from "../public/Avatar.jpg";
 
 import { RadixSlider } from "./RadixComponents";
+import { useRouter } from "next/router";
 
-import { createContext } from "react";
-
-export const ReviewContext = createContext();
 
 
 async function createPost(movieTitle, sliderRating) {
@@ -35,11 +30,12 @@ async function createPost(movieTitle, sliderRating) {
   return result;
 }
 
-
 const MovieAutocomplete = () => {
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [sliderValue, setSliderValue] = useState(0);
   const [reviewResult, setReviewResult] = useState(null);
+
+  const router = useRouter();
 
   const movieRef = useRef();
   movieRef.current = selectedMovie;
@@ -52,24 +48,18 @@ const MovieAutocomplete = () => {
 
     const movieTitle = selectedMovie;
     const sliderRating = sliderValue;
-    
 
     try {
-      const result = await createPost(
-        
-        movieTitle,
-        sliderRating
-      );
-      
+      const result = await createPost(movieTitle, sliderRating);
+
       setReviewResult(result);
+      router.reload();
     } catch (error) {
       console.log(error);
     }
   }
   return (
-    
     <div>
-      
       <div className={styles.main}>
         <div className={styles.content}>
           <br></br>
@@ -83,7 +73,7 @@ const MovieAutocomplete = () => {
                   {...params}
                   label="Movie"
                   variant="outlined"
-                  style={{ backgroundColor: "white" }}
+                  style={{ backgroundColor: "" }}
                 />
               )}
               getOptionLabel_={(option) => option.name}
@@ -97,11 +87,11 @@ const MovieAutocomplete = () => {
           <div className={styles.movies}>
             <h1>{selectedMovie}</h1>
           </div>
-          
+
           <div>
             <br></br>
             <div>
-              <div style={{ display: "inline-block", paddingLeft: "20px" }}>
+              <div className="inline-block cursor-pointer ">
                 <RadixSlider
                   min={0}
                   step={1}
@@ -112,6 +102,7 @@ const MovieAutocomplete = () => {
                   defaultValue={[80]}
                   value={[sliderValue]}
                   onValueChange={([value]) => setSliderValue(value)}
+                 
                 />
               </div>
               <div
@@ -121,47 +112,46 @@ const MovieAutocomplete = () => {
                   color: "black",
                 }}
               >
-                <strong>{sliderValue}</strong>
+                <strong>{sliderValue}/100</strong>
               </div>
             </div>
 
             <br></br>
-            <label
-              id="reviewText"
-              className={styles.label}
-              htmlFor="reviewInput"
-            >
-              Review
-            </label>
+
             <textarea
-              id="reviewInput"
-              className={styles.reviewInput}
+              className="bg-slate-700 w-3/4 h-full flex resize-none"
               type="text"
               placeholder="Create Review..."
+              maxLength='200'
+              wrap="soft"
             ></textarea>
+
+            
           </div>
         </div>
       </div>
-
+<br></br>
+<br></br>
+<br></br>
       <div
         style={{
           display: "flex",
           marginTop: 25,
           justifyContent: "center",
           paddingBottom: "1%",
+          
         }}
       >
         <button
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
+          className="bg-blue-500 hover:bg-blue-700 text-white 
+          font-bold py-2 px-4 rounded-full  "
           role="submit"
           onClick={submitHandler}
         >
           Create Movie Review
         </button>
       </div>
-      
     </div>
-    
   );
 };
 

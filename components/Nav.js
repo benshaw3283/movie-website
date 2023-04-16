@@ -12,7 +12,7 @@ const Nav = () => {
 
   if (!session) {
     return (
-      <div className={navBar.nav}>
+      <div className='flex flex-row items-center top-0 bg-gray-900 border-b-2 w-full border-slate-800 fixed'>
         <div className={navBar.nav1}>
           <h1>LOGO</h1>
         </div>
@@ -48,7 +48,13 @@ const Nav = () => {
     );
   } else {
     return (
-      <div className={navBar.nav}>
+      <div className='flex flex-row items-center fixed top-0 w-full bg-gray-900 border-b-2 border-slate-800'>
+        <div className={navBar.nav1}>
+
+        </div>
+        <div className={navBar.nav2}>
+
+        
         <nav className={navBar.home}>
           <Link href="/">Home</Link>
         </nav>
@@ -88,6 +94,8 @@ const Nav = () => {
             </DropdownMenu.Portal>
           </DropdownMenu.Root>
         </nav>
+        </div>
+        <div className={navBar.nav3}></div>
       </div>
     );
   }

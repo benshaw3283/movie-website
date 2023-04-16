@@ -3,9 +3,10 @@
     display: flex;
     flex-direction: row;
     align-items:center;
-    background-color:midnightblue;
+    background-color:#0c0a09;
     height: 5vh;
-
+    border-bottom: 5px, solid, aqua;
+    
 }
 
 .nav1 {
@@ -16,7 +17,8 @@
 .nav2 {
     order:2;
     width:60%;
-    justify-content: space-around;
+    display: flex;
+    justify-content: space-between;
     align-items: baseline;
 }
 
@@ -29,6 +31,7 @@
     color: whitesmoke;
     padding-left: 25px;
     font-weight: bolder;
+    display: inline-block;
 }
 
 .account {
@@ -37,7 +40,7 @@
     padding-bottom: 3px;
     padding-top: 3px;
     font-weight: bolder;
-    
+    display: inline-block;
     
 }
 
