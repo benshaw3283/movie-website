@@ -12,7 +12,7 @@ const Nav = () => {
 
   if (!session) {
     return (
-      <div className='flex flex-row items-center top-0 bg-gray-900 border-b-2 w-full border-slate-800 fixed'>
+      <div className='flex flex-row items-center  bg-gray-900 border-b-2 w-full border-slate-800 '>
         <div className={navBar.nav1}>
           <h1>LOGO</h1>
         </div>
@@ -48,7 +48,7 @@ const Nav = () => {
     );
   } else {
     return (
-      <div className='flex flex-row items-center fixed top-0 w-full bg-gray-900 border-b-2 border-slate-800'>
+      <div className='flex flex-row items-center w-full bg-gray-900 border-b-2 border-slate-800'>
         <div className={navBar.nav1}>
 
         </div>
@@ -64,7 +64,7 @@ const Nav = () => {
             <DropdownMenu.Trigger asChild>
               <div style={{ position: "center", cursor: "pointer" }}>
                 <div style={{ display: "inline-block" }}>
-                  <p> {session.user.email} </p>
+                  <p> {session.user.name || session.user.username} </p>
                 </div>
 
                 <div style={{ display: "inline-block", paddingLeft: "10px" }}>

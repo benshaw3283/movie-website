@@ -2,19 +2,31 @@
 import MovieAutocomplete from "../components/Autocomplete";
 import ReviewFeed from "../components/ReviewFeed";
 
+
 export default function Home() {
+
+
   return (
     <div>
       <title>Movie Website</title>
 
-      <div className="flex flex-row justify-between align-center h-screen pt-12">
-        <div className="bg-slate-900 w-1/3 ">
+      <div className="flex flex-row justify-between align-center h-screen ">
+        <div className="bg-slate-900 w-1/3 pl-2">
           <p>gg</p>
+          <p>fdsgsdg</p>
+          <p>gg</p>
+          <p>fdsgsdg</p>
+          <p>gg</p>
+          <p>fdsgsdg</p>
+          <p>gg</p>
+          <p>fdsgsdg</p>
         </div>
+
+        
 
         <div
           id="mainDivMiddle"
-          className="bg-slate-900 flex flex-col container items-center w-full h- "
+          className="bg-slate-900  flex flex-col container items-center w-full h- "
         >
          
 
@@ -48,6 +60,17 @@ export default function Home() {
 
         <div className="bg-slate-900 w-1/3 ">
           <p>dsggs</p>
+          <p>gg</p>
+          <p>fdsgsdg</p>
+          <p>gg</p>
+          <p>fdsgsdg</p>
+          <p>gg</p>
+          <p>fdsgsdg</p>
+          <p>gg</p>
+          <p>fdsgsdg</p>
+          <p>gg</p>
+          <p>fdsgsdg</p>
+
         </div>
       </div>
     </div>
