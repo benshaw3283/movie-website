@@ -33,15 +33,10 @@ async function createPost(movieTitle, sliderRating) {
 const MovieAutocomplete = () => {
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [sliderValue, setSliderValue] = useState(0);
-  const [reviewResult, setReviewResult] = useState(null);
+  
 
   const router = useRouter();
 
-  const movieRef = useRef();
-  movieRef.current = selectedMovie;
-
-  const sliderRef = useRef();
-  sliderRef.current = sliderValue;
 
   async function submitHandler(event) {
     event.preventDefault();
@@ -50,9 +45,9 @@ const MovieAutocomplete = () => {
     const sliderRating = sliderValue;
 
     try {
-      const result = await createPost(movieTitle, sliderRating);
+       await createPost(movieTitle, sliderRating);
 
-      setReviewResult(result);
+      
       router.reload();
     } catch (error) {
       console.log(error);
@@ -77,7 +72,7 @@ const MovieAutocomplete = () => {
                 />
               )}
               getOptionLabel_={(option) => option.name}
-              style={{ width: 280, overflowY: "visible" }}
+              style={{ width: 280}}
               value={selectedMovie}
               onChange={(_event, newMovie) => {
                 setSelectedMovie(newMovie);

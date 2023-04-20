@@ -48,7 +48,7 @@ const Nav = () => {
     );
   } else {
     return (
-      <div className='flex flex-row items-center w-full bg-gray-900 border-b-2 border-slate-800'>
+      <div className='flex flex-row items-center w-full bg-gray-900 border-b-2 border-slate-800 sticky top-0 z-[20]'>
         <div className={navBar.nav1}>
 
         </div>

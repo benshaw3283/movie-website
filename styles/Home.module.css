@@ -168,7 +168,4 @@
   height: 95vh;
 }
 
-#mainDivMiddle {
-  scroll-behavior: smooth;
-  overflow-y: scroll;
-}
+

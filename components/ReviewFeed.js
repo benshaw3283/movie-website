@@ -33,7 +33,7 @@ const ReviewFeed = () => {
             <h1 className="text-black">email</h1>
             <p className="text-blue-400 px-16">{new Date(review.createdAt).toString()}</p>
           </div>
-          <div className="order-2 flex w-full h-3/4 overflow-hidden ">
+          <div className="order-2 flex w-full h-3/4  overflow-clip">
             <div id='main-left' className="flex w-2/3">
 
             <Image alt="Avatar" src={Avatar}></Image>
@@ -76,7 +76,19 @@ const ReviewFeed = () => {
               </div>
             ))
           ) : (
+            <div className="bg-slate-900 container rounded-lg flex justify-center h-2/5 w-full ">
+              <div className="justify-center ">
+<br></br>
+<br></br>
+<br></br>
+<br></br>
             <p>Loading reviews...</p>
+<br></br>
+<br></br>
+<br></br>
+<br></br>
+            </div>
+            </div>
           )}
         </div>
       );
