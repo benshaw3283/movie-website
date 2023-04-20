@@ -4,14 +4,12 @@ import React, { useEffect, useRef, useState } from "react";
 import movieList from "../pages/movieList";
 import radixStyles from "../styles/radixSign.module.css";
 import styles from "../styles/review.module.css";
-
+import { useSession } from "next-auth/react";
 import { RadixSlider } from "./RadixComponents";
 import { useRouter } from "next/router";
 
-
-
-async function createPost(movieTitle, sliderRating) {
-  const response = await fetch("/api/reviews/createReview", {
+async function createPost(movieTitle, sliderRating, user) {
+  const response = await fetch("/api/mongoReviews/mongoCreateReview", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -19,6 +17,7 @@ async function createPost(movieTitle, sliderRating) {
     body: JSON.stringify({
       movieTitle,
       sliderRating,
+      user,
     }),
   });
 
@@ -33,21 +32,21 @@ async function createPost(movieTitle, sliderRating) {
 const MovieAutocomplete = () => {
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [sliderValue, setSliderValue] = useState(0);
-  
 
+  const { data: session } = useSession();
   const router = useRouter();
-
 
   async function submitHandler(event) {
     event.preventDefault();
 
     const movieTitle = selectedMovie;
     const sliderRating = sliderValue;
+    const user =
+      session.user.username || session.user.email || session.user.name;
 
     try {
-       await createPost(movieTitle, sliderRating);
+      await createPost(movieTitle, sliderRating, user);
 
-      
       router.reload();
     } catch (error) {
       console.log(error);
@@ -72,7 +71,7 @@ const MovieAutocomplete = () => {
                 />
               )}
               getOptionLabel_={(option) => option.name}
-              style={{ width: 280}}
+              style={{ width: 280 }}
               value={selectedMovie}
               onChange={(_event, newMovie) => {
                 setSelectedMovie(newMovie);
@@ -97,7 +96,6 @@ const MovieAutocomplete = () => {
                   defaultValue={[80]}
                   value={[sliderValue]}
                   onValueChange={([value]) => setSliderValue(value)}
-                 
                 />
               </div>
               <div
@@ -117,24 +115,21 @@ const MovieAutocomplete = () => {
               className="bg-slate-700 w-3/4 h-full flex resize-none"
               type="text"
               placeholder="Create Review..."
-              maxLength='200'
+              maxLength="200"
               wrap="soft"
             ></textarea>
-
-            
           </div>
         </div>
       </div>
-<br></br>
-<br></br>
-<br></br>
+      <br></br>
+      <br></br>
+      <br></br>
       <div
         style={{
           display: "flex",
           marginTop: 25,
           justifyContent: "center",
           paddingBottom: "1%",
-          
         }}
       >
         <button

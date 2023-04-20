@@ -1,4 +1,3 @@
-
 import { reviews } from "./reviewsArray";
 
 export default function createReview(req, res) {
@@ -17,7 +16,7 @@ export default function createReview(req, res) {
       createdAt: new Date(),
     };
     reviews.push(JSON.stringify(review));
-
+    
 
     // Send the new review object as the response
     return res.status(201).json(review);
