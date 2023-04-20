@@ -61,12 +61,7 @@ export default function Home() {
             <br></br>
           </div>
 
-            <div className="bg-slate-900 w-1/2 h-2/5 flex justify-center container items-center rounded-lg order-5  ">
-              
-              <div className="w-full">
-              <ReviewFeed />
-              </div>
-            </div>
+            
            
 
         </div>

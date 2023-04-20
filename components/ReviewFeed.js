@@ -11,10 +11,43 @@ const ReviewFeed = () => {
     async function fetchReview() {
       const response = await fetch("/api/mongoReviews/mongoGetReview");
       const data = await response.json();
-      setReviews(data);
+
+      // Convert createdAt values to Date objects
+      const reviewsWithDates = data.map((review) => ({
+        ...review,
+        createdAt: new Date(review.createdAt),
+      }));
+
+      // Sort reviews in reverse order based on createdAt
+      const sortedReviews = reviewsWithDates.sort(
+        (a, b) => b.createdAt - a.createdAt
+      );
+
+      // Update reviews state by adding new reviews at the top and removing the oldest reviews if maxlength is reached
+      setReviews(() => {
+        const updatedReviews = [...sortedReviews];
+        const maxLength = 3; // set the maximum length of reviews
+        if (updatedReviews.length > maxLength) {
+          updatedReviews.pop(); // remove the oldest review
+        }
+        return updatedReviews;
+      });
     }
     fetchReview();
   }, []);
+  console.log(reviews);
+  const formatLocalDate = (date) => {
+    const options = {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "numeric",
+      minute: "numeric",
+      hour12: true,
+    };
+    return date.toLocaleDateString(undefined, options);
+  };
+
   return (
     <div>
       {reviews.length ? (
@@ -23,10 +56,12 @@ const ReviewFeed = () => {
             <div className="bg-neutral-50 container rounded-lg flex flex-col h-2/5 w-full ">
               <div className="order-1  w-100% h-12 rounded-t-lg  bg-green-400">
                 <div className="text-red-400 flex inset-x-0 top-0 justify-start float-left">
-                  <h1>avatar</h1>
+                  <h1>Avatar</h1>
                 </div>
                 <h1 className="text-black">{review.user}</h1>
-                <p className="text-blue-400 px-16">{review.createdAt}</p>
+                <p className="text-blue-400 px-16">
+                  {formatLocalDate(review.createdAt)}
+                </p>
               </div>
               <div className="order-2 flex w-full h-3/4  overflow-clip">
                 <div id="main-left" className="flex w-2/3">

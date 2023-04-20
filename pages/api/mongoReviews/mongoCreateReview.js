@@ -26,7 +26,7 @@ export default async function mongoCreateReview(req, res) {
     const data = await db.collection("posts").insertOne({
       movieTitle: movieTitle,
       sliderRating: sliderRating,
-      createdAt: new Date().toLocaleDateString(),
+      createdAt: new Date(),
       user: user
       
     });
