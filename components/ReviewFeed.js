@@ -1,8 +1,22 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 //import { AvatarIcon } from "./RadixComponents";
 import Image from "next/dist/client/image";
 import { useSession } from "next-auth/react";
 import Avatar from "../public/Avatar.jpg";
+
+
+async function deleteReview(_id) {
+  const response = await fetch("/api/mongoReviews/mongoDeleteReview", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      _id: _id,
+    }),
+  });
+  return response;
+}
 
 const ReviewFeed = () => {
   const [reviews, setReviews] = useState([]);
@@ -48,6 +62,16 @@ const ReviewFeed = () => {
     };
     return date.toLocaleDateString(undefined, options);
   };
+
+  async function handleDeleteReview(_id) {
+    try {
+      await deleteReview(_id);
+      // After deleting the review, update the reviews state to remove the deleted review
+      // setReviews(reviews.filter((review) => review._id !== _id));
+    } catch (e) {
+      console.log(e);
+    }
+  }
 
   return (
     <div>
@@ -103,7 +127,10 @@ const ReviewFeed = () => {
                   (session.user.username === review.user ||
                     session.user.email === review.user ||
                     session.user.name === review.user) ? (
-                    <button className="hover:text-black">
+                    <button
+                      onClick={() => handleDeleteReview(review._id)}
+                      className="hover:text-black"
+                    >
                       {" "}
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
