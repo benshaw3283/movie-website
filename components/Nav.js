@@ -76,7 +76,7 @@ const Nav = () => {
             <DropdownMenu.Portal>
               <DropdownMenu.Content className={radixStyle.DropdownMenuContent}>
                 <DropdownMenu.Item className={radixStyle.DropdownMenuItem}>
-                  <Link href="/account">Account</Link>
+                  <Link href="/profile">Profile</Link>
                 </DropdownMenu.Item>
 
                 <DropdownMenu.Item className={radixStyle.DropdownMenuItem}>

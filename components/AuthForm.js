@@ -118,7 +118,7 @@ function AuthFormLI() {
     if (result.ok) {
       //authorize();
       // set some auth state
-      router.replace("/account");
+      router.replace("/");
     }
   }
 
