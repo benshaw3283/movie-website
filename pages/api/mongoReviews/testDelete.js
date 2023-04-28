@@ -17,7 +17,7 @@ export default async function mongoDeleteReview(req, res) {
       const db = client.db();
 
       const data = await db.collection("posts").deleteOne({
-       _id : '6444a50c5946ecaa5ef9a783'
+       movieTitle : 'Scooby Doo'
       });
       res.status(201).json({ message: "Review deleted!", ...data });
     } catch (err) {

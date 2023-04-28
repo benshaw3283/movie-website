@@ -1,6 +1,7 @@
 import React from "react";
 import { useSession, signOut, getSession } from "next-auth/react";
 
+
 const Profile = () => {
   const { data: session, status } = useSession();
 
@@ -15,7 +16,15 @@ const Profile = () => {
               <br></br>
             </div>
             <div className="bg-slate-800 border-2 border-slate-700 rounded-lg container justify-center flex w-1/2 h-1/4 order-2 ">
+              <div className="float-left">
+                
+              </div>
+              <div className="flex flex-col container justify-center">
+                <div className="order-1">
+                  <h1 className="text-white">{session.user.username}</h1>
+                </div>
 
+              </div>
             </div>
 
             <div className="order-3 ">

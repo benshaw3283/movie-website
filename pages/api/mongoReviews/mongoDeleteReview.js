@@ -1,5 +1,5 @@
 import { MongoClient } from "mongodb";
-import { mongoose } from "mongoose";
+import { ObjectId } from "mongodb";
 
 const uri = process.env.MONGODB_URI;
 const options = {
@@ -19,8 +19,10 @@ export default async function mongoDeleteReview(req, res) {
       const db = client.db();
 
       const data = await db.collection("posts").deleteOne({
-       _id : _id
-      });
+        
+       _id : new ObjectId(_id)
+        
+    });
       res.status(201).json({ message: "Review deleted!", ...data });
     } catch (err) {
       // Log the error and return an error response

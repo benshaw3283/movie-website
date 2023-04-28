@@ -8,6 +8,8 @@ import * as Avatar from '@radix-ui/react-avatar';
 import {useSession} from 'next-auth/react';
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 
+
+
 const CheckboxPassword = () => (
   <form>
     <div style={{ display: "flex", alignItems: "center" }}>
@@ -79,5 +81,6 @@ const Dropdown = () => (
 );
 
 export {Dropdown}
+
 
 
