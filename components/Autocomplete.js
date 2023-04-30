@@ -8,16 +8,17 @@ import { useSession } from "next-auth/react";
 import { RadixSlider } from "./RadixComponents";
 import { useRouter } from "next/router";
 
-async function createPost(movieTitle, sliderRating, user) {
+async function createPost( sliderRating, user, movieData) {
   const response = await fetch("/api/mongoReviews/mongoCreateReview", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      movieTitle,
+      
       sliderRating,
       user,
+      movieData,
     }),
   });
 
@@ -39,13 +40,27 @@ const MovieAutocomplete = () => {
   async function submitHandler(event) {
     event.preventDefault();
 
-    const movieTitle = selectedMovie;
+    
     const sliderRating = sliderValue;
     const user =
       session.user.username || session.user.email || session.user.name;
 
+      //movieTitle only used for url now
+      const movieTitle = selectedMovie;
+    const url = `http://www.omdbapi.com/?apikey=4f46879e&r=json&t=${movieTitle}`;
+    const options = {
+      method: "GET",
+    };
+
+
+      const response = await fetch(url, options);
+      const result = await response.json();
+    
+
+    const movieData = result;
+
     try {
-      await createPost(movieTitle, sliderRating, user);
+      await createPost( sliderRating, user, movieData);
 
       router.reload();
     } catch (error) {

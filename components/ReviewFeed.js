@@ -3,8 +3,8 @@ import { useEffect, useState, useRef } from "react";
 import Image from "next/dist/client/image";
 import { useSession } from "next-auth/react";
 import Avatar from "../public/Avatar.jpg";
-import * as AlertDialog from '@radix-ui/react-alert-dialog';
-import styles from '../styles/radixAlertDialog.module.css'
+import * as AlertDialog from "@radix-ui/react-alert-dialog";
+import styles from "../styles/radixAlertDialog.module.css";
 
 async function deleteReview(_id) {
   const response = await fetch("/api/mongoReviews/mongoDeleteReview", {
@@ -49,6 +49,7 @@ const ReviewFeed = () => {
         return updatedReviews;
       });
     }
+
     fetchReview();
   }, []);
 
@@ -95,11 +96,11 @@ const ReviewFeed = () => {
                 </div>
                 <div id="main-right" className=" bg-black w-full">
                   <div className=" bg-blue-400 flex justify-center">
-                    <h1 className="text-black text-2xl">{review.movieTitle}</h1>
+                    <h1 className="text-black text-2xl">{review.movieData.Title}</h1>
                   </div>
                   <div className="bg-white flex justify-start">
                     <h2 className="text-gray-500">
-                      Release Date || Genre || IMDB rating
+                      {review.movieData.Year} || {review.movieData.Genre} ||  {review.movieData.imdbRating}
                     </h2>
                   </div>
 
@@ -109,9 +110,13 @@ const ReviewFeed = () => {
                         {review.sliderRating}
                       </h1>
                     </div>
-
+                    
+                    
+                    
                     <div className="self-center order-2 pl-10">
                       <p className="text-white ">TEXT REVIEW</p>
+                     <p className="text-white ">{review.movieData.Year}</p>
+                      
                     </div>
                   </div>
                 </div>
@@ -128,45 +133,70 @@ const ReviewFeed = () => {
                   (session.user.username === review.user ||
                     session.user.email === review.user ||
                     session.user.name === review.user) ? (
-                   
-                      <div className="self-center cursor-pointer">
-                      <AlertDialog.Root >
-                      <AlertDialog.Trigger asChild>
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth={1.5}
-                        stroke="currentColor"
-                        className="w-6 h-6 "
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
-                        />
-                      </svg>
-                      </AlertDialog.Trigger>
-                      <AlertDialog.Portal>
-                        <AlertDialog.Overlay className={styles.AlertDialogOverlay} />
-                        <AlertDialog.Content className={styles.AlertDialogContent}>
-                          <AlertDialog.Title className={styles.AlertDialogTitle}>Are you  sure?</AlertDialog.Title>
-                          <AlertDialog.Description className={styles.AlertDialogDescription}>
-                            This action cannot be undone. This will permanently delete your review.
-                          </AlertDialog.Description>
-                          <div style={{ display: 'flex', gap: 25, justifyContent: 'flex-end' }}>
-                            <AlertDialog.Cancel asChild>
-                              <button type ='button' className='bg-slate-700 border-2 border-slate-800 rounded py-0.5 px-0.5' >Cancel</button>
-                            </AlertDialog.Cancel>
-                            <AlertDialog.Action asChild>
-                              <button onClick={()=> handleDeleteReview(review._id)} className='bg-slate-700 border-2 border-slate-800 rounded py-0.5 px-0.5'>Yes, delete review</button>
-                            </AlertDialog.Action>
-                          </div>
-                        </AlertDialog.Content>
+                    <div className="self-center cursor-pointer">
+                      <AlertDialog.Root>
+                        <AlertDialog.Trigger asChild>
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            strokeWidth={1.5}
+                            stroke="currentColor"
+                            className="w-6 h-6 "
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
+                            />
+                          </svg>
+                        </AlertDialog.Trigger>
+                        <AlertDialog.Portal>
+                          <AlertDialog.Overlay
+                            className={styles.AlertDialogOverlay}
+                          />
+                          <AlertDialog.Content
+                            className={styles.AlertDialogContent}
+                          >
+                            <AlertDialog.Title
+                              className={styles.AlertDialogTitle}
+                            >
+                              Are you sure?
+                            </AlertDialog.Title>
+                            <AlertDialog.Description
+                              className={styles.AlertDialogDescription}
+                            >
+                              This action cannot be undone. This will
+                              permanently delete your review.
+                            </AlertDialog.Description>
+                            <div
+                              style={{
+                                display: "flex",
+                                gap: 25,
+                                justifyContent: "flex-end",
+                              }}
+                            >
+                              <AlertDialog.Cancel asChild>
+                                <button
+                                  type="button"
+                                  className="bg-slate-700 border-2 border-slate-800 rounded py-0.5 px-0.5"
+                                >
+                                  Cancel
+                                </button>
+                              </AlertDialog.Cancel>
+                              <AlertDialog.Action asChild>
+                                <button
+                                  onClick={() => handleDeleteReview(review._id)}
+                                  className="bg-slate-700 border-2 border-slate-800 rounded py-0.5 px-0.5"
+                                >
+                                  Yes, delete review
+                                </button>
+                              </AlertDialog.Action>
+                            </div>
+                          </AlertDialog.Content>
                         </AlertDialog.Portal>
-                    </AlertDialog.Root>
+                      </AlertDialog.Root>
                     </div>
-                    
                   ) : (
                     <div> </div>
                   )}
