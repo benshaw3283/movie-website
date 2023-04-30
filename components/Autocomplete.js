@@ -8,7 +8,7 @@ import { useSession } from "next-auth/react";
 import { RadixSlider } from "./RadixComponents";
 import { useRouter } from "next/router";
 
-async function createPost( sliderRating, user, movieData) {
+async function createPost( sliderRating, user, movieData, textReview) {
   const response = await fetch("/api/mongoReviews/mongoCreateReview", {
     method: "POST",
     headers: {
@@ -19,6 +19,7 @@ async function createPost( sliderRating, user, movieData) {
       sliderRating,
       user,
       movieData,
+      textReview
     }),
   });
 
@@ -33,7 +34,7 @@ async function createPost( sliderRating, user, movieData) {
 const MovieAutocomplete = () => {
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [sliderValue, setSliderValue] = useState(0);
-
+  const textReviewRef = useRef('')
   const { data: session } = useSession();
   const router = useRouter();
 
@@ -44,6 +45,7 @@ const MovieAutocomplete = () => {
     const sliderRating = sliderValue;
     const user =
       session.user.username || session.user.email || session.user.name;
+      const textReview = textReviewRef.current.value
 
       //movieTitle only used for url now
       const movieTitle = selectedMovie;
@@ -60,7 +62,7 @@ const MovieAutocomplete = () => {
     const movieData = result;
 
     try {
-      await createPost( sliderRating, user, movieData);
+      await createPost( sliderRating, user, movieData, textReview);
 
       router.reload();
     } catch (error) {
@@ -130,9 +132,12 @@ const MovieAutocomplete = () => {
               className="bg-slate-700 w-3/4 h-full flex resize-none"
               type="text"
               placeholder="Create Review..."
-              maxLength="200"
+              maxLength="120"
               wrap="soft"
+              ref={textReviewRef}
+              
             ></textarea>
+            
           </div>
         </div>
       </div>

@@ -5,7 +5,7 @@ import { useSession } from "next-auth/react";
 import Avatar from "../public/Avatar.jpg";
 import * as AlertDialog from "@radix-ui/react-alert-dialog";
 import styles from "../styles/radixAlertDialog.module.css";
-import IMDbIcon from '../public/imdb.png'
+import IMDbIcon from "../public/imdb.png";
 
 async function deleteReview(_id) {
   const response = await fetch("/api/mongoReviews/mongoDeleteReview", {
@@ -75,7 +75,7 @@ const ReviewFeed = () => {
       console.log(e);
     }
   }
- 
+
   return (
     <div>
       {reviews.length ? (
@@ -93,33 +93,42 @@ const ReviewFeed = () => {
               </div>
               <div className="order-2 flex w-full h-3/4  overflow-clip">
                 <div id="main-left" className="flex w-2/3">
-                  <Image alt="movieImage" src={review.movieData.Poster} width='230' height='350'></Image>
+                  <Image
+                    alt="movieImage"
+                    src={review.movieData.Poster}
+                    width="230"
+                    height="350"
+                  ></Image>
                 </div>
                 <div id="main-right" className=" bg-black w-full">
                   <div className=" bg-blue-400 flex justify-center">
-                    <h1 className="text-black text-2xl">{review.movieData.Title}</h1>
+                    <h1 className="text-black text-2xl">
+                      {review.movieData.Title}
+                    </h1>
                   </div>
                   <div className="bg-white flex  justify-center ">
                     <div className="text-gray-500  ">
-                        {review.movieData.Year} || {review.movieData.Genre} || 
-                        </div>
-                      <div className="text-gray-500 "> 
-                        <Image  alt ='IMDbLogo' src={IMDbIcon}/>  {review.movieData.imdbRating} 
-                        </div>
-                    
+                      {review.movieData.Year} || {review.movieData.Genre} ||
+                    </div>
+                    <div className="text-gray-500 ">
+                      <Image alt="IMDbLogo" src={IMDbIcon} />{" "}
+                      {review.movieData.imdbRating}
+                    </div>
                   </div>
 
-                  <div className="bg-black h-5/6 flex flex-row">
-                    <div className="self-center order-1">
-                      <h1 className="text-white text-3xl pl-2 ">
+                  <div className="bg-black h-5/6 flex flex-row container">
+                    <div className="absolute w-64 italic text-gray-500 text-xs py-1 px-1 order-1"><p>{review.movieData.Plot}</p> </div>
+                   
+                    <div className="self-center flex order-2 ">
+                      <h1 className="text-white text-3xl pl-4 ">
                         {review.sliderRating}
                       </h1>
                     </div>
                     
                     
                     
-                    <div className="self-center order-2 pl-10">
-                      <p className="text-white ">TEXT REVIEW</p>
+                    <div className=" self-center flex order-3 pl-10">
+                      <p className="text-white pl-8 text-xs w-72">{review.textReview}</p>
                       
                       
                     </div>
