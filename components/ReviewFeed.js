@@ -5,6 +5,7 @@ import { useSession } from "next-auth/react";
 import Avatar from "../public/Avatar.jpg";
 import * as AlertDialog from "@radix-ui/react-alert-dialog";
 import styles from "../styles/radixAlertDialog.module.css";
+import IMDbIcon from '../public/imdb.png'
 
 async function deleteReview(_id) {
   const response = await fetch("/api/mongoReviews/mongoDeleteReview", {
@@ -74,7 +75,7 @@ const ReviewFeed = () => {
       console.log(e);
     }
   }
-
+ 
   return (
     <div>
       {reviews.length ? (
@@ -92,16 +93,20 @@ const ReviewFeed = () => {
               </div>
               <div className="order-2 flex w-full h-3/4  overflow-clip">
                 <div id="main-left" className="flex w-2/3">
-                  <Image alt="Avatar" src={Avatar}></Image>
+                  <Image alt="movieImage" src={review.movieData.Poster} width='230' height='350'></Image>
                 </div>
                 <div id="main-right" className=" bg-black w-full">
                   <div className=" bg-blue-400 flex justify-center">
                     <h1 className="text-black text-2xl">{review.movieData.Title}</h1>
                   </div>
-                  <div className="bg-white flex justify-start">
-                    <h2 className="text-gray-500">
-                      {review.movieData.Year} || {review.movieData.Genre} ||  {review.movieData.imdbRating}
-                    </h2>
+                  <div className="bg-white flex  justify-center ">
+                    <div className="text-gray-500  ">
+                        {review.movieData.Year} || {review.movieData.Genre} || 
+                        </div>
+                      <div className="text-gray-500 "> 
+                        <Image  alt ='IMDbLogo' src={IMDbIcon}/>  {review.movieData.imdbRating} 
+                        </div>
+                    
                   </div>
 
                   <div className="bg-black h-5/6 flex flex-row">
@@ -115,7 +120,7 @@ const ReviewFeed = () => {
                     
                     <div className="self-center order-2 pl-10">
                       <p className="text-white ">TEXT REVIEW</p>
-                     <p className="text-white ">{review.movieData.Year}</p>
+                      
                       
                     </div>
                   </div>
