@@ -41,7 +41,7 @@ const ReviewFeed = () => {
       );
 
       setReviews(() => {
-        const maxLength = 2;
+        const maxLength = 30;
         const updatedReviews = [...sortedReviews];
 
         if (updatedReviews.length > maxLength) {
@@ -135,8 +135,8 @@ const ReviewFeed = () => {
                     
                     
                     
-                    <div className=" self-center flex order-3 pl-10">
-                      <p className="text-white pl-8 text-xs w-72">{review.textReview}</p>
+                    <div className=" self-center flex order-3 pl-8">
+                      <p className="text-white pl-2 pt-6 text-sm w-72">{review.textReview}</p>
                       
                       
                     </div>

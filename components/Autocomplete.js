@@ -8,18 +8,17 @@ import { useSession } from "next-auth/react";
 import { RadixSlider } from "./RadixComponents";
 import { useRouter } from "next/router";
 
-async function createPost( sliderRating, user, movieData, textReview) {
+async function createPost(sliderRating, user, movieData, textReview) {
   const response = await fetch("/api/mongoReviews/mongoCreateReview", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      
       sliderRating,
       user,
       movieData,
-      textReview
+      textReview,
     }),
   });
 
@@ -34,45 +33,46 @@ async function createPost( sliderRating, user, movieData, textReview) {
 const MovieAutocomplete = () => {
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [sliderValue, setSliderValue] = useState(0);
-  const textReviewRef = useRef('')
+  const textReviewRef = useRef("");
   const { data: session } = useSession();
   const router = useRouter();
 
   async function submitHandler(event) {
     event.preventDefault();
 
-    
     const sliderRating = sliderValue;
     const user =
       session.user.username || session.user.email || session.user.name;
-      const textReview = textReviewRef.current.value
+    const textReview = textReviewRef.current.value;
 
-      //movieTitle only used for url now
-      const movieTitle = selectedMovie;
+    //movieTitle only used for url now
+    const movieTitle = selectedMovie;
     const url = `http://www.omdbapi.com/?apikey=4f46879e&r=json&t=${movieTitle}`;
     const options = {
       method: "GET",
     };
 
-
-      const response = await fetch(url, options);
-      const result = await response.json();
-    
+    const response = await fetch(url, options);
+    const result = await response.json();
 
     const movieData = result;
-    if (movieData.Title === 'Null' || movieData.Response === 'False' || movieData.Error) {
-      alert( 'Failed to find film - Please try again')
+    if (
+      movieData.Title === "Null" ||
+      movieData.Response === "False" ||
+      movieData.Error
+    ) {
+      alert("Failed to find film - Please try again");
     } else {
+      try {
+        await createPost(sliderRating, user, movieData, textReview);
 
-    try {
-      await createPost( sliderRating, user, movieData, textReview);
-
-      router.reload();
-    } catch (error) {
-      console.log(error);
+        router.reload();
+      } catch (error) {
+        console.log(error);
+      }
     }
   }
-  }
+
   return (
     <div>
       <div className={styles.main}>
@@ -81,19 +81,15 @@ const MovieAutocomplete = () => {
 
           <fieldset className={radixStyles.Fieldset}>
             <Autocomplete
-              id="movies"
               options={movieList}
+              id="movies"
               renderInput={(params) => (
-                <TextField
-                  {...params}
-                  label="Movie"
-                  variant="outlined"
-                  style={{ backgroundColor: "" }}
-                />
+                <TextField {...params} label="Movie" variant="outlined" />
               )}
               getOptionLabel_={(option) => option.name}
+              
               style={{ width: 280 }}
-              freeSolo= {true}
+              freeSolo={true}
               autoSelect={true}
               value={selectedMovie}
               onChange={(_event, newMovie) => {
@@ -135,15 +131,13 @@ const MovieAutocomplete = () => {
             <br></br>
 
             <textarea
-              className="bg-slate-700 w-3/4 h-full flex resize-none"
+              className="bg-slate-800 w-3/4 h-full flex resize-none border-2 border-slate-700"
               type="text"
               placeholder="Create Review..."
-              maxLength="120"
+              maxLength="300"
               wrap="soft"
               ref={textReviewRef}
-              
             ></textarea>
-            
           </div>
         </div>
       </div>
