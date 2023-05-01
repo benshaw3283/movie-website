@@ -51,6 +51,8 @@ const ReviewFeed = () => {
       });
     }
 
+  
+
     fetchReview();
   }, []);
 
@@ -100,12 +102,18 @@ const ReviewFeed = () => {
                     height="350"
                   ></Image>
                 </div>
+                
                 <div id="main-right" className=" bg-black w-full">
+                
+                        
                   <div className=" bg-blue-400 flex justify-center">
                     <h1 className="text-black text-2xl">
+                      
                       {review.movieData.Title}
+                      
                     </h1>
                   </div>
+                        
                   <div className="bg-white flex  justify-center ">
                     <div className="text-gray-500  ">
                       {review.movieData.Year} || {review.movieData.Genre} ||

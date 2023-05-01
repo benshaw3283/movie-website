@@ -60,6 +60,9 @@ const MovieAutocomplete = () => {
     
 
     const movieData = result;
+    if (movieData.Title === 'Null' || movieData.Response === 'False' || movieData.Error) {
+      alert( 'Failed to find film - Please try again')
+    } else {
 
     try {
       await createPost( sliderRating, user, movieData, textReview);
@@ -68,6 +71,7 @@ const MovieAutocomplete = () => {
     } catch (error) {
       console.log(error);
     }
+  }
   }
   return (
     <div>
@@ -89,6 +93,8 @@ const MovieAutocomplete = () => {
               )}
               getOptionLabel_={(option) => option.name}
               style={{ width: 280 }}
+              freeSolo= {true}
+              autoSelect={true}
               value={selectedMovie}
               onChange={(_event, newMovie) => {
                 setSelectedMovie(newMovie);
