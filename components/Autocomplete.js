@@ -7,6 +7,7 @@ import styles from "../styles/review.module.css";
 import { useSession } from "next-auth/react";
 import { RadixSlider } from "./RadixComponents";
 import { useRouter } from "next/router";
+import { makeStyles } from "@material-ui/core/styles";
 
 async function createPost(sliderRating, user, movieData, textReview) {
   const response = await fetch("/api/mongoReviews/mongoCreateReview", {
@@ -73,6 +74,16 @@ const MovieAutocomplete = () => {
     }
   }
 
+  const useStyles = makeStyles({
+    paper: {
+      border: "4px white",
+      
+      backgroundColor: "rgb(100 116 139)",
+    },
+  });
+
+  const classes = useStyles();
+
   return (
     <div>
       <div className={styles.main}>
@@ -84,10 +95,15 @@ const MovieAutocomplete = () => {
               options={movieList}
               id="movies"
               renderInput={(params) => (
-                <TextField {...params} label="Movie" variant="outlined" />
+                <TextField
+                  {...params}
+                  label="Movie"
+                  variant="outlined"
+                  className="bg-slate-700 rounded-lg "
+                />
               )}
               getOptionLabel_={(option) => option.name}
-              
+              classes={{ paper: classes.paper }}
               style={{ width: 280 }}
               freeSolo={true}
               autoSelect={true}
@@ -131,7 +147,7 @@ const MovieAutocomplete = () => {
             <br></br>
 
             <textarea
-              className="bg-slate-800 w-3/4 h-full flex resize-none border-2 border-slate-700"
+              className="bg-slate-800 w-3/4 h-full flex resize-none border-2 border-slate-700 rounded-sm"
               type="text"
               placeholder="Create Review..."
               maxLength="300"
@@ -153,12 +169,12 @@ const MovieAutocomplete = () => {
         }}
       >
         <button
-          className="bg-blue-500 hover:bg-blue-700 text-white 
-          font-bold py-2 px-4 rounded-full  "
+          className="bg-slate-900 border-2 border-slate-600 hover:bg-slate-600 hover:border-slate-900 text-white hover:text-black 
+          font-bold py-2 px-4 rounded-full hover:font-bold "
           role="submit"
           onClick={submitHandler}
         >
-          Create Movie Review
+          Create Review
         </button>
       </div>
     </div>

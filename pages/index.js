@@ -1,14 +1,9 @@
-
 import MovieAutocomplete from "../components/Autocomplete";
 import ReviewFeed from "../components/ReviewFeed";
-import {useSession} from 'next-auth/react'
-
-
+import { useSession } from "next-auth/react";
 
 export default function Home() {
-
   const { data: session, status } = useSession();
-
 
   return (
     <div>
@@ -16,37 +11,29 @@ export default function Home() {
 
       <div className="flex flex-row justify-between  h-full bg-slate-900">
         <div className="bg-slate-900 w-1/3 text-slate-500 sticky top-0 h-full grid place-items-center">
-        <br></br>
           <br></br>
           <br></br>
           <br></br>
-          
-          <p>agfafajsfajsf</p>
-          <p>agfafajsfajsf</p>
-          <p>agfafajsfajsf</p>
-          <p>agfafajsfajsf</p>
-          <p>agfafajsfajsf</p>
-          <p>agfafajsfajsf</p>
-          <p>agfafajsfajsf</p>
-          <p>agfafajsfajsf</p>
-          
-        </div>
+          <br></br>
 
-        
+          <p>agfafajsfajsf</p>
+          <p>agfafajsfajsf</p>
+          <p>agfafajsfajsf</p>
+          <p>agfafajsfajsf</p>
+          <p>agfafajsfajsf</p>
+          <p>agfafajsfajsf</p>
+          <p>agfafajsfajsf</p>
+          <p>agfafajsfajsf</p>
+        </div>
 
         <div
           //mainDivMiddle
           className="bg-slate-900  flex flex-col container items-center w-full  h-fit "
         >
-         
-         <br></br>
+          <br></br>
 
-          <div className="bg-slate-800 border-2 border-slate-700 rounded-lg container justify-center flex w-1/2 h-2/5 py-1 order-1 ">
-           
-
+          <div className="bg-slate-800 border-2 border-slate-700 rounded-lg container justify-center  flex w-1/2 h-2/5 py-1 order-1 ">
             <MovieAutocomplete />
-      
-
           </div>
 
           <div className="order-2 ">
@@ -55,20 +42,15 @@ export default function Home() {
           </div>
 
           <div className="bg-slate-900 w-1/2 h-2/5 flex justify-center container items-center rounded-lg order-3  ">
-              
-              <div className="w-full">
-              <ReviewFeed  />
-              </div>
+            <div className="w-full">
+              <ReviewFeed />
             </div>
+          </div>
 
-            <div className="order-4 ">
+          <div className="order-4 ">
             <br></br>
             <br></br>
           </div>
-
-            
-           
-
         </div>
 
         <div className="bg-slate-900 text-slate-500 w-1/3 sticky top-0 h-full grid place-items-center ">
@@ -76,10 +58,7 @@ export default function Home() {
           <br></br>
           <br></br>
           <br></br>
-          
-          
 
-          
           <p>agfafajsfajsf</p>
           <p>agfafajsfajsf</p>
           <p>agfafajsfajsf</p>
@@ -88,12 +67,8 @@ export default function Home() {
           <p>agfafajsfajsf</p>
           <p>agfafajsfajsf</p>
           <p>agfafajsfajsf</p>
-
-          
-
         </div>
       </div>
     </div>
   );
-
-} 
+}

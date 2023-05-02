@@ -83,8 +83,8 @@ const ReviewFeed = () => {
       {reviews.length ? (
         reviews.map((review, index) => (
           <div key={index}>
-            <div className="bg-neutral-50 container rounded-lg flex flex-col h-2/5 w-full my-10">
-              <div className="order-1  w-100% h-12 rounded-t-lg  bg-green-400">
+            <div className="bg-slate-800 container rounded-lg flex flex-col h-2/5 w-full my-10 border-2 border-slate-700">
+              <div className="order-1  w-100% h-12 rounded-t-lg  bg-green-400 border-b-2 border-b-slate-700">
                 <div className="text-red-400 flex inset-x-0 top-0 justify-start float-left">
                   <h1>Avatar</h1>
                 </div>
@@ -106,7 +106,7 @@ const ReviewFeed = () => {
                 <div id="main-right" className=" bg-black w-full">
                 
                         
-                  <div className=" bg-blue-400 flex justify-center">
+                  <div className=" bg-blue-400 flex justify-center  border-b-2 border-b-slate-700">
                     <h1 className="text-black text-2xl">
                       
                       {review.movieData.Title}
@@ -114,7 +114,7 @@ const ReviewFeed = () => {
                     </h1>
                   </div>
                         
-                  <div className="bg-white flex  justify-center ">
+                  <div className="bg-white flex  justify-center  border-b-2 border-b-slate-700">
                     <div className="text-gray-500  ">
                       {review.movieData.Year} || {review.movieData.Genre} ||
                     </div>
@@ -124,7 +124,7 @@ const ReviewFeed = () => {
                     </div>
                   </div>
 
-                  <div className="bg-black h-5/6 flex flex-row container">
+                  <div className="bg-black h-5/6 flex flex-row container  border-b-2 border-b-slate-700">
                     <div className="absolute w-64 italic text-gray-500 text-xs py-1 px-1 order-1"><p>{review.movieData.Plot}</p> </div>
                    
                     <div className="self-center flex order-2 ">
@@ -143,7 +143,7 @@ const ReviewFeed = () => {
                   </div>
                 </div>
               </div>
-              <div className="order-3 w-full h-12 rounded-b-lg bg-red-500">
+              <div className="order-3 w-full h-12 rounded-b-lg bg-red-500  border-t-2 border-t-slate-700">
                 <div className="flex flex-row w-full h-12 justify-around">
                   <p className="text-black self-center cursor-pointer">Like</p>
                   <p className="text-black self-center cursor-pointer">
