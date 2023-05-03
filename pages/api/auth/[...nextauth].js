@@ -3,9 +3,9 @@ import GoogleProvider from "next-auth/providers/google";
 import FacebookProvider from "next-auth/providers/facebook";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
-import connectToDatabase from "../../../lib/mongodb";
+
 import { verifyPassword } from "../../../lib/auth";
-import clientPromise from "../../../lib/fuck";
+import clientPromise from "../../../lib/mongodb";
 
 export const authOptions = {
   providers: [
@@ -82,7 +82,7 @@ export const authOptions = {
       if (token?._id) session.user._id = token._id;
       if (token?.isAdmin) session.user.isAdmin = token.isAdmin;
       if (token?.username) session.user.username = token.username;
-      token.username = session.user.username
+      token.username = session.user.username;
       return session;
     },
   },
