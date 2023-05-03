@@ -3,7 +3,7 @@ import GoogleProvider from "next-auth/providers/google";
 import FacebookProvider from "next-auth/providers/facebook";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
-
+import connectToDatabase from "../../../lib/connectToDatabase";
 import { verifyPassword } from "../../../lib/auth";
 import clientPromise from "../../../lib/mongodb";
 
@@ -23,18 +23,18 @@ export const authOptions = {
 
       async authorize(credentials) {
         try {
-          console.log("starting auth process...");
+          //console.log("starting auth process...");
           const client = await connectToDatabase();
 
-          console.log("connected to database");
+          //console.log("connected to database");
 
           const usersCollection = client.db().collection("users");
-          console.log(`retrieved user collection:`, usersCollection);
+          // console.log(`retrieved user collection:`, usersCollection);
 
           const user = await usersCollection.findOne({
             username: credentials.username,
           });
-          console.log("Found user:", user);
+          //console.log("Found user:", user);
 
           if (!user) {
             throw new Error("No user found with this username...");
@@ -49,7 +49,7 @@ export const authOptions = {
             throw new Error("Could not log you in!");
           }
 
-          console.log("auth successful");
+          // console.log("auth successful");
 
           return {
             id: user._id,
