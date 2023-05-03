@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
 import { MongoClient } from "mongodb";
 import { useSession, signOut, getSession } from "next-auth/react";
+import { useEffect } from "react";
 
 export async function getServerSideProps(context) {
   const { username } = context.query;
@@ -23,12 +24,23 @@ export async function getServerSideProps(context) {
     return { notFound: true };
   }
 
-  return { props: { user } };
+   // Fetch user's posts
+   const posts = await client
+   .db()
+   .collection("posts")
+   .find({ user: 'test' }, { projection: { _id: 0 , createdAt: 0} })
+   .toArray();
+
+   console.log(posts)
+
+  return { props: { user, session, posts } };
 }
 
-export default function UserProfilePage({ user }) {
+export default function UserProfilePage({ user, posts }) {
   const router = useRouter();
   const { data: session, status } = useSession();
+
+  
 
   if (router.isFallback) {
     return <div>Loading...</div>;
@@ -58,7 +70,14 @@ export default function UserProfilePage({ user }) {
               <br></br>
             </div>
 
-            <div className="bg-slate-800 border-2 border-slate-700 rounded-lg container justify-center flex w-5/6 h-1/4 order-4 pt-6"></div>
+            <div className="bg-slate-800 border-2 border-slate-700 rounded-lg container justify-center flex w-5/6 h-1/4 order-4 pt-6">
+              {posts.map((post, index) => (
+                <div key={index}>
+                  <h2>{post.sliderRating}</h2>
+                  <p>{post.sliderRating}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>

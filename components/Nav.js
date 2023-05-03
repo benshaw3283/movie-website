@@ -7,8 +7,12 @@ import { AvatarIcon, Dropdown } from "./RadixComponents";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import radixStyle from "../styles/radixSign.module.css";
 
+
+
 const Nav = () => {
   const { data: session } = useSession();
+
+
 
   if (!session) {
     return (
@@ -76,7 +80,7 @@ const Nav = () => {
             <DropdownMenu.Portal>
               <DropdownMenu.Content className={radixStyle.DropdownMenuContent}>
                 <DropdownMenu.Item className={radixStyle.DropdownMenuItem}>
-                  <Link href="/profile">Profile</Link>
+                  <Link href={`/user/${session.user.username}`} >Profile</Link>
                 </DropdownMenu.Item>
 
                 <DropdownMenu.Item className={radixStyle.DropdownMenuItem}>
