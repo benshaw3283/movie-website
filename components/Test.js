@@ -1,12 +1,12 @@
 import {MongoClient} from 'mongodb'
 
 
-const Test = () => {
+const Test = (props) => {
 
   
   return (
     <div>
-      <button  style={{color:'black'}}>CLICK ME</button>
+      <h1 className='text-white'>{props.Title}</h1>
     </div>
   )
 }
