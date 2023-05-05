@@ -7,6 +7,19 @@ import Image from "next/dist/client/image";
 import styles from "/styles/radixAlertDialog.module.css";
 import IMDbIcon from "/public/imdb.png";
 
+async function deleteReview(_id) {
+  const response = await fetch("/api/mongoReviews/mongoDeleteReview", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      _id: _id,
+    }),
+  });
+  return response;
+}
+
 export async function getServerSideProps(context) {
   const { username } = context.query;
   const session = await getSession(context);
@@ -29,11 +42,14 @@ export async function getServerSideProps(context) {
   }
 
   // Fetch user's posts
-  const posts = await client
+  const data = await client
     .db()
     .collection("posts")
-    .find({ user: username }, { projection: { _id: 0, createdAt: 0 } })
+    .find({ user: username})
     .toArray();
+
+  const posts = JSON.parse(JSON.stringify(data))
+    
 
   return { props: { user, session, posts } };
 }
@@ -47,15 +63,42 @@ export default function UserProfilePage({ user, posts }) {
     async function postsHandler() {
       const mapPosts = posts.map((post) => ({
         ...post,
+        createdAt: new Date(post.createdAt)
       }));
 
+      // Sort reviews in reverse order based on createdAt
+      const sortedReviews = mapPosts.sort(
+        (a, b) => b.createdAt - a.createdAt
+      );
       setReviews(() => {
-        const updatedReviews = [...mapPosts];
+        const updatedReviews = [...sortedReviews];
         return updatedReviews;
       });
     }
     postsHandler();
   }, [posts]);
+
+  const formatLocalDate = (date) => {
+    const options = {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "numeric",
+      minute: "numeric",
+      hour12: true,
+    };
+    return date.toLocaleDateString(undefined, options);
+  };
+
+  async function handleDeleteReview(_id) {
+    try {
+      await deleteReview(_id);
+      // After deleting the review, update the reviews state to remove the deleted review
+      setReviews(reviews.filter((review) => review._id !== _id));
+    } catch (e) {
+      console.log(e);
+    }
+  }
 
   if (router.isFallback) {
     return <div>Loading...</div>;
@@ -68,14 +111,15 @@ export default function UserProfilePage({ user, posts }) {
           <div className="flex flex-col items-center w-full h-full">
             <div className="order-1 ">
               <br></br>
-              <br></br>
-              <br></br>
+              
+              
             </div>
-            <div className="bg-slate-800 border-2 border-slate-700 rounded-lg container justify-center flex w-1/2 h-1/4 order-2 ">
-              <div className="float-left"></div>
-              <div className="flex flex-col container justify-center">
+            <div className="bg-slate-800 border-2 border-slate-700 rounded-lg container justify-center  flex w-1/2 h-1/4 order-2 ">
+              <div className="flex flex-col container justify-center  h-60">
+                
                 <div className="order-1">
                   <h1 className="text-white">{user.username}</h1>
+                  
                   <h1></h1>
                 </div>
               </div>
@@ -86,6 +130,7 @@ export default function UserProfilePage({ user, posts }) {
             </div>
 
             <div className="bg-slate-800 border-2 border-slate-700 rounded-lg container grid grid-cols-2  w-5/6 min-h-fit order-4 py-2">
+              <h1 className="absolute justify-self-center">POSTS</h1>
               {reviews.length ? (
                 reviews.map((review, index) => (
                   <div key={index} className="">
@@ -96,7 +141,9 @@ export default function UserProfilePage({ user, posts }) {
                             <h1>Avatar</h1>
                           </div>
                           <h1 className="text-black">{review.user}</h1>
-                          <p className="text-blue-400 px-16"></p>
+                          <p className="text-blue-400 px-16">
+                            {formatLocalDate(review.createdAt)}
+                          </p>
                         </div>
                         <div className="order-2 flex w-full h-3/4  overflow-clip">
                           <div id="main-left" className="flex w-2/3">
@@ -156,7 +203,6 @@ export default function UserProfilePage({ user, posts }) {
                             <p className="text-black self-center cursor-pointer">
                               Share
                             </p>
-
 
                             {session &&
                             (session.user.username === review.user ||
@@ -240,12 +286,18 @@ export default function UserProfilePage({ user, posts }) {
                   </div>
                 ))
               ) : (
-                <div className="bg-slate-900 container rounded-lg flex justify-center h-2/5 w-full ">
-                  <div className="justify-center ">
-                    <p>No reviews to display...</p>
+                <div className="bg-slate-900 h-screen">
+                  <div className="bg-slate-800 container rounded-lg flex justify-center h-full w-full ">
+                    <div className="justify-center ">
+                      <p>No reviews to display...</p>
+                    </div>
                   </div>
                 </div>
               )}
+            </div>
+            <div className="order-5">
+              <br></br>
+              
             </div>
           </div>
         </div>
