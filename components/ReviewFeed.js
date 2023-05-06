@@ -119,7 +119,7 @@ const ReviewFeed = () => {
                       {review.movieData.Year} || {review.movieData.Genre} ||
                     </div>
                     <div className="text-gray-500 ">
-                      <Image alt="IMDbLogo" src={IMDbIcon} />{" "}
+                      <Image alt="IMDbLogo" src={IMDbIcon} />
                       {review.movieData.imdbRating}
                     </div>
                   </div>

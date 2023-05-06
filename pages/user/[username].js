@@ -6,6 +6,14 @@ import * as AlertDialog from "@radix-ui/react-alert-dialog";
 import Image from "next/dist/client/image";
 import styles from "/styles/radixAlertDialog.module.css";
 import IMDbIcon from "/public/imdb.png";
+import dynamic from "next/dynamic";
+import * as Dialog from "@radix-ui/react-dialog";
+import dialogStyles from "/styles/radixSign.module.css";
+
+const EditAvatar = dynamic(() => import("/components/EditAvatar"), {
+  ssr: false,
+  loading: () => <p>Loading...</p>,
+});
 
 async function deleteReview(_id) {
   const response = await fetch("/api/mongoReviews/mongoDeleteReview", {
@@ -45,11 +53,10 @@ export async function getServerSideProps(context) {
   const data = await client
     .db()
     .collection("posts")
-    .find({ user: username})
+    .find({ user: username })
     .toArray();
 
-  const posts = JSON.parse(JSON.stringify(data))
-    
+  const posts = JSON.parse(JSON.stringify(data));
 
   return { props: { user, session, posts } };
 }
@@ -63,13 +70,11 @@ export default function UserProfilePage({ user, posts }) {
     async function postsHandler() {
       const mapPosts = posts.map((post) => ({
         ...post,
-        createdAt: new Date(post.createdAt)
+        createdAt: new Date(post.createdAt),
       }));
 
       // Sort reviews in reverse order based on createdAt
-      const sortedReviews = mapPosts.sort(
-        (a, b) => b.createdAt - a.createdAt
-      );
+      const sortedReviews = mapPosts.sort((a, b) => b.createdAt - a.createdAt);
       setReviews(() => {
         const updatedReviews = [...sortedReviews];
         return updatedReviews;
@@ -111,15 +116,52 @@ export default function UserProfilePage({ user, posts }) {
           <div className="flex flex-col items-center w-full h-full">
             <div className="order-1 ">
               <br></br>
-              
-              
             </div>
             <div className="bg-slate-800 border-2 border-slate-700 rounded-lg container justify-center  flex w-1/2 h-1/4 order-2 ">
               <div className="flex flex-col container justify-center  h-60">
-                
                 <div className="order-1">
                   <h1 className="text-white">{user.username}</h1>
-                  
+                  <Dialog.Root>
+                    <Dialog.Trigger asChild>
+                      <button className="">Edit profile picture</button>
+                    </Dialog.Trigger>
+                    <Dialog.Portal>
+                      <Dialog.Overlay className={dialogStyles.DialogOverlay}>
+                        <Dialog.Content className={dialogStyles.DialogContent}>
+                          <Dialog.Title className={dialogStyles.DialogTitle}>
+                            <strong> Edit profile picture </strong>
+                          </Dialog.Title>
+                          <Dialog.Description
+                            className={dialogStyles.DialogDescription}
+                          >
+                            Make changes to your profile here.
+                          </Dialog.Description>
+
+                          <EditAvatar username={session.user.username} />
+
+                          <div
+                            style={{
+                              display: "flex",
+                              marginTop: 25,
+                              justifyContent: "flex-end",
+                            }}
+                          >
+                            <Dialog.Close asChild>
+                              <button className="Button green">
+                                Save changes
+                              </button>
+                            </Dialog.Close>
+                          </div>
+                          <Dialog.Close asChild>
+                            <button className="IconButton" aria-label="Close">
+                              X
+                            </button>
+                          </Dialog.Close>
+                        </Dialog.Content>
+                      </Dialog.Overlay>
+                    </Dialog.Portal>
+                  </Dialog.Root>
+
                   <h1></h1>
                 </div>
               </div>
@@ -297,7 +339,6 @@ export default function UserProfilePage({ user, posts }) {
             </div>
             <div className="order-5">
               <br></br>
-              
             </div>
           </div>
         </div>

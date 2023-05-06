@@ -9,7 +9,7 @@
   right: 0px;
   bottom: 0px;
   left: 0px;
-  display: flex;
+  display:flex;
   align-items: center;
   justify-content: center;
   pointer-events: all;
