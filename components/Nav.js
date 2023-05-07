@@ -6,13 +6,15 @@ import Image from "next/image";
 import { AvatarIcon, Dropdown } from "./RadixComponents";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import radixStyle from "../styles/radixSign.module.css";
+import { useEffect } from "react";
+import UserImage from "./UserImage";
 
 
 
 const Nav = () => {
   const { data: session } = useSession();
 
-
+  
 
   if (!session) {
     return (
@@ -61,6 +63,7 @@ const Nav = () => {
         
         <nav className={navBar.home}>
           <Link href="/">Home</Link>
+          
         </nav>
 
         <nav className={navBar.account}>
@@ -71,8 +74,8 @@ const Nav = () => {
                   <p> {session.user.name || session.user.username} </p>
                 </div>
 
-                <div style={{ display: "inline-block", paddingLeft: "10px" }}>
-                  <AvatarIcon />
+                <div className="inline-block pl-10">
+                  <UserImage height={50} width={50}/>
                 </div>
               </div>
             </DropdownMenu.Trigger>
