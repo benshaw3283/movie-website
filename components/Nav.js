@@ -54,27 +54,27 @@ const Nav = () => {
     );
   } else {
     return (
-      <div className='flex flex-row items-center w-full bg-gray-900 border-b-2 py-2 border-slate-800 sticky top-0 z-[20]'>
+      <div className='flex flex-row items-center w-full bg-gray-900 border-b-2 pt-2 border-slate-800 sticky top-0 z-[20]'>
         <div className={navBar.nav1}>
 
         </div>
-        <div className={navBar.nav2}>
+        <div id='nav2' className='w-3/5 order-2 justify-between flex align-middle place-items-center'>
 
         
-        <nav className={navBar.home}>
+        <nav className='pl-24  flex'>
           <Link href="/">Home</Link>
           
         </nav>
 
-        <nav className={navBar.account}>
+        <nav className='pr-24 '>
           <DropdownMenu.Root>
             <DropdownMenu.Trigger asChild>
-              <div style={{ position: "center", cursor: "pointer" }}>
-                <div style={{ display: "inline-block" }}>
+              <div style={{ position: "center", cursor: "pointer"}}>
+                <div style={{ display: "inline-block" , alignItems: 'center'}}>
                   <p> {session.user.name || session.user.username} </p>
                 </div>
 
-                <div className="inline-block pl-10">
+                <div className="inline-block pl-5 align-middle">
                   <UserImage height={50} width={50}/>
                 </div>
               </div>
