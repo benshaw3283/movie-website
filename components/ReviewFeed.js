@@ -104,7 +104,7 @@ const ReviewFeed = () => {
             <div className="bg-slate-800 container rounded-lg flex flex-col h-2/5 w-full my-10 border-2 border-slate-700">
               <div className="order-1  w-100% h-12 rounded-t-lg  bg-green-400 border-b-2 border-b-slate-700">
                 <div className="text-red-400 flex inset-x-0 top-0 justify-start float-left">
-                  <Image alt='userImage' src={review.user.image} width={50} height={50}/>
+                  <Image alt='userImage' src={review.user.image} width={40} height={40}/>
                   
                 </div>
                 <h1 className="text-black">{review.user.username}</h1>
