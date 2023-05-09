@@ -20,6 +20,20 @@ async function deleteReview(_id) {
   return response;
 }
 
+async function getUserByReview(username) {
+  const response = await fetch("/api/mongoReviews/mongoGetUserByReview", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      username: username,
+    }),
+  });
+  const user = await response.json();
+  return user;
+}
+
 const ReviewFeed = () => {
   const [reviews, setReviews] = useState([]);
   const { data: session, status } = useSession();
@@ -28,35 +42,37 @@ const ReviewFeed = () => {
     async function fetchReview() {
       const response = await fetch("/api/mongoReviews/mongoGetReview");
       const data = await response.json();
-
-      // Convert createdAt values to Date objects
-      const reviewsWithDates = data.map((review) => ({
-        ...review,
-        createdAt: new Date(review.createdAt),
-      }));
-
-      // Sort reviews in reverse order based on createdAt
-      const sortedReviews = reviewsWithDates.sort(
+  
+      const updatedReviews = await Promise.all(
+        data.map(async (review) => {
+          const user = await getUserByReview(review.user);
+          return {
+            ...review,
+            createdAt: new Date(review.createdAt),
+            user: user,
+          };
+        })
+      );
+  
+      const sortedReviews = updatedReviews.sort(
         (a, b) => b.createdAt - a.createdAt
       );
-
+  
       setReviews(() => {
         const maxLength = 30;
         const updatedReviews = [...sortedReviews];
-
+  
         if (updatedReviews.length > maxLength) {
           updatedReviews.splice(maxLength, Infinity);
         }
         return updatedReviews;
       });
     }
-
   
-
     fetchReview();
   }, []);
 
-  const formatLocalDate = (date) => {
+  function formatLocalDate(date) {
     const options = {
       year: "numeric",
       month: "long",
@@ -66,7 +82,7 @@ const ReviewFeed = () => {
       hour12: true,
     };
     return date.toLocaleDateString(undefined, options);
-  };
+  }
 
   async function handleDeleteReview(_id) {
     try {
@@ -77,18 +93,21 @@ const ReviewFeed = () => {
       console.log(e);
     }
   }
+  
 
   return (
     <div>
       {reviews.length ? (
         reviews.map((review, index) => (
           <div key={index}>
+            
             <div className="bg-slate-800 container rounded-lg flex flex-col h-2/5 w-full my-10 border-2 border-slate-700">
               <div className="order-1  w-100% h-12 rounded-t-lg  bg-green-400 border-b-2 border-b-slate-700">
                 <div className="text-red-400 flex inset-x-0 top-0 justify-start float-left">
-                  <h1>Avatar</h1>
+                  <Image alt='userImage' src={review.user.image} width={50} height={50}/>
+                  
                 </div>
-                <h1 className="text-black">{review.user}</h1>
+                <h1 className="text-black">{review.user.username}</h1>
                 <p className="text-blue-400 px-16">
                   {formatLocalDate(review.createdAt)}
                 </p>

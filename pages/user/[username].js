@@ -118,13 +118,16 @@ export default function UserProfilePage({ user, posts }) {
               <br></br>
             </div>
             <div className="bg-slate-800 border-2 border-slate-700 rounded-lg container justify-center  flex w-1/2 h-1/4 order-2 ">
-            <Image src={user.image} alt='f' width={300} height={10} className="float-left "/>
+              <Image
+                src={user.image}
+                alt="f"
+                width={300}
+                height={10}
+                className="float-left "
+              />
               <div className="flex flex-col container justify-center  h-60">
-              
                 <div className="order-1 ">
-                
                   <h1 className="text-white">{user.username}</h1>
-
                 </div>
                 <div className="order-2">
                   <Dialog.Root>
@@ -167,8 +170,7 @@ export default function UserProfilePage({ user, posts }) {
                       </Dialog.Overlay>
                     </Dialog.Portal>
                   </Dialog.Root>
-                  </div>
-                  
+                </div>
               </div>
             </div>
 
