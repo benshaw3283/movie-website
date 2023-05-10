@@ -65,7 +65,7 @@ export default function UserProfilePage({ user, posts }) {
   const router = useRouter();
   const { data: session, status } = useSession();
   const [reviews, setReviews] = useState([]);
-  const [following, setFollowing] = useState(false)
+  const [following, setFollowing] = useState(false);
 
   useEffect(() => {
     async function postsHandler() {
@@ -80,9 +80,16 @@ export default function UserProfilePage({ user, posts }) {
         const updatedReviews = [...sortedReviews];
         return updatedReviews;
       });
+
+      if (user.followers.includes(session.user.username)) {
+        setFollowing(true)
+      } else {
+        setFollowing(false)
+      }
+
     }
     postsHandler();
-  }, [posts]);
+  }, [posts,session.user.username, user.followers]);
 
   const formatLocalDate = (date) => {
     const options = {
@@ -106,10 +113,42 @@ export default function UserProfilePage({ user, posts }) {
     }
   }
 
-  async function handleFollow(){
-    setFollowing((prev)=> !prev);
+  async function handleFollow() {
+    try {
+      setFollowing(true);
+      const response = await fetch("/api/userActions/follow", {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: user.username,
+          follower: session.user.username,
+        }),
+      });
+      return response;
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
-    
+  async function handleUnfollow() {
+    try {
+      setFollowing(false);
+      const response = await fetch("/api/userActions/unfollow", {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: user.username,
+          follower: session.user.username,
+        }),
+      });
+      return response;
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   if (router.isFallback) {
@@ -144,14 +183,14 @@ export default function UserProfilePage({ user, posts }) {
                     <div className="flex ">
                       <h2 className="pr-2">Followers </h2>
                       <p className="bg-slate-900 h-fit border-2 rounded border-slate-700 px-2">
-                        58
+                        {user.followers.length}
                       </p>
                     </div>
 
                     <div className="flex">
                       <h2 className="pr-2">Reviews</h2>
                       <p className="bg-slate-900 h-fit border-2 rounded border-slate-700 px-2">
-                        25
+                        {reviews.length}
                       </p>
                     </div>
 
@@ -171,74 +210,82 @@ export default function UserProfilePage({ user, posts }) {
                 </div>
 
                 <div className="  h-8 w-5/6 order-4 container flex ">
-                  {session.user.username !== user.username ? (
+                  {session.user.username === user.username ? (
                     <div className="flex flex-row w-full justify-evenly">
-                    <div id="editPic" className="flex order-1">
-                      <Dialog.Root>
-                        <Dialog.Trigger asChild>
-                          <button className="">Edit profile picture</button>
-                        </Dialog.Trigger>
-                        <Dialog.Portal>
-                          <Dialog.Overlay
-                            className={dialogStyles.DialogOverlay}
-                          >
-                            <Dialog.Content
-                              className={dialogStyles.DialogContent}
+                      <div id="editPic" className="flex order-1">
+                        <Dialog.Root>
+                          <Dialog.Trigger asChild>
+                            <button className="">Edit profile picture</button>
+                          </Dialog.Trigger>
+                          <Dialog.Portal>
+                            <Dialog.Overlay
+                              className={dialogStyles.DialogOverlay}
                             >
-                              <Dialog.Title
-                                className={dialogStyles.DialogTitle}
+                              <Dialog.Content
+                                className={dialogStyles.DialogContent}
                               >
-                                <strong> Edit profile picture </strong>
-                              </Dialog.Title>
-                              <Dialog.Description
-                                className={dialogStyles.DialogDescription}
-                              >
-                                Make changes to your profile here.
-                              </Dialog.Description>
+                                <Dialog.Title
+                                  className={dialogStyles.DialogTitle}
+                                >
+                                  <strong> Edit profile picture </strong>
+                                </Dialog.Title>
+                                <Dialog.Description
+                                  className={dialogStyles.DialogDescription}
+                                >
+                                  Make changes to your profile here.
+                                </Dialog.Description>
 
-                              <EditAvatar username={session.user.username} />
+                                <EditAvatar username={session.user.username} />
 
-                              <div
-                                style={{
-                                  display: "flex",
-                                  marginTop: 25,
-                                  justifyContent: "flex-end",
-                                }}
-                              >
+                                <div
+                                  style={{
+                                    display: "flex",
+                                    marginTop: 25,
+                                    justifyContent: "flex-end",
+                                  }}
+                                >
+                                  <Dialog.Close asChild>
+                                    <button className="Button green">
+                                      Save changes
+                                    </button>
+                                  </Dialog.Close>
+                                </div>
                                 <Dialog.Close asChild>
-                                  <button className="Button green">
-                                    Save changes
+                                  <button
+                                    className="IconButton"
+                                    aria-label="Close"
+                                  >
+                                    X
                                   </button>
                                 </Dialog.Close>
-                              </div>
-                              <Dialog.Close asChild>
-                                <button
-                                  className="IconButton"
-                                  aria-label="Close"
-                                >
-                                  X
-                                </button>
-                              </Dialog.Close>
-                            </Dialog.Content>
-                          </Dialog.Overlay>
-                        </Dialog.Portal>
-                      </Dialog.Root>
-                    </div>
-                    <div className="flex order-2 place-self-center"> 
-                      <p>Edit bio</p>
-                    </div>
+                              </Dialog.Content>
+                            </Dialog.Overlay>
+                          </Dialog.Portal>
+                        </Dialog.Root>
+                      </div>
+                      <div className="flex order-2 place-self-center">
+                        <p>Edit bio</p>
+                      </div>
                     </div>
                   ) : (
                     <div className="flex flex-row w-full justify-start">
-                    <div id="follow" className="flex order-1 pl-10">
-                      {!following ? (
-                        <button onClick={()=> handleFollow()} className="bg-slate-900 px-2 rounded-lg border-2 border-slate-700 font-bold hover:border-slate-900 hover:bg-slate-700 hover:text-black">Follow</button>
-                      ): (
-                        <button onClick={()=> handleFollow()} className="bg-slate-900 px-2 rounded-lg border-2 border-slate-700 font-bold hover:border-slate-900 hover:bg-slate-700 hover:text-black" >Following</button>
-                      )}
-                      
-                    </div>
-                    
+                      <div id="follow" className="flex order-1 pl-10">
+                        {!following ? (
+                          <button
+                            onClick={() => handleFollow()}
+                            className="bg-slate-900 px-2 rounded-lg border-2 border-slate-700 font-bold hover:border-slate-900 hover:bg-slate-700 hover:text-black"
+                          >
+                            Follow
+                          </button>
+                        ) : (
+                          <button
+                            onClick={() => handleUnfollow()}
+                            className="bg-slate-900 px-2 rounded-lg border-2 border-slate-700 font-bold hover:border-slate-900 hover:bg-slate-700 hover:text-black"
+                          >
+                            Following
+                          </button>
+                        )}
+                      </div>
                     </div>
                   )}
                 </div>

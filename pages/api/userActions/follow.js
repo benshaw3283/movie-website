@@ -13,14 +13,14 @@ client.connect();
 
 export default async function addFollower(req, res) {
   if (req.method === "PATCH") {
-    const { username, user } = req.body;
+    const { username, follower } = req.body;
 
     try {
       const db = client.db();
 
       const data = await db.collection("users").findOneAndUpdate(
         { username: username },
-        { $addToSet: { followers: user } }, // Use $addToSet to add the user to the followers array
+        { $addToSet: { followers: follower } }, // Use $addToSet to add the user to the followers array
         { returnDocument: "after" }
       );
       res.status(201).json({ message: "Follower added!", ...data });
