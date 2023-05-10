@@ -65,6 +65,7 @@ export default function UserProfilePage({ user, posts }) {
   const router = useRouter();
   const { data: session, status } = useSession();
   const [reviews, setReviews] = useState([]);
+  const [following, setFollowing] = useState(false)
 
   useEffect(() => {
     async function postsHandler() {
@@ -105,6 +106,12 @@ export default function UserProfilePage({ user, posts }) {
     }
   }
 
+  async function handleFollow(){
+    setFollowing((prev)=> !prev);
+
+    
+  }
+
   if (router.isFallback) {
     return <div>Loading...</div>;
   }
@@ -117,59 +124,123 @@ export default function UserProfilePage({ user, posts }) {
             <div className="order-1 ">
               <br></br>
             </div>
-            <div className="bg-slate-800 border-2 border-slate-700 rounded-lg container justify-center  flex w-1/2 h-1/4 order-2 ">
+            <div className="bg-slate-800 border-2 border-slate-700 rounded-lg container justify-center  flex w-1/2 h-1/4 order-2 overflow-clip">
               <Image
                 src={user.image}
                 alt="f"
                 width={300}
-                height={10}
+                height={100}
                 className="float-left "
               />
-              <div className="flex flex-col container justify-center  h-60">
-                <div className="order-1 ">
-                  <h1 className="text-white">{user.username}</h1>
+              <div className="flex flex-col container justify-between py-2 h-60">
+                <div className="order-1 place-self-center bg-slate-700 h-16 w-fit rounded-lg border-4 border-slate-900 py-2 px-2">
+                  <h1 className="text-white font-bold font-mono text-5xl">
+                    {user.username}
+                  </h1>
                 </div>
-                <div className="order-2">
-                  <Dialog.Root>
-                    <Dialog.Trigger asChild>
-                      <button className="">Edit profile picture</button>
-                    </Dialog.Trigger>
-                    <Dialog.Portal>
-                      <Dialog.Overlay className={dialogStyles.DialogOverlay}>
-                        <Dialog.Content className={dialogStyles.DialogContent}>
-                          <Dialog.Title className={dialogStyles.DialogTitle}>
-                            <strong> Edit profile picture </strong>
-                          </Dialog.Title>
-                          <Dialog.Description
-                            className={dialogStyles.DialogDescription}
-                          >
-                            Make changes to your profile here.
-                          </Dialog.Description>
 
-                          <EditAvatar username={session.user.username} />
+                <div className="order-2 pl-4 flex">
+                  <div className="flex flex-row justify-around container">
+                    <div className="flex ">
+                      <h2 className="pr-2">Followers </h2>
+                      <p className="bg-slate-900 h-fit border-2 rounded border-slate-700 px-2">
+                        58
+                      </p>
+                    </div>
 
-                          <div
-                            style={{
-                              display: "flex",
-                              marginTop: 25,
-                              justifyContent: "flex-end",
-                            }}
+                    <div className="flex">
+                      <h2 className="pr-2">Reviews</h2>
+                      <p className="bg-slate-900 h-fit border-2 rounded border-slate-700 px-2">
+                        25
+                      </p>
+                    </div>
+
+                    <div className="flex">
+                      <h2 className="pr-2">Averating Rating</h2>
+                      <p className="bg-slate-900 h-fit border-2 rounded border-slate-700 px-2">
+                        67.8
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="order-3 w-1/2 pl-4">
+                  <p className="text-sm">
+                    ioo bio biobio bio bio bio bio bio bio
+                  </p>
+                </div>
+
+                <div className="  h-8 w-5/6 order-4 container flex ">
+                  {session.user.username !== user.username ? (
+                    <div className="flex flex-row w-full justify-evenly">
+                    <div id="editPic" className="flex order-1">
+                      <Dialog.Root>
+                        <Dialog.Trigger asChild>
+                          <button className="">Edit profile picture</button>
+                        </Dialog.Trigger>
+                        <Dialog.Portal>
+                          <Dialog.Overlay
+                            className={dialogStyles.DialogOverlay}
                           >
-                            <Dialog.Close asChild>
-                              <button className="Button green">
-                                Save changes
-                              </button>
-                            </Dialog.Close>
-                          </div>
-                          <Dialog.Close asChild>
-                            <button className="IconButton" aria-label="Close">
-                              X
-                            </button>
-                          </Dialog.Close>
-                        </Dialog.Content>
-                      </Dialog.Overlay>
-                    </Dialog.Portal>
-                  </Dialog.Root>
+                            <Dialog.Content
+                              className={dialogStyles.DialogContent}
+                            >
+                              <Dialog.Title
+                                className={dialogStyles.DialogTitle}
+                              >
+                                <strong> Edit profile picture </strong>
+                              </Dialog.Title>
+                              <Dialog.Description
+                                className={dialogStyles.DialogDescription}
+                              >
+                                Make changes to your profile here.
+                              </Dialog.Description>
+
+                              <EditAvatar username={session.user.username} />
+
+                              <div
+                                style={{
+                                  display: "flex",
+                                  marginTop: 25,
+                                  justifyContent: "flex-end",
+                                }}
+                              >
+                                <Dialog.Close asChild>
+                                  <button className="Button green">
+                                    Save changes
+                                  </button>
+                                </Dialog.Close>
+                              </div>
+                              <Dialog.Close asChild>
+                                <button
+                                  className="IconButton"
+                                  aria-label="Close"
+                                >
+                                  X
+                                </button>
+                              </Dialog.Close>
+                            </Dialog.Content>
+                          </Dialog.Overlay>
+                        </Dialog.Portal>
+                      </Dialog.Root>
+                    </div>
+                    <div className="flex order-2 place-self-center"> 
+                      <p>Edit bio</p>
+                    </div>
+                    </div>
+                  ) : (
+                    <div className="flex flex-row w-full justify-start">
+                    <div id="follow" className="flex order-1 pl-10">
+                      {!following ? (
+                        <button onClick={()=> handleFollow()} className="bg-slate-900 px-2 rounded-lg border-2 border-slate-700 font-bold hover:border-slate-900 hover:bg-slate-700 hover:text-black">Follow</button>
+                      ): (
+                        <button onClick={()=> handleFollow()} className="bg-slate-900 px-2 rounded-lg border-2 border-slate-700 font-bold hover:border-slate-900 hover:bg-slate-700 hover:text-black" >Following</button>
+                      )}
+                      
+                    </div>
+                    
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
@@ -213,18 +284,18 @@ export default function UserProfilePage({ user, posts }) {
 
                             <div className="bg-white flex  justify-center  border-b-2 border-b-slate-700">
                               <div className="text-gray-500  ">
-                                {review.movieData.Year} ||{" "}
+                                {review.movieData.Year} ||
                                 {review.movieData.Genre} ||
                               </div>
                               <div className="text-gray-500 ">
-                                <Image alt="IMDbLogo" src={IMDbIcon} />{" "}
+                                <Image alt="IMDbLogo" src={IMDbIcon} />
                                 {review.movieData.imdbRating}
                               </div>
                             </div>
 
                             <div className="bg-black h-5/6 flex flex-row container  border-b-2 border-b-slate-700">
                               <div className="absolute w-64 italic text-gray-500 text-xs py-1 px-1 order-1">
-                                <p>{review.movieData.Plot}</p>{" "}
+                                <p>{review.movieData.Plot}</p>
                               </div>
 
                               <div className="self-center flex order-2 ">
