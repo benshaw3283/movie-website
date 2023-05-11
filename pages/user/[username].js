@@ -9,6 +9,7 @@ import IMDbIcon from "/public/imdb.png";
 import dynamic from "next/dynamic";
 import * as Dialog from "@radix-ui/react-dialog";
 import dialogStyles from "/styles/radixSign.module.css";
+import CommentSection from "../../components/CommentSection";
 
 const EditAvatar = dynamic(() => import("/components/EditAvatar"), {
   ssr: false,
@@ -173,20 +174,7 @@ export default function UserProfilePage({ user, posts }) {
     }
   }
 
-  async function createComment(props) {
-    const response = await fetch("/api/userActions/createComment", {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        id: props,
-        user: session.user.username,
-        comment: 'blah b;lah bal',
-      }),
-    });
-    return response;
-  }
+  
 
   if (router.isFallback) {
     return <div>Loading...</div>;
@@ -436,9 +424,7 @@ export default function UserProfilePage({ user, posts }) {
                             <p className="text-black self-center cursor-pointer">
                               Like
                             </p>
-                            <p onClick={()=> createComment(review._id) } className="text-black self-center cursor-pointer">
-                              Comment
-                            </p>
+                            
                             <p className="text-black self-center cursor-pointer">
                               Share
                             </p>

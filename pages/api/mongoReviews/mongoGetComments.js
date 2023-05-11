@@ -14,15 +14,17 @@ export default async function mongoGetComments(req, res) {
     try {
       await client.connect(); // Await the connection to be established
       const db = client.db();
-      
+
       // Get the postId from the request query or params
       const { postId } = req.query;
-      
+
       // Fetch the specific post using the postId
-      const post = await db.collection("posts").findOne({ _id: new ObjectId(postId) });
-      
+      const post = await db
+        .collection("posts")
+        .findOne({ _id: new ObjectId(postId) });
+
       if (post) {
-        const comments = post.comments; // Get the comments array from the post
+        const comments = post.comments || []; // Get the comments array from the post
         res.status(200).json(comments); // Send the retrieved comments as response
       } else {
         res.status(404).json({ message: "Post not found" });

@@ -6,6 +6,7 @@ import Avatar from "../public/Avatar.jpg";
 import * as AlertDialog from "@radix-ui/react-alert-dialog";
 import styles from "../styles/radixAlertDialog.module.css";
 import IMDbIcon from "../public/imdb.png";
+import CommentSection from "./CommentSection";
 
 async function deleteReview(_id) {
   const response = await fetch("/api/mongoReviews/mongoDeleteReview", {
@@ -165,9 +166,7 @@ const ReviewFeed = () => {
               <div className="order-3 w-full h-12 rounded-b-lg bg-red-500  border-t-2 border-t-slate-700">
                 <div className="flex flex-row w-full h-12 justify-around">
                   <p className="text-black self-center cursor-pointer">Like</p>
-                  <p className="text-black self-center cursor-pointer">
-                    Comment
-                  </p>
+                  <CommentSection postId={review._id}/>
                   <p className="text-black self-center cursor-pointer">Share</p>
 
                   {session &&
