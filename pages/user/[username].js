@@ -173,6 +173,21 @@ export default function UserProfilePage({ user, posts }) {
     }
   }
 
+  async function createComment(props) {
+    const response = await fetch("/api/userActions/createComment", {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id: props,
+        user: session.user.username,
+        comment: 'blah b;lah bal',
+      }),
+    });
+    return response;
+  }
+
   if (router.isFallback) {
     return <div>Loading...</div>;
   }
@@ -421,7 +436,7 @@ export default function UserProfilePage({ user, posts }) {
                             <p className="text-black self-center cursor-pointer">
                               Like
                             </p>
-                            <p className="text-black self-center cursor-pointer">
+                            <p onClick={()=> createComment(review._id) } className="text-black self-center cursor-pointer">
                               Comment
                             </p>
                             <p className="text-black self-center cursor-pointer">

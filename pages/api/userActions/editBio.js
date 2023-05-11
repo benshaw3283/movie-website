@@ -20,7 +20,7 @@ export default async function editBio(req, res) {
 
       const data = await db.collection("users").findOneAndUpdate(
         { username: username },
-        { $set: { bio: bio } }, // Use $addToSet to add the user to the followers array
+        { $set: { bio: bio } }, 
         { returnDocument: "after" }
       );
       res.status(201).json({ message: "Bio changed!", ...data });

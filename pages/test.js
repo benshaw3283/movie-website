@@ -1,29 +1,20 @@
-
 import Image from "next/image";
-import { useRef, useEffect, } from "react";
+import { useRef, useEffect } from "react";
 //import UserAvatar from ;
 import dynamic from "next/dynamic";
 import { useSession } from "next-auth/react";
 import UserImage from "../components/UserImage";
-
-
-//const UserImage = dynamic(()=> import("../components/UserImage"), {
- // ssr: false,
-//  loading: () => <p>Loading...</p>
-//})
+import CommentSection from "../components/CommentSection";
 
 const Fuck = () => {
+  return <div >
+    <div className="w-full h-screen bg-black ">
+      <div className="flex justify-center">
 
-  const { data: session, status } = useSession();
-
- return (
-  <div>
-    <UserImage width={50} height={50}/>
-  </div>
- )
-
+    <CommentSection/>
+      </div>
+    </div>
+  </div>;
 };
 
 export default Fuck;
-
-
