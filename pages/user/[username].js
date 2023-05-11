@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import { MongoClient } from "mongodb";
 import { useSession, signOut, getSession } from "next-auth/react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import * as AlertDialog from "@radix-ui/react-alert-dialog";
 import Image from "next/dist/client/image";
 import styles from "/styles/radixAlertDialog.module.css";
@@ -66,6 +66,7 @@ export default function UserProfilePage({ user, posts }) {
   const { data: session, status } = useSession();
   const [reviews, setReviews] = useState([]);
   const [following, setFollowing] = useState(false);
+  const bioRef = useRef("");
 
   useEffect(() => {
     async function postsHandler() {
@@ -82,14 +83,13 @@ export default function UserProfilePage({ user, posts }) {
       });
 
       if (user.followers.includes(session.user.username)) {
-        setFollowing(true)
+        setFollowing(true);
       } else {
-        setFollowing(false)
+        setFollowing(false);
       }
-
     }
     postsHandler();
-  }, [posts,session.user.username, user.followers]);
+  }, [posts, session.user.username, user.followers]);
 
   const formatLocalDate = (date) => {
     const options = {
@@ -151,6 +151,28 @@ export default function UserProfilePage({ user, posts }) {
     }
   }
 
+  
+
+  async function handleEditBio() {
+    const bio = bioRef.current.value;
+    try {
+      const response = await fetch("/api/userActions/editBio", {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: user.username,
+          bio: bio,
+        }),
+      });
+      router.reload();
+      return response;
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
   if (router.isFallback) {
     return <div>Loading...</div>;
   }
@@ -172,7 +194,7 @@ export default function UserProfilePage({ user, posts }) {
                 className="float-left "
               />
               <div className="flex flex-col container justify-between py-2 h-60">
-                <div className="order-1 place-self-center bg-slate-700 h-16 w-fit rounded-lg border-4 border-slate-900 py-2 px-2">
+                <div className="order-1 place-self-center bg-slate-800 h-16 w-fit rounded-lg border-2 border-slate-700 py-2 px-2">
                   <h1 className="text-white font-bold font-mono text-5xl">
                     {user.username}
                   </h1>
@@ -204,9 +226,7 @@ export default function UserProfilePage({ user, posts }) {
                 </div>
 
                 <div className="order-3 w-1/2 pl-4">
-                  <p className="text-sm">
-                    ioo bio biobio bio bio bio bio bio bio
-                  </p>
+                  <p className="text-sm">{user.bio}</p>
                 </div>
 
                 <div className="  h-8 w-5/6 order-4 container flex ">
@@ -215,7 +235,9 @@ export default function UserProfilePage({ user, posts }) {
                       <div id="editPic" className="flex order-1">
                         <Dialog.Root>
                           <Dialog.Trigger asChild>
-                            <button className="">Edit profile picture</button>
+                            <button className="bg-slate-900 px-2 rounded-lg border-2 border-slate-700 font-bold hover:border-slate-900 hover:bg-slate-700 hover:text-black">
+                              Edit profile picture
+                            </button>
                           </Dialog.Trigger>
                           <Dialog.Portal>
                             <Dialog.Overlay
@@ -237,34 +259,64 @@ export default function UserProfilePage({ user, posts }) {
 
                                 <EditAvatar username={session.user.username} />
 
-                                <div
-                                  style={{
-                                    display: "flex",
-                                    marginTop: 25,
-                                    justifyContent: "flex-end",
-                                  }}
-                                >
-                                  <Dialog.Close asChild>
-                                    <button className="Button green">
-                                      Save changes
-                                    </button>
-                                  </Dialog.Close>
-                                </div>
                                 <Dialog.Close asChild>
                                   <button
                                     className="IconButton"
                                     aria-label="Close"
-                                  >
-                                    X
-                                  </button>
+                                  ></button>
                                 </Dialog.Close>
                               </Dialog.Content>
                             </Dialog.Overlay>
                           </Dialog.Portal>
                         </Dialog.Root>
                       </div>
-                      <div className="flex order-2 place-self-center">
-                        <p>Edit bio</p>
+                      <div
+                        id="editbio"
+                        className="flex order-2 place-self-center"
+                      >
+                        <Dialog.Root>
+                          <Dialog.Trigger asChild>
+                            <button className="bg-slate-900 px-2 rounded-lg border-2 border-slate-700 font-bold hover:border-slate-900 hover:bg-slate-700 hover:text-black">
+                              Edit Bio
+                            </button>
+                          </Dialog.Trigger>
+                          <Dialog.Portal>
+                            <Dialog.Overlay
+                              className={dialogStyles.DialogOverlay}
+                            >
+                              <Dialog.Content
+                                className={dialogStyles.DialogContent}
+                              >
+                                <Dialog.Title
+                                  className={dialogStyles.DialogTitle}
+                                >
+                                  <strong> Edit Bio </strong>
+                                </Dialog.Title>
+                                <Dialog.Description />
+
+                                <textarea
+                                  className="bg-slate-800 w-3/4 h-24 flex resize-none border-2 border-slate-700 rounded-sm"
+                                  type="text"
+                                  placeholder="Edit Bio..."
+                                  maxLength="100"
+                                  wrap="soft"
+                                  ref={bioRef}
+                                ></textarea>
+
+                                <div className="flex mt-16 justify-end ">
+                                  <Dialog.Close asChild>
+                                    <button
+                                      onClick={() => handleEditBio()}
+                                      className="bg-slate-900 px-2 rounded-lg border-2 mb-2 border-slate-700 font-bold hover:border-slate-900 hover:bg-slate-700 hover:text-black "
+                                    >
+                                      Save changes
+                                    </button>
+                                  </Dialog.Close>
+                                </div>
+                              </Dialog.Content>
+                            </Dialog.Overlay>
+                          </Dialog.Portal>
+                        </Dialog.Root>
                       </div>
                     </div>
                   ) : (
@@ -296,23 +348,28 @@ export default function UserProfilePage({ user, posts }) {
               <br></br>
             </div>
 
-            <div className="bg-slate-800 border-2 border-slate-700 rounded-lg container grid grid-cols-2  w-5/6 min-h-fit order-4 py-2">
-              <h1 className="absolute justify-self-center">POSTS</h1>
+            <div className="bg-slate-800 border-2 border-slate-700 rounded-lg container grid grid-cols-2  w-5/6 min-h-fit order-4 py-2 ">
+              <h1 className="absolute justify-self-center font-semibold text-slate-500 text-xl underline">REVIEWS</h1>
               {reviews.length ? (
                 reviews.map((review, index) => (
-                  <div key={index} className="">
-                    <div className=" w-full px-4  ">
-                      <div className="bg-slate-800 container rounded-lg flex flex-col h-full w-4/5 my-10 border-2 border-slate-700 ">
-                        <div className="order-1  w-full h-12 rounded-t-lg  bg-green-400 border-b-2 border-b-slate-700">
+                  <div key={index} className=" flex my-4">
+                    <div className=" w-full px-4  flex justify-center">
+                      <div className="bg-slate-800 container rounded-lg flex flex-col h-full w-4/5   ">
+                        <div className="order-1  w-full h-12 rounded-t-lg  bg-green-400 border-2 border-slate-700">
                           <div className="text-red-400 flex inset-x-0 top-0 justify-start float-left">
-                            <h1>Avatar</h1>
+                            <Image
+                              alt="userImage"
+                              src={user.image}
+                              width={40}
+                              height={40}
+                            />
                           </div>
                           <h1 className="text-black">{review.user}</h1>
                           <p className="text-blue-400 px-16">
                             {formatLocalDate(review.createdAt)}
                           </p>
                         </div>
-                        <div className="order-2 flex w-full h-3/4  overflow-clip">
+                        <div className="order-2 flex w-full h-3/4  overflow-clip border-x-2 border-slate-700">
                           <div id="main-left" className="flex w-2/3">
                             <Image
                               alt="movieImage"
@@ -359,7 +416,7 @@ export default function UserProfilePage({ user, posts }) {
                             </div>
                           </div>
                         </div>
-                        <div className="order-3 w-full h-12 rounded-b-lg bg-red-500  border-t-2 border-t-slate-700">
+                        <div className="order-3 w-full h-12 rounded-b-lg bg-red-500  border-2 border-slate-700">
                           <div className="flex flex-row w-full h-12 justify-around">
                             <p className="text-black self-center cursor-pointer">
                               Like

@@ -37,7 +37,7 @@ const EditAvatar = (props) => {
 
   return (
     <div>
-      <div className="flex ">
+      <div className="flex container">
         <div className="inline-block px-2">
           <Avatar
             width={200}
@@ -58,13 +58,15 @@ const EditAvatar = (props) => {
           )}
         </div>
       </div>
-
+        <br></br>
+        <div className="flex justify-end">
       <button
         onClick={() => updateUserImage(props) &&  router.reload() }
-        className="text-black"
+        className="bg-slate-900 px-2 rounded-lg border-2 border-slate-700 font-bold hover:border-slate-900 hover:bg-slate-700 hover:text-black justify-end"
       >
         Change profile picture!
       </button>
+      </div>
     </div>
   );
 };
