@@ -10,6 +10,7 @@ import dynamic from "next/dynamic";
 import * as Dialog from "@radix-ui/react-dialog";
 import dialogStyles from "/styles/radixSign.module.css";
 import CommentSection from "../../components/CommentSection";
+import Like from '../../components/like'
 
 const EditAvatar = dynamic(() => import("/components/EditAvatar"), {
   ssr: false,
@@ -89,6 +90,7 @@ export default function UserProfilePage({ user, posts }) {
         setFollowing(false);
       }
     }
+
     postsHandler();
   }, [posts, session.user.username, user.followers]);
 
@@ -152,8 +154,6 @@ export default function UserProfilePage({ user, posts }) {
     }
   }
 
-  
-
   async function handleEditBio() {
     const bio = bioRef.current.value;
     try {
@@ -173,8 +173,6 @@ export default function UserProfilePage({ user, posts }) {
       console.log(err);
     }
   }
-
-  
 
   if (router.isFallback) {
     return <div>Loading...</div>;
@@ -352,7 +350,9 @@ export default function UserProfilePage({ user, posts }) {
             </div>
 
             <div className="bg-slate-800 border-2 border-slate-700 rounded-lg container grid grid-cols-2  w-5/6 min-h-fit order-4 py-2 ">
-              <h1 className="absolute justify-self-center font-semibold text-slate-500 text-xl underline">REVIEWS</h1>
+              <h1 className="absolute justify-self-center font-semibold text-slate-500 text-xl underline">
+                REVIEWS
+              </h1>
               {reviews.length ? (
                 reviews.map((review, index) => (
                   <div key={index} className=" flex my-4">
@@ -419,12 +419,14 @@ export default function UserProfilePage({ user, posts }) {
                             </div>
                           </div>
                         </div>
-                        <div className="order-3 w-full h-12 rounded-b-lg bg-red-500  border-2 border-slate-700">
-                          <div className="flex flex-row w-full h-12 justify-around">
-                            <p className="text-black self-center cursor-pointer">
-                              Like
-                            </p>
-                            
+                        <div className="order-3 w-full h-12 rounded-b-lg bg-green-500  border-2 border-slate-700">
+                          <div className="flex flex-row w-full h-12 justify-around ">
+                            <div className="flex self-center">
+                              <p>{!review.likes ? '0' : review.likes.length}</p>
+                            <Like postId={review._id} reviewLikes={review.likes} />
+                  </div>
+                            <CommentSection postId={review._id} />
+
                             <p className="text-black self-center cursor-pointer">
                               Share
                             </p>

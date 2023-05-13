@@ -7,6 +7,7 @@ import * as AlertDialog from "@radix-ui/react-alert-dialog";
 import styles from "../styles/radixAlertDialog.module.css";
 import IMDbIcon from "../public/imdb.png";
 import CommentSection from "./CommentSection";
+import Like from "./like";
 
 async function deleteReview(_id) {
   const response = await fetch("/api/mongoReviews/mongoDeleteReview", {
@@ -38,6 +39,7 @@ async function getUserByReview(username) {
 const ReviewFeed = () => {
   const [reviews, setReviews] = useState([]);
   const { data: session, status } = useSession();
+  const [liked,setLiked] = useState(false)
 
   useEffect(() => {
     async function fetchReview() {
@@ -163,16 +165,19 @@ const ReviewFeed = () => {
                   </div>
                 </div>
               </div>
-              <div className="order-3 w-full h-12 rounded-b-lg bg-red-500  border-t-2 border-t-slate-700">
+              <div className="order-3 w-full h-12 rounded-b-lg bg-green-500  border-t-2 border-t-slate-700">
                 <div className="flex flex-row w-full h-12 justify-around">
-                  <p className="text-black self-center cursor-pointer">Like</p>
+                <div className="flex self-center">
+                              <p>{!review.likes ? '0' : review.likes.length}</p>
+                            <Like postId={review._id} reviewLikes={review.likes} />
+                  </div>
                   <CommentSection postId={review._id}/>
-                  <p className="text-black self-center cursor-pointer">Share</p>
+                  <p className="text-gray-400 self-center ">Share</p>
 
                   {session &&
-                  (session.user.username === review.user ||
-                    session.user.email === review.user ||
-                    session.user.name === review.user) ? (
+                  (session.user.username === review.user.username ||
+                    session.user.email === review.user.email ||
+                    session.user.name === review.user.name) ? (
                     <div className="self-center cursor-pointer">
                       <AlertDialog.Root>
                         <AlertDialog.Trigger asChild>
