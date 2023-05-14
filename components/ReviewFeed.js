@@ -39,13 +39,13 @@ async function getUserByReview(username) {
 const ReviewFeed = () => {
   const [reviews, setReviews] = useState([]);
   const { data: session, status } = useSession();
-  
+  const [followed, setFollowed] = useState(false);
 
   useEffect(() => {
     async function fetchReview() {
       const response = await fetch("/api/mongoReviews/mongoGetReview");
       const data = await response.json();
-  
+
       const updatedReviews = await Promise.all(
         data.map(async (review) => {
           const user = await getUserByReview(review.user);
@@ -56,24 +56,59 @@ const ReviewFeed = () => {
           };
         })
       );
-  
+
       const sortedReviews = updatedReviews.sort(
         (a, b) => b.createdAt - a.createdAt
       );
-  
+
       setReviews(() => {
         const maxLength = 30;
         const updatedReviews = [...sortedReviews];
-  
+
         if (updatedReviews.length > maxLength) {
           updatedReviews.splice(maxLength, Infinity);
         }
         return updatedReviews;
       });
     }
-  
-    fetchReview();
-  }, []);
+
+    async function fetchFollowedReview() {
+      const response = await fetch(
+        `/api/mongoReviews/mongoGetFollowedReview?sessionUser=${session.user.username}`
+      );
+      const data = await response.json();
+
+      const updatedReviews = await Promise.all(
+        data.map(async (review) => {
+          const user = await getUserByReview(review.user);
+          return {
+            ...review,
+            createdAt: new Date(review.createdAt),
+            user: user,
+          };
+        })
+      );
+
+      const sortedReviews = updatedReviews.sort(
+        (a, b) => b.createdAt - a.createdAt
+      );
+
+      setReviews(() => {
+        const maxLength = 30;
+        const updatedReviews = [...sortedReviews];
+
+        if (updatedReviews.length > maxLength) {
+          updatedReviews.splice(maxLength, Infinity);
+        }
+        return updatedReviews;
+      });
+    }
+    if (!followed) {
+      fetchReview();
+    } else {
+      fetchFollowedReview();
+    }
+  }, [session, followed]);
 
   function formatLocalDate(date) {
     const options = {
@@ -96,33 +131,64 @@ const ReviewFeed = () => {
       console.log(e);
     }
   }
-  
+
+  async function handleSwitchFeed() {
+    try {
+      setFollowed((prev) => !prev);
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
   return (
     <div>
-      <div className="flex container bg-red-400 justify-center">
-        <div className="flex flex-row justify-center bg-slate-700 rounded-sm">
-        <button className="flex order-1 px-1 bg-green-400 text-lg">
-          Public
-          </button>
-          
-          <button className="flex order-2 text-lg px-1">
-            Followed
-          </button>
+      <div className="flex container  justify-center">
+        {!followed ? (
+          <div className="flex flex-row justify-center bg-slate-700 rounded-sm border-2 border-slate-600">
+            <button className="flex order-1 px-1 bg-slate-800 text-lg rounded-sm">
+              Public
+            </button>
+
+            <button
+              className="flex order-2 text-lg px-1 "
+              onClick={() => handleSwitchFeed()}
+            >
+              Followed
+            </button>
           </div>
-        </div>
+        ) : (
+          <div className="flex flex-row justify-center bg-slate-700 rounded-sm border-2 border-slate-600">
+            <button
+              className="flex order-1 px-1  text-lg rounded-sm"
+              onClick={() => handleSwitchFeed()}
+            >
+              Public
+            </button>
+
+            <button className="flex order-2 text-lg px-1 bg-slate-800">
+              Followed
+            </button>
+          </div>
+        )}
+      </div>
+
       {reviews.length ? (
         reviews.map((review, index) => (
           <div key={index}>
-            
             <div className="bg-slate-800 container rounded-lg flex flex-col h-2/5 w-full my-10 border-2 border-slate-700">
               <div className="order-1  w-100% h-12 rounded-t-lg  bg-green-400 border-b-2 border-b-slate-700">
                 <div className="text-red-400 flex inset-x-0 top-0 justify-start float-left">
-                  <Image alt='userImage' src={review.user.image} width={40} height={40}/>
-                  
+                  <Image
+                    alt="userImage"
+                    src={review.user.image}
+                    width={40}
+                    height={40}
+                  />
                 </div>
                 <div className="pl-2 flex">
-                <h1 className="text-black font-semibold text-lg">{review.user.username}</h1>
+                  <h1 className="text-black font-semibold text-lg">
+                    {review.user.username}
+                  </h1>
                 </div>
                 <p className="text-blue-400 px-16 text-sm">
                   {formatLocalDate(review.createdAt)}
@@ -137,18 +203,14 @@ const ReviewFeed = () => {
                     height="350"
                   ></Image>
                 </div>
-                
+
                 <div id="main-right" className=" bg-black w-full">
-                
-                        
                   <div className=" bg-blue-400 flex justify-center  border-b-2 border-b-slate-700">
                     <h1 className="text-black text-2xl">
-                      
                       {review.movieData.Title}
-                      
                     </h1>
                   </div>
-                        
+
                   <div className="bg-white flex  justify-center  border-b-2 border-b-slate-700">
                     <div className="text-gray-500  ">
                       {review.movieData.Year} || {review.movieData.Genre} ||
@@ -160,31 +222,31 @@ const ReviewFeed = () => {
                   </div>
 
                   <div className="bg-black h-5/6 flex flex-row container  border-b-2 border-b-slate-700">
-                    <div className="absolute w-64 italic text-gray-500 text-xs py-1 px-1 order-1"><p>{review.movieData.Plot}</p> </div>
-                   
+                    <div className="absolute w-64 italic text-gray-500 text-xs py-1 px-1 order-1">
+                      <p>{review.movieData.Plot}</p>{" "}
+                    </div>
+
                     <div className="self-center flex order-2 ">
                       <h1 className="text-white text-3xl pl-4 ">
                         {review.sliderRating}
                       </h1>
                     </div>
-                    
-                    
-                    
+
                     <div className=" self-center flex order-3 pl-8">
-                      <p className="text-white pl-2 pt-6 text-sm w-72">{review.textReview}</p>
-                      
-                      
+                      <p className="text-white pl-2 pt-6 text-sm w-72">
+                        {review.textReview}
+                      </p>
                     </div>
                   </div>
                 </div>
               </div>
               <div className="order-3 w-full h-12 rounded-b-lg bg-green-500  border-t-2 border-t-slate-700">
                 <div className="flex flex-row w-full h-12 justify-around">
-                <div className="flex self-center">
-                              <p>{!review.likes ? '0' : review.likes.length}</p>
-                            <Like postId={review._id} reviewLikes={review.likes} />
+                  <div className="flex self-center">
+                    <p>{!review.likes ? "0" : review.likes.length}</p>
+                    <Like postId={review._id} reviewLikes={review.likes} />
                   </div>
-                  <CommentSection postId={review._id}/>
+                  <CommentSection postId={review._id} />
                   <p className="text-gray-400 self-center ">Share</p>
 
                   {session &&
@@ -271,7 +333,7 @@ const ReviewFeed = () => {
             <br></br>
             <br></br>
 
-            <p>Loading reviews...</p>
+            <p>No reviews to display...</p>
             <br></br>
             <br></br>
             <br></br>
