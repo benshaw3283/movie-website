@@ -1,21 +1,15 @@
 import { MongoClient } from "mongodb";
 import { ObjectId } from "mongodb";
+import clientPromise from "../../../lib/mongodb";
 
-const uri = process.env.MONGODB_URI;
-const options = {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-};
-
-// Create a connection pool
-const client = new MongoClient(uri, options);
-client.connect();
 
 export default async function updateUserAvatar(req, res) {
   if (req.method === "PATCH") {
     const { username, avatar64 } = req.body;
 
     try {
+     const client =  await clientPromise
+     await client.connect()
       const db = client.db();
 
       const data = await db

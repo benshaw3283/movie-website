@@ -1,14 +1,6 @@
 import { MongoClient } from "mongodb";
+import clientPromise from "../../../lib/mongodb";
 
-const uri = process.env.MONGODB_URI;
-const options = {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-};
-
-// Create a connection pool
-const client = new MongoClient(uri, options);
-client.connect();
 
 export default async function mongoCreateReview(req, res) {
   if (req.method === "POST") {
@@ -20,7 +12,9 @@ export default async function mongoCreateReview(req, res) {
       return;
     }
     try {
-      const db = client.db();
+     const client =  await clientPromise
+     await client.connect()
+      const db = clientPromise.db();
 
       const data = await db.collection("posts").insertOne({
         user: user,

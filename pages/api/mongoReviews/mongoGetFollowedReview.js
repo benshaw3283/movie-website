@@ -1,19 +1,14 @@
 import { MongoClient } from "mongodb";
+import clientPromise from "../../../lib/mongodb";
 
-const uri = process.env.MONGODB_URI;
-const options = {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-};
 
-// Create a connection pool
-const client = new MongoClient(uri, options);
 
 export default async function mongoGetFollowedReviewHandler(req, res) {
   if (req.method === "GET") {
     const { sessionUser } = req.query;
     try {
-      await client.connect(); // Await the connection to be established
+      const client = await clientPromise
+      await client.connect()
       const db = client.db();
 
       const user = await db.collection("users").findOne({

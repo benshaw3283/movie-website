@@ -179,7 +179,7 @@ const ReviewFeed = () => {
         reviews.map((review, index) => (
           <div key={index}>
             <div className="bg-slate-800 container rounded-lg flex flex-col h-2/5 w-full my-10 border-2 border-slate-700">
-              <div className="order-1  w-100% h-12 rounded-t-lg   border-b-2 border-b-slate-700">
+              <div className="order-1  w-2/5 h-12 rounded-t-lg   border-b-2 border-b-slate-700">
                 <div
                   className=" flex inset-x-0 top-0 justify-start float-left cursor-pointer"
                   onClick={() => router.push(`user/${review.user.username}`)}
@@ -232,7 +232,7 @@ const ReviewFeed = () => {
 
                   <div className="bg-slate-900 h-5/6 flex flex-row container  border-b-2 border-b-slate-700">
                     <div className="absolute w-64 italic text-gray-500 text-xs py-1 px-1 order-1">
-                      <p>{review.movieData.Plot}</p>{" "}
+                      <p>{review.movieData.Plot}</p>
                     </div>
 
                     <div className="self-center flex order-2 ">

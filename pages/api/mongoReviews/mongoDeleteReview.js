@@ -1,22 +1,17 @@
 import { MongoClient } from "mongodb";
 import { ObjectId } from "mongodb";
+import clientPromise from "../../../lib/mongodb";
 
-const uri = process.env.MONGODB_URI;
-const options = {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-};
 
-// Create a connection pool
-const client = new MongoClient(uri, options);
-client.connect();
 
 export default async function mongoDeleteReview(req, res) {
   if (req.method === "POST") {
     const { _id } = req.body;
 
     try {
-      const db = client.db();
+      const client = await clientPromise
+      await client.connect()
+      const db = clientPromise.db();
 
       const data = await db.collection("posts").deleteOne({
         

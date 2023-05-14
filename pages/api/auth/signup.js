@@ -1,22 +1,22 @@
 import { hashPassword } from "../../../lib/auth";
 import { MongoClient } from "mongodb";
-
-const uri = process.env.MONGODB_URI;
-const options = {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-};
-
-// Create a connection pool
-const client = new MongoClient(uri, options);
-client.connect();
+import clientPromise from "../../../lib/mongodb";
 
 export default async function signUpHandler(req, res) {
+  const client = await clientPromise;
+  await client.connect();
   if (req.method === "POST") {
     //Getting email and password from body
     const { email, username, password } = req.body;
     //Validate
-    if (!email || !email.includes("@") || !password || password.length < 7 || !username || username.length < 5) {
+    if (
+      !email ||
+      !email.includes("@") ||
+      !password ||
+      password.length < 7 ||
+      !username ||
+      username.length < 5
+    ) {
       res.status(422).json({
         message:
           "Invalid input - password should be at least 7 characters long.",
@@ -31,11 +31,9 @@ export default async function signUpHandler(req, res) {
         .findOne({ username: username, email: email });
       //Send error response if duplicate user is found
       if (checkExisting) {
-        res
-          .status(422)
-          .json({
-            message: "Account with this username or email already exists",
-          });
+        res.status(422).json({
+          message: "Account with this username or email already exists",
+        });
         return;
       }
       //Hash password

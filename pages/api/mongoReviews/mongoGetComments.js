@@ -1,18 +1,13 @@
 import { MongoClient, ObjectId } from "mongodb";
 
-const uri = process.env.MONGODB_URI;
-const options = {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-};
+import clientPromise from "../../../lib/mongodb";
 
-// Create a connection pool
-const client = new MongoClient(uri, options);
 
 export default async function mongoGetComments(req, res) {
   if (req.method === "GET") {
     try {
-      await client.connect(); // Await the connection to be established
+     const client =  await clientPromise;
+     await client.connect()
       const db = client.db();
 
       // Get the postId from the request query or params

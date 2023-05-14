@@ -10,7 +10,8 @@ import dynamic from "next/dynamic";
 import * as Dialog from "@radix-ui/react-dialog";
 import dialogStyles from "/styles/radixSign.module.css";
 import CommentSection from "../../components/CommentSection";
-import Like from '../../components/like'
+import Like from "../../components/like";
+import clientPromise from "../../lib/mongodb";
 
 const EditAvatar = dynamic(() => import("/components/EditAvatar"), {
   ssr: false,
@@ -34,15 +35,10 @@ export async function getServerSideProps(context) {
   const { username } = context.query;
   const session = await getSession(context);
 
-  // Connect to MongoDB
-  const client = new MongoClient(process.env.MONGODB_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  });
-  await client.connect();
+  await clientPromise();
 
   // Fetch user data
-  const user = await client
+  const user = await clientPromise
     .db()
     .collection("users")
     .findOne({ username }, { projection: { password: 0, _id: 0 } });
@@ -52,7 +48,7 @@ export async function getServerSideProps(context) {
   }
 
   // Fetch user's posts
-  const data = await client
+  const data = await clientPromise
     .db()
     .collection("posts")
     .find({ user: username })
@@ -368,13 +364,14 @@ export default function UserProfilePage({ user, posts }) {
                             />
                           </div>
                           <div className="flex pl-2">
-                          <h1 className="text-black font-semibold text-lg">{review.user}</h1>
+                            <h1 className="text-black font-semibold text-lg">
+                              {review.user}
+                            </h1>
                           </div>
-                          
+
                           <p className="text-blue-400 px-8 text-sm">
                             {formatLocalDate(review.createdAt)}
                           </p>
-                          
                         </div>
                         <div className="order-2 flex w-full h-3/4  overflow-clip border-x-2 border-slate-700">
                           <div id="main-left" className="flex w-2/3">
@@ -426,9 +423,12 @@ export default function UserProfilePage({ user, posts }) {
                         <div className="order-3 w-full h-12 rounded-b-lg bg-green-500  border-2 border-slate-700">
                           <div className="flex flex-row w-full h-12 justify-around ">
                             <div className="flex self-center">
-                              <p>{!review.likes ? '0' : review.likes.length}</p>
-                            <Like postId={review._id} reviewLikes={review.likes} />
-                  </div>
+                              <p>{!review.likes ? "0" : review.likes.length}</p>
+                              <Like
+                                postId={review._id}
+                                reviewLikes={review.likes}
+                              />
+                            </div>
                             <CommentSection postId={review._id} />
 
                             <p className="text-black self-center cursor-pointer">

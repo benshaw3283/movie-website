@@ -1,22 +1,14 @@
 import { MongoClient, ObjectId } from "mongodb";
-
-
-const uri = process.env.MONGODB_URI;
-const options = {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-};
-
-// Create a connection pool
-const client = new MongoClient(uri, options);
-client.connect();
+import clientPromise from "../../../lib/mongodb";
 
 export default async function like(req, res) {
   if (req.method === "PATCH") {
     const { user, id } = req.body;
 
     try {
-      const db = client.db();
+       const client =  await clientPromise
+       await client.connect()
+      const db = clientPromise.db();
 
       const data = await db.collection("posts").findOneAndUpdate(
         { _id : new ObjectId(id) },

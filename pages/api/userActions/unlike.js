@@ -1,21 +1,14 @@
 import { MongoClient, ObjectId } from "mongodb";
-
-const uri = process.env.MONGODB_URI;
-const options = {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-};
-
-// Create a connection pool
-const client = new MongoClient(uri, options);
+import clientPromise from "../../../lib/mongodb";
 
 export default async function unFollow(req, res) {
   if (req.method === "PATCH") {
     const { user, id } = req.body;
 
     try {
-      await client.connect();
-      const db = client.db();
+     const client = await clientPromise;
+     await client.connect()
+      const db = clientPromise.db();
 
       // Remove the follower from the followers array
       const result = await db
@@ -33,4 +26,3 @@ export default async function unFollow(req, res) {
     }
   }
 }
-
