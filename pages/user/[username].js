@@ -231,7 +231,7 @@ export default function UserProfilePage({ user, posts }) {
                 </div>
 
                 <div className="  h-8 w-5/6 order-4 container flex ">
-                  {session.user.username === user.username ? (
+                  {session.user.username !== user.username ? (
                     <div className="flex flex-row w-full justify-evenly">
                       <div id="editPic" className="flex order-1">
                         <Dialog.Root>
@@ -296,7 +296,7 @@ export default function UserProfilePage({ user, posts }) {
                                 <Dialog.Description />
 
                                 <textarea
-                                  className="bg-slate-800 w-3/4 h-24 flex resize-none border-2 border-slate-700 rounded-sm"
+                                  className="bg-slate-800 w-3/4 h-24 flex resize-none border-2 border-slate-700 rounded-sm pl-2"
                                   type="text"
                                   placeholder="Edit Bio..."
                                   maxLength="100"
@@ -367,10 +367,14 @@ export default function UserProfilePage({ user, posts }) {
                               height={40}
                             />
                           </div>
-                          <h1 className="text-black">{review.user}</h1>
-                          <p className="text-blue-400 px-16">
+                          <div className="flex pl-2">
+                          <h1 className="text-black font-semibold text-lg">{review.user}</h1>
+                          </div>
+                          
+                          <p className="text-blue-400 px-8 text-sm">
                             {formatLocalDate(review.createdAt)}
                           </p>
+                          
                         </div>
                         <div className="order-2 flex w-full h-3/4  overflow-clip border-x-2 border-slate-700">
                           <div id="main-left" className="flex w-2/3">
@@ -389,8 +393,8 @@ export default function UserProfilePage({ user, posts }) {
                               </h1>
                             </div>
 
-                            <div className="bg-white flex  justify-center  border-b-2 border-b-slate-700">
-                              <div className="text-gray-500  ">
+                            <div className="bg-white flex  justify-center  border-b-2 border-b-slate-700 items-center ">
+                              <div className="text-gray-500 self-center ">
                                 {review.movieData.Year} ||
                                 {review.movieData.Genre} ||
                               </div>

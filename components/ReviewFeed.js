@@ -39,7 +39,7 @@ async function getUserByReview(username) {
 const ReviewFeed = () => {
   const [reviews, setReviews] = useState([]);
   const { data: session, status } = useSession();
-  const [liked,setLiked] = useState(false)
+  
 
   useEffect(() => {
     async function fetchReview() {
@@ -100,6 +100,17 @@ const ReviewFeed = () => {
 
   return (
     <div>
+      <div className="flex container bg-red-400 justify-center">
+        <div className="flex flex-row justify-center bg-slate-700 rounded-sm">
+        <button className="flex order-1 px-1 bg-green-400 text-lg">
+          Public
+          </button>
+          
+          <button className="flex order-2 text-lg px-1">
+            Followed
+          </button>
+          </div>
+        </div>
       {reviews.length ? (
         reviews.map((review, index) => (
           <div key={index}>
@@ -110,8 +121,10 @@ const ReviewFeed = () => {
                   <Image alt='userImage' src={review.user.image} width={40} height={40}/>
                   
                 </div>
-                <h1 className="text-black">{review.user.username}</h1>
-                <p className="text-blue-400 px-16">
+                <div className="pl-2 flex">
+                <h1 className="text-black font-semibold text-lg">{review.user.username}</h1>
+                </div>
+                <p className="text-blue-400 px-16 text-sm">
                   {formatLocalDate(review.createdAt)}
                 </p>
               </div>

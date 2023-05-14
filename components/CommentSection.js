@@ -106,7 +106,7 @@ const CommentSection = (props) => {
                 ></input>
                 <button
                   type="submit"
-                  className="self-center flex"
+                  className="self-center flex ml-1"
                   onClick={() => createComment(props.postId)}
                 >
                   <Image src={commentIcon} width={30} height={30} alt="icon" />

@@ -23,7 +23,13 @@ export default async function addFollower(req, res) {
         { $addToSet: { followers: follower } }, // Use $addToSet to add the user to the followers array
         { returnDocument: "after" }
       );
-      res.status(201).json({ message: "Follower added!", ...data });
+
+      const data2 = await db.collection("users").findOneAndUpdate(
+        { username: follower },
+        { $addToSet: { follows: username } }, // Use $addToSet to add the user to the followers array
+        { returnDocument: "after" }
+      );
+      res.status(201).json({ message: "Follower added!", ...data, ...data2});
     } catch (err) {
       // Log the error and return an error response
       console.error(err);
