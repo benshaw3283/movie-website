@@ -80,7 +80,7 @@ const CommentSection = (props) => {
                           onClick={() => router.push(`user/${comment.user}`)}
                           className="cursor-pointer"
                         >
-                          {" "}
+                          
                           <strong> {comment.user}</strong>
                         </p>
 

@@ -86,9 +86,7 @@ const Nav = () => {
                   <Link href={`/user/${session.user.username}`} >Profile</Link>
                 </DropdownMenu.Item>
 
-                <DropdownMenu.Item className={radixStyle.DropdownMenuItem}>
-                  Settings
-                </DropdownMenu.Item>
+                
                 <div>
                   <DropdownMenu.Item
                     className={radixStyle.DropdownMenuItem}

@@ -40,7 +40,7 @@ export default function Home() {
 
           <div className="order-2 ">
             <br></br>
-            <br></br>
+            
           </div>
 
           <div className="bg-slate-900 w-1/2 h-2/5 flex justify-center container items-center rounded-lg order-3  ">

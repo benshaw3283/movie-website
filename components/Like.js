@@ -6,6 +6,7 @@ import React from "react";
 const Like = (props) => {
   const [liked, setLiked] = useState(false);
   const { data: session, status } = useSession();
+  const likeRef = useRef(0)
 
   async function handleLike() {
     try {
@@ -20,6 +21,7 @@ const Like = (props) => {
           user: session.user.username,
         }),
       });
+      
       return response;
     } catch (err) {
       console.log(err);

@@ -36,8 +36,3 @@ export default async function like(req, res) {
   }
 }
 
-// Close the connection pool when the Node.js process exits
-process.on("SIGINT", () => {
-  client.close();
-  process.exit();
-});

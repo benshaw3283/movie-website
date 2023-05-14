@@ -8,6 +8,7 @@ import styles from "../styles/radixAlertDialog.module.css";
 import IMDbIcon from "../public/imdb.png";
 import CommentSection from "./CommentSection";
 import Like from "./like";
+import { useRouter } from "next/router";
 
 async function deleteReview(_id) {
   const response = await fetch("/api/mongoReviews/mongoDeleteReview", {
@@ -40,6 +41,7 @@ const ReviewFeed = () => {
   const [reviews, setReviews] = useState([]);
   const { data: session, status } = useSession();
   const [followed, setFollowed] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     async function fetchReview() {
@@ -49,6 +51,7 @@ const ReviewFeed = () => {
       const updatedReviews = await Promise.all(
         data.map(async (review) => {
           const user = await getUserByReview(review.user);
+
           return {
             ...review,
             createdAt: new Date(review.createdAt),
@@ -144,8 +147,8 @@ const ReviewFeed = () => {
     <div>
       <div className="flex container  justify-center">
         {!followed ? (
-          <div className="flex flex-row justify-center bg-slate-700 rounded-sm border-2 border-slate-600">
-            <button className="flex order-1 px-1 bg-slate-800 text-lg rounded-sm">
+          <div className="flex flex-row justify-center bg-slate-700 rounded-lg border-2 border-slate-600">
+            <button className="flex order-1 px-1 bg-slate-800 text-lg rounded-lg">
               Public
             </button>
 
@@ -157,15 +160,15 @@ const ReviewFeed = () => {
             </button>
           </div>
         ) : (
-          <div className="flex flex-row justify-center bg-slate-700 rounded-sm border-2 border-slate-600">
+          <div className="flex flex-row justify-center bg-slate-700 rounded-lg border-2 border-slate-600">
             <button
-              className="flex order-1 px-1  text-lg rounded-sm"
+              className="flex order-1 px-1  text-lg rounded-lg"
               onClick={() => handleSwitchFeed()}
             >
               Public
             </button>
 
-            <button className="flex order-2 text-lg px-1 bg-slate-800">
+            <button className="flex order-2 text-lg px-1 bg-slate-800 rounded-lg">
               Followed
             </button>
           </div>
@@ -176,8 +179,11 @@ const ReviewFeed = () => {
         reviews.map((review, index) => (
           <div key={index}>
             <div className="bg-slate-800 container rounded-lg flex flex-col h-2/5 w-full my-10 border-2 border-slate-700">
-              <div className="order-1  w-100% h-12 rounded-t-lg  bg-green-400 border-b-2 border-b-slate-700">
-                <div className="text-red-400 flex inset-x-0 top-0 justify-start float-left">
+              <div className="order-1  w-100% h-12 rounded-t-lg   border-b-2 border-b-slate-700">
+                <div
+                  className=" flex inset-x-0 top-0 justify-start float-left cursor-pointer"
+                  onClick={() => router.push(`user/${review.user.username}`)}
+                >
                   <Image
                     alt="userImage"
                     src={review.user.image}
@@ -185,12 +191,15 @@ const ReviewFeed = () => {
                     height={40}
                   />
                 </div>
-                <div className="pl-2 flex">
-                  <h1 className="text-black font-semibold text-lg">
+                <div
+                  className="pl-2 flex cursor-pointer w-fit"
+                  onClick={() => router.push(`user/${review.user.username}`)}
+                >
+                  <h1 className="text-white font-semibold text-lg">
                     {review.user.username}
                   </h1>
                 </div>
-                <p className="text-blue-400 px-16 text-sm">
+                <p className="text-gray-400  text-sm">
                   {formatLocalDate(review.createdAt)}
                 </p>
               </div>
@@ -204,24 +213,24 @@ const ReviewFeed = () => {
                   ></Image>
                 </div>
 
-                <div id="main-right" className=" bg-black w-full">
-                  <div className=" bg-blue-400 flex justify-center  border-b-2 border-b-slate-700">
-                    <h1 className="text-black text-2xl">
+                <div id="main-right" className=" bg-slate-800 w-full border-l-2 border-slate-700">
+                  <div className="  flex justify-center  border-b-2 border-b-slate-700">
+                    <h1 className="text-white text-2xl">
                       {review.movieData.Title}
                     </h1>
                   </div>
 
-                  <div className="bg-white flex  justify-center  border-b-2 border-b-slate-700">
-                    <div className="text-gray-500  ">
+                  <div className="bg-slate-800 flex  justify-center  border-b-2 border-b-slate-700">
+                    <div className="text-white  ">
                       {review.movieData.Year} || {review.movieData.Genre} ||
                     </div>
-                    <div className="text-gray-500 ">
+                    <div className="text-white ">
                       <Image alt="IMDbLogo" src={IMDbIcon} />
                       {review.movieData.imdbRating}
                     </div>
                   </div>
 
-                  <div className="bg-black h-5/6 flex flex-row container  border-b-2 border-b-slate-700">
+                  <div className="bg-slate-900 h-5/6 flex flex-row container  border-b-2 border-b-slate-700">
                     <div className="absolute w-64 italic text-gray-500 text-xs py-1 px-1 order-1">
                       <p>{review.movieData.Plot}</p>{" "}
                     </div>

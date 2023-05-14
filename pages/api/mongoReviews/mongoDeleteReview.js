@@ -34,8 +34,3 @@ export default async function mongoDeleteReview(req, res) {
   }
 }
 
-// Close the connection pool when the Node.js process exits
-process.on("SIGINT", () => {
-  client.close();
-  process.exit();
-});
