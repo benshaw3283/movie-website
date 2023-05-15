@@ -1,5 +1,5 @@
 import { MongoClient } from "mongodb";
-import clientPromise from "../../../lib/mongodb";
+import connectToDatabase from "../../../lib/connectToDatabase";
 
 
 
@@ -8,9 +8,9 @@ export default async function addFollower(req, res) {
     const { username, follower } = req.body;
 
     try {
-     const client =  await clientPromise
-     await client.connect()
-      const db = clientPromise.db();
+     const client =  await connectToDatabase()
+    
+      const db = client.db();
 
       const data = await db.collection("users").findOneAndUpdate(
         { username: username },

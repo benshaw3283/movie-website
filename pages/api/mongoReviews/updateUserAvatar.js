@@ -1,6 +1,6 @@
 import { MongoClient } from "mongodb";
 import { ObjectId } from "mongodb";
-import clientPromise from "../../../lib/mongodb";
+import connectToDatabase from "../../../lib/connectToDatabase";
 
 
 export default async function updateUserAvatar(req, res) {
@@ -8,8 +8,8 @@ export default async function updateUserAvatar(req, res) {
     const { username, avatar64 } = req.body;
 
     try {
-     const client =  await clientPromise
-     await client.connect()
+     const client =  await connectToDatabase()
+     
       const db = client.db();
 
       const data = await db

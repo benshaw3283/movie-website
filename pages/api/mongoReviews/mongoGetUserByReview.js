@@ -1,5 +1,5 @@
 import { MongoClient } from "mongodb";
-import clientPromise from "../../../lib/mongodb";
+import connectToDatabase from "../../../lib/connectToDatabase";
 
 
 export default async function mongoGetUserByReview(req, res) {
@@ -7,8 +7,8 @@ export default async function mongoGetUserByReview(req, res) {
     const { username } = req.body;
 
     try {
-     const client =  await clientPromise;
-     await client.connect() // Await the connection to be established
+     const client =  await connectToDatabase();
+     
       const db = client.db();
       const user = await db.collection("users").findOne({
         username: username,

@@ -1,6 +1,6 @@
 import { MongoClient } from "mongodb";
 import { ObjectId } from "mongodb";
-import clientPromise from "../../../lib/mongodb";
+import connectToDatabase from "../../../lib/connectToDatabase";
 
 
 
@@ -9,9 +9,9 @@ export default async function mongoDeleteReview(req, res) {
     const { _id } = req.body;
 
     try {
-      const client = await clientPromise
-      await client.connect()
-      const db = clientPromise.db();
+      const client = await connectToDatabase()
+      
+      const db = client.db();
 
       const data = await db.collection("posts").deleteOne({
         

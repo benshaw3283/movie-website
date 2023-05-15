@@ -1,10 +1,10 @@
 import { hashPassword } from "../../../lib/auth";
 import { MongoClient } from "mongodb";
-import clientPromise from "../../../lib/mongodb";
+import connectToDatabase from "../../../lib/connectToDatabase";
 
 export default async function signUpHandler(req, res) {
-  const client = await clientPromise;
-  await client.connect();
+  const client = await connectToDatabase();
+  
   if (req.method === "POST") {
     //Getting email and password from body
     const { email, username, password } = req.body;

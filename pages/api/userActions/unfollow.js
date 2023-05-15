@@ -1,14 +1,14 @@
 import { MongoClient } from "mongodb";
-import clientPromise from "../../../lib/mongodb";
+import connectToDatabase from "../../../lib/connectToDatabase";
 
 export default async function unFollow(req, res) {
   if (req.method === "PATCH") {
     const { username, follower } = req.body;
 
     try {
-     const client =  await clientPromise
-     await client.connect()
-      const db = clientPromise.db();
+     const client =  await connectToDatabase()
+     
+      const db = client.db();
 
       // Remove the follower from the followers array
       const result = await db

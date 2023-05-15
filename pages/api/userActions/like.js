@@ -1,14 +1,14 @@
 import { MongoClient, ObjectId } from "mongodb";
-import clientPromise from "../../../lib/mongodb";
+import connectToDatabase from "../../../lib/connectToDatabase";
 
 export default async function like(req, res) {
   if (req.method === "PATCH") {
     const { user, id } = req.body;
 
     try {
-       const client =  await clientPromise
-       await client.connect()
-      const db = clientPromise.db();
+       const client =  await connectToDatabase()
+      
+      const db = client.db();
 
       const data = await db.collection("posts").findOneAndUpdate(
         { _id : new ObjectId(id) },

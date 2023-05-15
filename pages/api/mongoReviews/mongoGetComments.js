@@ -1,13 +1,12 @@
 import { MongoClient, ObjectId } from "mongodb";
-
-import clientPromise from "../../../lib/mongodb";
+import connectToDatabase from "../../../lib/connectToDatabase";
 
 
 export default async function mongoGetComments(req, res) {
   if (req.method === "GET") {
     try {
-     const client =  await clientPromise;
-     await client.connect()
+     const client =  await connectToDatabase();
+     
       const db = client.db();
 
       // Get the postId from the request query or params
