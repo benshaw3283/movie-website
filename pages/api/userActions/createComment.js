@@ -9,7 +9,7 @@ export default async function createComment(req, res) {
     try {
       const client =  await connectToDatabase()
       
-      const db = client.db;
+      const db = client.db();
 
       const data = await db
         .collection("posts")

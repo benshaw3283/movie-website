@@ -1,5 +1,4 @@
 import { useRouter } from "next/router";
-import { MongoClient } from "mongodb";
 import { useSession, signOut, getSession } from "next-auth/react";
 import { useEffect, useState, useRef } from "react";
 import * as AlertDialog from "@radix-ui/react-alert-dialog";
@@ -11,12 +10,13 @@ import * as Dialog from "@radix-ui/react-dialog";
 import dialogStyles from "/styles/radixSign.module.css";
 import CommentSection from "../../components/CommentSection";
 import Like from "../../components/like";
-import clientPromise from "../../lib/mongodb";
+import connectToDatabase from "../../lib/connectToDatabase";
 
 const EditAvatar = dynamic(() => import("/components/EditAvatar"), {
   ssr: false,
   loading: () => <p>Loading...</p>,
 });
+
 
 async function deleteReview(_id) {
   const response = await fetch("/api/mongoReviews/mongoDeleteReview", {
@@ -35,10 +35,12 @@ export async function getServerSideProps(context) {
   const { username } = context.query;
   const session = await getSession(context);
 
-  await clientPromise();
+  const client = await connectToDatabase()
+
+ 
 
   // Fetch user data
-  const user = await clientPromise
+  const user = await client
     .db()
     .collection("users")
     .findOne({ username }, { projection: { password: 0, _id: 0 } });
@@ -48,7 +50,7 @@ export async function getServerSideProps(context) {
   }
 
   // Fetch user's posts
-  const data = await clientPromise
+  const data = await client
     .db()
     .collection("posts")
     .find({ user: username })
@@ -56,7 +58,7 @@ export async function getServerSideProps(context) {
 
   const posts = JSON.parse(JSON.stringify(data));
 
-  return { props: { user, session, posts } };
+  return { props: { user, session, posts  } };
 }
 
 export default function UserProfilePage({ user, posts }) {

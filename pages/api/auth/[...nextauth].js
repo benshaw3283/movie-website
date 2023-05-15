@@ -25,7 +25,6 @@ export const authOptions = {
         try {
           //console.log("starting auth process...");
           const client = await connectToDatabase();
-
           //console.log("connected to database");
 
           const usersCollection = client.db().collection("users");
@@ -89,7 +88,7 @@ export const authOptions = {
 
   debug: true,
 
-  adapter: MongoDBAdapter(clientPromise, {
+  adapter: MongoDBAdapter(connectToDatabase(), {
     databaseName: "movie-website",
   }),
 };
