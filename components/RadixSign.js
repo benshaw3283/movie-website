@@ -33,6 +33,7 @@ export const RadixDialogSign = () => {
 
     <Dialog.Portal>
       <Dialog.Overlay className={styles.DialogOverlay}>
+        
         <Dialog.Content className={styles.DialogContent}>
 
 
@@ -41,7 +42,7 @@ export const RadixDialogSign = () => {
 
 
           <Dialog.Close asChild>
-            <button className={styles.IconButton} aria-label="Close"></button>
+            <button className={styles.IconButton} aria-label="Close">X</button>
           </Dialog.Close>
         </Dialog.Content>
       </Dialog.Overlay>

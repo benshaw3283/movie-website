@@ -47,13 +47,15 @@ const Like = (props) => {
     }
   }
 
+  
+
   useEffect(() => {
     async function ifLiked() {
       const reviewLikes = props.reviewLikes;
       if (!reviewLikes) {
         reviewLikes = [];
       }
-      if (reviewLikes.includes(session.user.username)) {
+      if (session && reviewLikes.includes(session.user.username)) {
         setLiked(true);
       } else {
         setLiked(false);

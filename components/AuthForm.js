@@ -26,6 +26,7 @@ function AuthFormSU() {
   const emailInputRef = useRef();
   const usernameInputRef = useRef();
   const passwordInputRef = useRef();
+  const cpasswordInputRef = useRef();
 
   const router = useRouter();
 
@@ -54,7 +55,8 @@ function AuthFormSU() {
 
   return (
     <section className={classes.auth}>
-      <h1>Sign Up</h1>
+      <h1 className="text-xl font-semibold underline">Sign In</h1>
+      <br></br>
       <form onSubmit={submitHandler}>
         <div className={classes.control}>
           <label htmlFor="email">Email</label>
@@ -76,6 +78,16 @@ function AuthFormSU() {
             id="password"
             required
             ref={passwordInputRef}
+          />
+          
+        </div>
+        <div className={classes.control}>
+          <label htmlFor="password" on>Confirm Password</label>
+          <input
+            type="cpassword"
+            id="password"
+            required
+            ref={cpasswordInputRef}
           />
           
         </div>

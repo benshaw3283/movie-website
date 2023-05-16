@@ -39,6 +39,7 @@ export async function getServerSideProps(context) {
 
  
 
+ 
   // Fetch user data
   const user = await client
     .db()
@@ -56,19 +57,27 @@ export async function getServerSideProps(context) {
     .find({ user: username })
     .toArray();
 
-  const posts = JSON.parse(JSON.stringify(data));
+    const posts = JSON.parse(JSON.stringify(data));
 
-  return { props: { user, session, posts  } };
+    const sliderRatings = posts.map((post) => post.sliderRating);
+    const averageRating = (sliderRatings.reduce(
+      (total, rating) => total + rating,
+      0
+    ) / sliderRatings.length).toFixed(1);
+    
+
+  return { props: { user, session, posts,averageRating   } };
 }
 
-export default function UserProfilePage({ user, posts }) {
+export default function UserProfilePage({ user, posts, averageRating  }) {
   const router = useRouter();
   const { data: session, status } = useSession();
   const [reviews, setReviews] = useState([]);
   const [following, setFollowing] = useState(false);
   const bioRef = useRef("");
 
-  useEffect(() => {
+  useEffect(() => { 
+   
     async function postsHandler() {
       const mapPosts = posts.map((post) => ({
         ...post,
@@ -88,6 +97,8 @@ export default function UserProfilePage({ user, posts }) {
         setFollowing(false);
       }
     }
+
+    
 
     postsHandler();
   }, [posts, session.user.username, user.followers]);
@@ -218,7 +229,7 @@ export default function UserProfilePage({ user, posts }) {
                     <div className="flex">
                       <h2 className="pr-2">Averating Rating</h2>
                       <p className="bg-slate-900 h-fit border-2 rounded border-slate-700 px-2">
-                        67.8
+                        {averageRating}
                       </p>
                     </div>
                   </div>
@@ -229,7 +240,7 @@ export default function UserProfilePage({ user, posts }) {
                 </div>
 
                 <div className="  h-8 w-5/6 order-4 container flex ">
-                  {session.user.username !== user.username ? (
+                  {session.user.username === user.username ? (
                     <div className="flex flex-row w-full justify-evenly">
                       <div id="editPic" className="flex order-1">
                         <Dialog.Root>

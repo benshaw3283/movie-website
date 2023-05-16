@@ -7,7 +7,7 @@
     border-style:double;
     border-color:dimgray;
     
-    z-index: 0;
+    
   
 }
 
@@ -17,7 +17,7 @@
     align-content: center;
     justify-content:center;
     
-    z-index: 1;
+    
     
 }
 
@@ -62,6 +62,8 @@
     position: relative;
     z-index: 1;
     color: black;
+    display: flex;
+    justify-self: center;
   }
 
   .fuck {

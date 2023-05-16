@@ -113,13 +113,13 @@ const MovieAutocomplete = () => {
               }}
             />
           </fieldset>
-          <div className={styles.movies}>
-            <h1>{selectedMovie}</h1>
+          <div className='flex justify-center'>
+            <h1 >{selectedMovie}</h1>
           </div>
 
           <div>
             <br></br>
-            <div>
+            <div className="flex justify-center">
               <div className="inline-block cursor-pointer ">
                 <RadixSlider
                   min={0}
@@ -145,21 +145,20 @@ const MovieAutocomplete = () => {
             </div>
 
             <br></br>
-
+                <div className="flex justify-center h-32">
             <textarea
-              className="bg-slate-800 w-3/4 h-full flex resize-none border-2 border-slate-700 rounded-sm"
+              className="bg-slate-800 w-3/4 h-full flex resize-none border-2 border-slate-700 rounded-lg pl-2"
               type="text"
               placeholder="Create Review..."
               maxLength="300"
               wrap="soft"
               ref={textReviewRef}
             ></textarea>
+            </div>
           </div>
         </div>
       </div>
-      <br></br>
-      <br></br>
-      <br></br>
+      
       <div
         style={{
           display: "flex",
