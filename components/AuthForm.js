@@ -2,7 +2,7 @@ import { useState, useRef } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/router";
 import classes from "../styles/auth-form.module.css";
-import {HiEye,HiEyeOff } from 'react-icons/hi';
+import { HiEye, HiEyeOff } from "react-icons/hi";
 
 async function createUser(email, username, password) {
   const response = await fetch("/api/auth/signup", {
@@ -27,6 +27,9 @@ function AuthFormSU() {
   const usernameInputRef = useRef();
   const passwordInputRef = useRef();
   const cpasswordInputRef = useRef();
+
+  const [show, setShow] = useState(false);
+  const [cshow, setCshow] = useState(false);
 
   const router = useRouter();
 
@@ -55,7 +58,7 @@ function AuthFormSU() {
 
   return (
     <section className={classes.auth}>
-      <h1 className="text-xl font-semibold underline">Sign In</h1>
+      <h1 className="text-xl font-semibold underline">Sign Up</h1>
       <br></br>
       <form onSubmit={submitHandler}>
         <div className={classes.control}>
@@ -73,23 +76,51 @@ function AuthFormSU() {
         </div>
         <div className={classes.control}>
           <label htmlFor="password"> Password</label>
-          <input
-            type="password"
-            id="password"
-            required
-            ref={passwordInputRef}
-          />
-          
+          <div className="flex items-center justify-end">
+            <input
+              type={`${show ? "text" : "password"}`}
+              id="password"
+              required
+              ref={passwordInputRef}
+            />
+            <span className="absolute pr-2">
+              {!show ? (
+                <HiEye
+                  onClick={() => setShow(!show)}
+                  className="cursor-pointer"
+                />
+              ) : (
+                <HiEyeOff
+                  onClick={() => setShow(!show)}
+                  className="cursor-pointer"
+                />
+              )}
+            </span>
+          </div>
         </div>
         <div className={classes.control}>
-          <label htmlFor="password" on>Confirm Password</label>
-          <input
-            type="cpassword"
-            id="password"
-            required
-            ref={cpasswordInputRef}
-          />
-          
+          <label htmlFor="cpassword">Confirm Password</label>
+          <div className="flex items-center justify-end">
+            <input
+              type={`${cshow ? "text" : "password"}`}
+              id="cpassword"
+              required
+              ref={cpasswordInputRef}
+            />
+            <span className="absolute pr-2">
+              {!cshow ? (
+                <HiEye
+                  onClick={() => setCshow(!cshow)}
+                  className="cursor-pointer"
+                />
+              ) : (
+                <HiEyeOff
+                  onClick={() => setCshow(!cshow)}
+                  className="cursor-pointer"
+                />
+              )}
+            </span>
+          </div>
         </div>
         <div className={classes.actions}>
           <button type="submit">Create account</button>
@@ -109,6 +140,7 @@ function AuthFormSU() {
 function AuthFormLI() {
   const usernameInputRef = useRef();
   const passwordInputRef = useRef();
+  const [show, setShow] = useState(false);
 
   const router = useRouter();
 
@@ -124,7 +156,7 @@ function AuthFormLI() {
       redirect: false,
       username: enteredUsername,
       password: enteredPassword,
-      callbackUrl: '/',
+      callbackUrl: "/",
     });
 
     if (result.ok) {
@@ -139,7 +171,7 @@ function AuthFormLI() {
       <form onSubmit={submitHandler}>
         <div className={classes.control}>
           <label htmlFor="username">Username</label>
-          
+
           <input
             type="username"
             id="username"
@@ -149,12 +181,27 @@ function AuthFormLI() {
         </div>
         <div className={classes.control}>
           <label htmlFor="password"> Password</label>
-          <input
-            type="password"
-            id="password"
-            required
-            ref={passwordInputRef}
-          />
+          <div className="flex items-center justify-end">
+            <input
+              type={`${show ? "text" : "password"}`}
+              id="password"
+              required
+              ref={passwordInputRef}
+            />
+            <span className="absolute pr-2">
+              {!show ? (
+                <HiEye
+                  onClick={() => setShow(!show)}
+                  className="cursor-pointer"
+                />
+              ) : (
+                <HiEyeOff
+                  onClick={() => setShow(!show)}
+                  className="cursor-pointer"
+                />
+              )}
+            </span>
+          </div>
         </div>
         <div className={classes.actions}>
           <button type="submit">Log in</button>
