@@ -11,6 +11,7 @@ import Like from "./like";
 import { useRouter } from "next/router";
 import { useIntersection } from "react-use";
 import { useInfiniteQuery } from "@tanstack/react-query";
+import UserImage from "./UserImageReview";
 
 async function deleteReview(_id) {
   const response = await fetch("/api/mongoReviews/mongoDeleteReview", {
@@ -25,13 +26,10 @@ async function deleteReview(_id) {
   return response;
 }
 
-
-
 const ReviewFeed = () => {
-  
   const { data: session, status } = useSession();
   const [followed, setFollowed] = useState(false);
-
+  const [reviews, setReviews] = useState([]);
   const router = useRouter();
   const intersectionRef = useRef(null);
 
@@ -47,33 +45,26 @@ const ReviewFeed = () => {
     const response = await fetch(
       `/api/mongoReviews/mongoGetReview?limit=${limit}&page=${page}`
     );
-    console.log(page)
+    console.log(page);
     return response.json();
   }
 
   const { data, isSuccess, hasNextPage, fetchNextPage, isFetchingNextPage } =
     useInfiniteQuery(
       ["reviews"],
-      ({ pageParam = 1 }) => fetchReviews( pageParam),
+      ({ pageParam = 1 }) => fetchReviews(pageParam),
       {
-       getNextPageParam : (lastPage, allPages) => {
-          
+        getNextPageParam: (lastPage, allPages) => {
           return lastPage.length === limit ? allPages.length + 1 : undefined;
-        
-          
         },
-        
       }
     );
 
   useEffect(() => {
-    
-
     if (intersection && intersection.isIntersecting && hasNextPage) {
       fetchNextPage();
     }
     console.log(data);
-    
   }, [session, intersection, fetchNextPage, hasNextPage]);
 
   function formatLocalDate(date) {
@@ -87,7 +78,6 @@ const ReviewFeed = () => {
     };
     return; //date.toLocaleDateString(undefined, options);
   }
-
 
   async function handleSwitchFeed() {
     try {
@@ -133,25 +123,21 @@ const ReviewFeed = () => {
         {isSuccess &&
           data.pages.map((page) =>
             page.map((review, index) => (
-              <div key={index }>
+              <div key={index}>
                 <div className="bg-slate-800 container rounded-lg flex flex-col h-2/5 w-full my-10 border-2 border-slate-700">
                   <div className="order-1  w-full h-12 rounded-t-lg   border-b-2 border-b-slate-700">
                     <div
                       className=" flex inset-x-0 top-0 justify-start float-left cursor-pointer"
-                      onClick={() =>
-                        router.push(`user/${review.user.username}`)
-                      }
+                      onClick={() => router.push(`user/${review.user}`)}
                     >
-                    
+                      
                     </div>
                     <div
                       className="pl-2 flex cursor-pointer w-fit"
-                      onClick={() =>
-                        router.push(`user/${review.user.username}`)
-                      }
+                      onClick={() => router.push(`user/${review.user}`)}
                     >
                       <h1 className="text-white font-semibold text-lg">
-                        {review.user.username}
+                        {review.user}
                       </h1>
                     </div>
 
@@ -274,10 +260,7 @@ const ReviewFeed = () => {
                                     </button>
                                   </AlertDialog.Cancel>
                                   <AlertDialog.Action asChild>
-                                    <button
-                                      
-                                      className="bg-slate-700 border-2 border-slate-800 rounded py-0.5 px-0.5"
-                                    >
+                                    <button className="bg-slate-700 border-2 border-slate-800 rounded py-0.5 px-0.5">
                                       Yes, delete review
                                     </button>
                                   </AlertDialog.Action>

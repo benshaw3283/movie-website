@@ -2,7 +2,7 @@ import React from "react";
 import * as Popover from "@radix-ui/react-popover";
 import styles from "../styles/commentSection.module.css";
 import { useState, useEffect, useRef } from "react";
-import UserImage from "./UserImage";
+import UserImage from "./UserImageNav";
 import commentIcon from "../public/commentIcon.png";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
@@ -53,7 +53,6 @@ const CommentSection = (props) => {
     return response;
   }
 
-  
   return (
     <Popover.Root>
       <Popover.Trigger asChild>
@@ -80,7 +79,6 @@ const CommentSection = (props) => {
                           onClick={() => router.push(`user/${comment.user}`)}
                           className="cursor-pointer"
                         >
-                          
                           <strong> {comment.user}</strong>
                         </p>
 
@@ -101,8 +99,9 @@ const CommentSection = (props) => {
                 <input
                   ref={commentRef}
                   className="h-full rounded-lg w-full px-2 mx-1 bg-slate-700 "
-                  onKeyDown={(e) => (e.key === 'Enter'? createComment(props.postId) : null)}
-                  
+                  onKeyDown={(e) =>
+                    e.key === "Enter" ? createComment(props.postId) : null
+                  }
                 ></input>
                 <button
                   type="submit"
