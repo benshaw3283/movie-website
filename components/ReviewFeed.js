@@ -49,10 +49,18 @@ const ReviewFeed = () => {
     return response.json();
   }
 
+  async function fetchFollowedReviews(page) {
+    const response = await fetch(
+      `/api/mongoReviews/mongoGetFollowedReview?sessionUser=${session.user.username}&limit=${limit}&page=${page}`
+    );
+    console.log(page);
+    return response.json();
+  }
+
   const { data, isSuccess, hasNextPage, fetchNextPage, isFetchingNextPage } =
     useInfiniteQuery(
       ["reviews"],
-      ({ pageParam = 1 }) => fetchReviews(pageParam),
+      ({ pageParam = 1 }) => !followed ? fetchReviews(pageParam) : fetchFollowedReviews(pageParam),
       {
         getNextPageParam: (lastPage, allPages) => {
           return lastPage.length === limit ? allPages.length + 1 : undefined;
@@ -103,7 +111,7 @@ const ReviewFeed = () => {
 
             <button
               className="flex order-2 text-lg px-1 "
-              onClick={() => handleSwitchFeed()}
+              onClick={() => !session ? alert('Please sign in') : handleSwitchFeed()}
             >
               Followed
             </button>
@@ -153,6 +161,7 @@ const ReviewFeed = () => {
                     >
                       <h1 className="text-white font-semibold text-lg">
                         {review.user}
+                        
                       </h1>
                     </div>
 

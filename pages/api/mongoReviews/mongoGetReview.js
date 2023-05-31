@@ -12,9 +12,13 @@ export default async function mongoGetReviewHandler(req, res) {
         .db()
         .collection("posts")
         .find({})
-        .skip(skip)
-        .limit(parseInt(limit))
+        .sort({ createdAt: -1 }) // Sort by createdAt in descending order
+        .skip(skip) // Skip the specified number of documents
+        .limit(parseInt(limit)) // Limit the number of documents returned
         .toArray(); // Fetch all reviews from the database
+        
+        
+        
       res.status(200).json(reviews); // Send the retrieved reviews as response
     } catch (err) {
       return res.status(500).json({ message: "Internal server error" });
