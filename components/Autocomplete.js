@@ -9,7 +9,7 @@ import { RadixSlider } from "./RadixComponents";
 import { useRouter } from "next/router";
 import { makeStyles } from "@material-ui/core/styles";
 
-async function createPost(sliderRating, user, movieData, textReview) {
+async function createPost(sliderRating, user, movieData, textReview, userImage) {
   const response = await fetch("/api/mongoReviews/mongoCreateReview", {
     method: "POST",
     headers: {
@@ -20,6 +20,7 @@ async function createPost(sliderRating, user, movieData, textReview) {
       user,
       movieData,
       textReview,
+      userImage
     }),
   });
 
@@ -30,6 +31,14 @@ async function createPost(sliderRating, user, movieData, textReview) {
   const result = await response.json();
   return result;
 }
+
+const getUserImage = async (user) => {
+  const response = await fetch(
+    `/api/mongoReviews/mongoGetUserByReview?username=${user}`
+  );
+  const result = response.json();
+  return result;
+};
 
 const MovieAutocomplete = () => {
   const [selectedMovie, setSelectedMovie] = useState(null);
@@ -45,6 +54,8 @@ const MovieAutocomplete = () => {
     const user =
       session.user.username || session.user.email || session.user.name;
     const textReview = textReviewRef.current.value;
+
+    const userImage = await getUserImage(user);
 
     //movieTitle only used for url now
     const movieTitle = selectedMovie;
@@ -65,7 +76,7 @@ const MovieAutocomplete = () => {
       alert("Failed to find film - Please try again");
     } else {
       try {
-        await createPost(sliderRating, user, movieData, textReview);
+        await createPost(sliderRating, user, movieData, textReview, userImage);
 
         router.reload();
       } catch (error) {
@@ -77,7 +88,7 @@ const MovieAutocomplete = () => {
   const useStyles = makeStyles({
     paper: {
       border: "4px white",
-      
+
       backgroundColor: "rgb(100 116 139)",
     },
   });
@@ -113,8 +124,8 @@ const MovieAutocomplete = () => {
               }}
             />
           </fieldset>
-          <div className='flex justify-center'>
-            <h1 >{selectedMovie}</h1>
+          <div className="flex justify-center">
+            <h1>{selectedMovie}</h1>
           </div>
 
           <div>
@@ -145,20 +156,20 @@ const MovieAutocomplete = () => {
             </div>
 
             <br></br>
-                <div className="flex justify-center h-32">
-            <textarea
-              className="bg-slate-800 w-3/4 h-full flex resize-none border-2 border-slate-700 rounded-lg pl-2"
-              type="text"
-              placeholder="Create Review..."
-              maxLength="300"
-              wrap="soft"
-              ref={textReviewRef}
-            ></textarea>
+            <div className="flex justify-center h-32">
+              <textarea
+                className="bg-slate-800 w-3/4 h-full flex resize-none border-2 border-slate-700 rounded-lg pl-2"
+                type="text"
+                placeholder="Create Review..."
+                maxLength="300"
+                wrap="soft"
+                ref={textReviewRef}
+              ></textarea>
             </div>
           </div>
         </div>
       </div>
-      
+
       <div
         style={{
           display: "flex",

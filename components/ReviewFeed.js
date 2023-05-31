@@ -11,7 +11,7 @@ import Like from "./like";
 import { useRouter } from "next/router";
 import { useIntersection } from "react-use";
 import { useInfiniteQuery } from "@tanstack/react-query";
-import UserImage from "./UserImageReview";
+
 
 async function deleteReview(_id) {
   const response = await fetch("/api/mongoReviews/mongoDeleteReview", {
@@ -59,13 +59,17 @@ const ReviewFeed = () => {
         },
       }
     );
+  
+   
+
 
   useEffect(() => {
+    
     if (intersection && intersection.isIntersecting && hasNextPage) {
       fetchNextPage();
     }
     console.log(data);
-  }, [session, intersection, fetchNextPage, hasNextPage]);
+  }, [session, intersection, fetchNextPage, hasNextPage, data]);
 
   function formatLocalDate(date) {
     const options = {
@@ -76,7 +80,8 @@ const ReviewFeed = () => {
       minute: "numeric",
       hour12: true,
     };
-    return; //date.toLocaleDateString(undefined, options);
+    const newDate = new Date(date)
+    return newDate.toLocaleDateString(undefined, options);
   }
 
   async function handleSwitchFeed() {
@@ -130,7 +135,17 @@ const ReviewFeed = () => {
                       className=" flex inset-x-0 top-0 justify-start float-left cursor-pointer"
                       onClick={() => router.push(`user/${review.user}`)}
                     >
-                      
+                      {review.userImage ? (
+                      <Image
+                       alt="userImage"
+                        src={review.userImage.image}
+                        width={40}
+                        height={40}
+                      />
+                      ) : (
+                        <div> </div>
+                      )
+                    }
                     </div>
                     <div
                       className="pl-2 flex cursor-pointer w-fit"

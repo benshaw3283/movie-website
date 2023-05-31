@@ -4,7 +4,7 @@ import connectToDatabase from "../../../lib/connectToDatabase";
 
 export default async function mongoCreateReview(req, res) {
   if (req.method === "POST") {
-    const { sliderRating, user, movieData, textReview } = req.body;
+    const { sliderRating, user, movieData, textReview, userImage } = req.body;
     // Check if the required fields are present
     if ( !sliderRating) {
       res.status(400).json({ message: "Missing required fields" });
@@ -21,7 +21,8 @@ export default async function mongoCreateReview(req, res) {
         sliderRating: sliderRating,
         createdAt: new Date(),
         movieData: movieData,
-        textReview: textReview
+        textReview: textReview,
+        userImage : userImage
       });
       res.status(201).json({ message: "Review created!", ...data });
     } catch (err) {
