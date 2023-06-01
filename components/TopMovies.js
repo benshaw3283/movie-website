@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Image from 'next/image'
 
-function Top() {
+function TopMovies() {
   const [topReviews, setTopReviews] = useState([]);
 
   useEffect(() => {
@@ -30,19 +30,22 @@ function Top() {
   const calculateAverageRating = (reviews) => {
     const totalRating = reviews.reduce((sum, review) => sum + review.sliderRating, 0);
     const averageRating = totalRating / reviews.length;
-    return averageRating;
+    return averageRating.toFixed(1);
   };
 
   return (
-    <div className="bg-black">
-      <h1>Top 3 Reviews</h1>
+    <div className=" w-fit  p-2">
+      <h1 className="text-xl">Highest Rated Movies</h1>
+      <br></br>
       <ul>
         {topReviews.map((review, index) => (
-          <li key={index}>
+          <li key={index} className=" mt-2 rounded-lg flex flex-col items-center">
             
-            <h1 className="text-xl">{review._id} </h1>
-            <p className="text-sm">Average Rating: {calculateAverageRating(review.reviews)}</p>
-            <Image alt='g' src={review.Poster}  height={150} width={100}/>
+            <h1 className="text-xl text-white">{review._id} </h1>
+            <p className="text-sm ">Average Rating: {calculateAverageRating(review.reviews)}</p>
+            <div className="">
+            <Image alt='g' src={review.Poster}  height={175} width={125}/>
+            </div>
           </li>
         ))}
       </ul>
@@ -50,4 +53,4 @@ function Top() {
   );
 }
 
-export default Top;
+export default TopMovies;

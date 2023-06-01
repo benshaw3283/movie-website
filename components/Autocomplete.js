@@ -100,7 +100,7 @@ const MovieAutocomplete = () => {
       <div className={styles.main}>
         <div className={styles.content}>
           <br></br>
-
+          <p className="text-xs text-gray-500 pb-2">{`* If movie doesn't autocomplete, type Title then "ENTER"`}</p>
           <fieldset className={radixStyles.Fieldset}>
             <Autocomplete
               options={movieList}
@@ -123,6 +123,7 @@ const MovieAutocomplete = () => {
                 setSelectedMovie(newMovie);
               }}
             />
+            
           </fieldset>
           <div className="flex justify-center">
             <h1>{selectedMovie}</h1>

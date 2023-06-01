@@ -12,7 +12,6 @@ import { useRouter } from "next/router";
 import { useIntersection } from "react-use";
 import { useInfiniteQuery } from "@tanstack/react-query";
 
-
 async function deleteReview(_id) {
   const response = await fetch("/api/mongoReviews/mongoDeleteReview", {
     method: "POST",
@@ -29,14 +28,17 @@ async function deleteReview(_id) {
 const ReviewFeed = () => {
   const { data: session, status } = useSession();
   const [followed, setFollowed] = useState(false);
-  const [reviews, setReviews] = useState([]);
+  
   const router = useRouter();
   const intersectionRef = useRef(null);
+  
+  
 
+ 
   const intersection = useIntersection(intersectionRef, {
     root: null,
     rootMargin: "0px",
-    threshold: 0.75,
+    threshold: 1,
   });
 
   const limit = 5;
@@ -45,7 +47,7 @@ const ReviewFeed = () => {
     const response = await fetch(
       `/api/mongoReviews/mongoGetReview?limit=${limit}&page=${page}`
     );
-    console.log(page);
+
     return response.json();
   }
 
@@ -53,34 +55,43 @@ const ReviewFeed = () => {
     const response = await fetch(
       `/api/mongoReviews/mongoGetFollowedReview?sessionUser=${session.user.username}&limit=${limit}&page=${page}`
     );
-    console.log(page);
+
     return response.json();
   }
 
-  
   const { data, isSuccess, hasNextPage, fetchNextPage, isFetchingNextPage } =
-  useInfiniteQuery(
-    ["reviews", followed],
-    ({ pageParam = 1 }) => !followed ? fetchReviews(pageParam) : fetchFollowedReviews(pageParam),
-    {
-      getNextPageParam: (lastPage, allPages) => {
-        return lastPage.length === limit ? allPages.length + 1 : undefined;
-      },
-    }
-  );
-
+    useInfiniteQuery(
+      ["reviews", followed],
+      ({ pageParam = 1 }) =>
+        !followed ? fetchReviews(pageParam) : fetchFollowedReviews(pageParam),
+      {
+        getNextPageParam: (lastPage, allPages) => {
+          return lastPage.length === limit ? allPages.length + 1 : undefined;
+        },
+      }
+    );
 
   useEffect(() => {
-
-    
   
     
-    if (intersection && intersection.isIntersecting && hasNextPage) {
+    if ( intersection && intersection.isIntersecting && hasNextPage) {
       fetchNextPage();
     }
-    
-  }, [ intersection, fetchNextPage, hasNextPage]);
+  
+    console.log(intersection, intersectionRef);
+  }, [intersection, fetchNextPage, hasNextPage]);
 
+ 
+  async function handleDeleteReview(_id){
+    try {
+      await deleteReview(_id);
+      router.reload()
+
+    } catch(err) {
+      console.log(err)
+    }
+  }
+ 
 
   function formatLocalDate(date) {
     const options = {
@@ -91,7 +102,7 @@ const ReviewFeed = () => {
       minute: "numeric",
       hour12: true,
     };
-    const newDate = new Date(date)
+    const newDate = new Date(date);
     return newDate.toLocaleDateString(undefined, options);
   }
 
@@ -114,7 +125,9 @@ const ReviewFeed = () => {
 
             <button
               className="flex order-2 text-lg px-1 "
-              onClick={() => !session ? alert('Please sign in') : handleSwitchFeed()}
+              onClick={() =>
+                !session ? alert("Please sign in") : handleSwitchFeed()
+              }
             >
               Followed
             </button>
@@ -135,12 +148,15 @@ const ReviewFeed = () => {
         )}
       </div>
 
-      <div >
+      <div>
         {isSuccess &&
           data.pages.map((page) =>
             page.map((review, index) => (
-              <div key={index} >
-                <div key={page.length - 1} ref={intersectionRef} >HERE</div>
+              <div key={index}>
+                {
+                  index === page.length - 1 && (
+                    <div ref={intersectionRef} >HERE</div>
+                  )}
                 <div className="bg-slate-800 container rounded-lg flex flex-col h-2/5 w-full my-10 border-2 border-slate-700">
                   <div className="order-1  w-full h-12 rounded-t-lg   border-b-2 border-b-slate-700">
                     <div
@@ -148,16 +164,15 @@ const ReviewFeed = () => {
                       onClick={() => router.push(`user/${review.user}`)}
                     >
                       {review.userImage ? (
-                      <Image
-                       alt="userImage"
-                        src={review.userImage.image}
-                        width={40}
-                        height={40}
-                      />
+                        <Image
+                          alt="userImage"
+                          src={review.userImage.image}
+                          width={40}
+                          height={40}
+                        />
                       ) : (
                         <div> </div>
-                      )
-                    }
+                      )}
                     </div>
                     <div
                       className="pl-2 flex cursor-pointer w-fit"
@@ -165,7 +180,6 @@ const ReviewFeed = () => {
                     >
                       <h1 className="text-white font-semibold text-lg">
                         {review.user}
-                        
                       </h1>
                     </div>
 
@@ -288,7 +302,7 @@ const ReviewFeed = () => {
                                     </button>
                                   </AlertDialog.Cancel>
                                   <AlertDialog.Action asChild>
-                                    <button className="bg-slate-700 border-2 border-slate-800 rounded py-0.5 px-0.5">
+                                    <button onClick={()=> handleDeleteReview(review._id)} className="bg-slate-700 border-2 border-slate-800 rounded py-0.5 px-0.5">
                                       Yes, delete review
                                     </button>
                                   </AlertDialog.Action>

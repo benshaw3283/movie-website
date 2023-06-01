@@ -1,6 +1,7 @@
 import MovieAutocomplete from "../components/Autocomplete";
 import ReviewFeed from "../components/ReviewFeed";
 import { useSession } from "next-auth/react";
+import TopMovies from "../components/TopMovies";
 
 
 export default function Home() {
@@ -15,16 +16,9 @@ export default function Home() {
           <br></br>
           <br></br>
           <br></br>
-          <br></br>
+          
 
-          <p>agfafajsfajsf</p>
-          <p>agfafajsfajsf</p>
-          <p>agfafajsfajsf</p>
-          <p>agfafajsfajsf</p>
-          <p>agfafajsfajsf</p>
-          <p>agfafajsfajsf</p>
-          <p>agfafajsfajsf</p>
-          <p>agfafajsfajsf</p>
+          <TopMovies />
         </div>
 
         <div
@@ -33,7 +27,7 @@ export default function Home() {
         >
           <br></br>
 
-          <div className="bg-slate-800 border-2 border-slate-700 rounded-lg container justify-center  flex w-1/2 h-2/5 py-1 order-1 ">
+          <div className="bg-slate-800 border-2 border-slate-700 rounded-lg container justify-center  flex w-3/5 h-2/5 py-1 order-1 ">
             <MovieAutocomplete />
             
           </div>
@@ -59,7 +53,7 @@ export default function Home() {
           <br></br>
           <br></br>
           <br></br>
-          <br></br>
+          
 
           <p>agfafajsfajsf</p>
           <p>agfafajsfajsf</p>
