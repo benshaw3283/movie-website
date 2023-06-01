@@ -36,7 +36,7 @@ const ReviewFeed = () => {
   const intersection = useIntersection(intersectionRef, {
     root: null,
     rootMargin: "0px",
-    threshold: 1,
+    threshold: 0.75,
   });
 
   const limit = 5;
@@ -57,27 +57,30 @@ const ReviewFeed = () => {
     return response.json();
   }
 
-  const { data, isSuccess, hasNextPage, fetchNextPage, isFetchingNextPage } =
-    useInfiniteQuery(
-      ["reviews"],
-      ({ pageParam = 1 }) => !followed ? fetchReviews(pageParam) : fetchFollowedReviews(pageParam),
-      {
-        getNextPageParam: (lastPage, allPages) => {
-          return lastPage.length === limit ? allPages.length + 1 : undefined;
-        },
-      }
-    );
   
-   
+  const { data, isSuccess, hasNextPage, fetchNextPage, isFetchingNextPage } =
+  useInfiniteQuery(
+    ["reviews", followed],
+    ({ pageParam = 1 }) => !followed ? fetchReviews(pageParam) : fetchFollowedReviews(pageParam),
+    {
+      getNextPageParam: (lastPage, allPages) => {
+        return lastPage.length === limit ? allPages.length + 1 : undefined;
+      },
+    }
+  );
 
 
   useEffect(() => {
+
+    
+  
     
     if (intersection && intersection.isIntersecting && hasNextPage) {
       fetchNextPage();
     }
-    console.log(data);
-  }, [session, intersection, fetchNextPage, hasNextPage, data]);
+    
+  }, [ intersection, fetchNextPage, hasNextPage]);
+
 
   function formatLocalDate(date) {
     const options = {
@@ -101,7 +104,7 @@ const ReviewFeed = () => {
   }
 
   return (
-    <div>
+    <div >
       <div className="flex container  justify-center">
         {!followed ? (
           <div className="flex flex-row justify-center bg-slate-700 rounded-lg border-2 border-slate-600">
@@ -132,11 +135,12 @@ const ReviewFeed = () => {
         )}
       </div>
 
-      <div>
+      <div >
         {isSuccess &&
           data.pages.map((page) =>
             page.map((review, index) => (
-              <div key={index}>
+              <div key={index} >
+                <div key={page.length - 1} ref={intersectionRef} >HERE</div>
                 <div className="bg-slate-800 container rounded-lg flex flex-col h-2/5 w-full my-10 border-2 border-slate-700">
                   <div className="order-1  w-full h-12 rounded-t-lg   border-b-2 border-b-slate-700">
                     <div
@@ -299,7 +303,7 @@ const ReviewFeed = () => {
                     </div>
                   </div>
                 </div>
-                <div ref={intersectionRef}> </div>
+                
               </div>
             ))
           )}
