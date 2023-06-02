@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Image from 'next/image'
+import { useRouter } from "next/router";
 
 function TopMovies() {
   const [topReviews, setTopReviews] = useState([]);
+  const router = useRouter();
 
   useEffect(() => {
     // Fetch the reviews array
@@ -39,10 +41,10 @@ function TopMovies() {
       <br></br>
       <ul>
         {topReviews.map((review, index) => (
-          <li key={index} className=" mt-2 rounded-lg flex flex-col items-center">
+          <li key={index} className=" mt-2 rounded-lg flex flex-col items-center cursor-pointer" onClick={() => router.push(`../titles/${review._id}`)}>
             
             <h1 className="text-xl text-white">{review._id} </h1>
-            <p className="text-sm ">Average Rating: {calculateAverageRating(review.reviews)}</p>
+            <p className="text-sm " >Average Rating: {calculateAverageRating(review.reviews)}</p>
             <div className="">
             <Image alt='g' src={review.Poster}  height={175} width={125}/>
             </div>

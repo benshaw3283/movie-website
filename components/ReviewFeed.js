@@ -202,8 +202,8 @@ const ReviewFeed = () => {
                       id="main-right"
                       className=" bg-slate-800 w-full border-l-2 border-slate-700"
                     >
-                      <div className="  flex justify-center  border-b-2 border-b-slate-700 ">
-                        <h1 className="text-white text-3xl">
+                      <div className="  flex justify-center  border-b-2 border-b-slate-700 cursor-pointer">
+                        <h1 className="text-white text-3xl" onClick={() => router.push(`titles/${review.movieData.Title}`)}>
                           {review.movieData.Title}
                         </h1>
                       </div>

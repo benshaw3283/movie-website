@@ -100,8 +100,11 @@ const MovieAutocomplete = () => {
       <div className={styles.main}>
         <div className={styles.content}>
           <br></br>
-          <p className="text-xs text-gray-500 pb-2">{`* If movie doesn't autocomplete, type Title then "ENTER"`}</p>
-          <fieldset className={radixStyles.Fieldset}>
+          
+    
+          <fieldset className='flex gap-2 items-center mb-3 justify-center '>
+          <div className="flex flex-row ">
+      <div className="flex order-1 pr-2 ">
             <Autocomplete
               options={movieList}
               id="movies"
@@ -123,11 +126,22 @@ const MovieAutocomplete = () => {
                 setSelectedMovie(newMovie);
               }}
             />
-            
+            </div>
+            <div className="flex order-2 place-self-center absolute pl-72" >
+
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 text-gray-400 cursor-help">
+  <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
+</svg>
+            </div>
+            </div>
+      
           </fieldset>
+          
           <div className="flex justify-center">
             <h1>{selectedMovie}</h1>
           </div>
+          
+
 
           <div>
             <br></br>

@@ -38,8 +38,6 @@ export async function getServerSideProps(context) {
   const client = await connectToDatabase()
 
  
-
- 
   // Fetch user data
   const user = await client
     .db()
@@ -69,7 +67,7 @@ export async function getServerSideProps(context) {
   return { props: { user, session, posts,averageRating   } };
 }
 
-export default function UserProfilePage({ user, posts, averageRating  }) {
+export default function UserProfilePage({ user, posts, averageRating }) {
   const router = useRouter();
   const { data: session, status } = useSession();
   const [reviews, setReviews] = useState([]);
