@@ -8,8 +8,15 @@ import { useSession } from "next-auth/react";
 import { RadixSlider } from "./RadixComponents";
 import { useRouter } from "next/router";
 import { makeStyles } from "@material-ui/core/styles";
+import tvList from "./TvList";
 
-async function createPost(sliderRating, user, movieData, textReview, userImage) {
+async function createPost(
+  sliderRating,
+  user,
+  movieData,
+  textReview,
+  userImage
+) {
   const response = await fetch("/api/mongoReviews/mongoCreateReview", {
     method: "POST",
     headers: {
@@ -20,7 +27,7 @@ async function createPost(sliderRating, user, movieData, textReview, userImage) 
       user,
       movieData,
       textReview,
-      userImage
+      userImage,
     }),
   });
 
@@ -46,6 +53,7 @@ const MovieAutocomplete = () => {
   const textReviewRef = useRef("");
   const { data: session } = useSession();
   const router = useRouter();
+  const [switchType, setSwitchType] = useState(true);
 
   async function submitHandler(event) {
     event.preventDefault();
@@ -68,6 +76,7 @@ const MovieAutocomplete = () => {
     const result = await response.json();
 
     const movieData = result;
+    
     if (
       movieData.Title === "Null" ||
       movieData.Response === "False" ||
@@ -77,7 +86,7 @@ const MovieAutocomplete = () => {
     } else {
       try {
         await createPost(sliderRating, user, movieData, textReview, userImage);
-
+        
         router.reload();
       } catch (error) {
         console.log(error);
@@ -95,53 +104,94 @@ const MovieAutocomplete = () => {
 
   const classes = useStyles();
 
+  const handleSwitch = () => {
+    setSwitchType(!switchType)
+  }
+
   return (
     <div>
       <div className={styles.main}>
         <div className={styles.content}>
           <br></br>
-          
-    
-          <fieldset className='flex gap-2 items-center mb-3 justify-center '>
-          <div className="flex flex-row ">
-      <div className="flex order-1 pr-2 ">
-            <Autocomplete
-              options={movieList}
-              id="movies"
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  label="Movie"
-                  variant="outlined"
-                  className="bg-slate-700 rounded-lg "
-                />
-              )}
-              getOptionLabel_={(option) => option.name}
-              classes={{ paper: classes.paper }}
-              style={{ width: 280 }}
-              freeSolo={true}
-              autoSelect={true}
-              value={selectedMovie}
-              onChange={(_event, newMovie) => {
-                setSelectedMovie(newMovie);
-              }}
-            />
-            </div>
-            <div className="flex order-2 place-self-center absolute pl-72" >
 
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 text-gray-400 cursor-help">
-  <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
-</svg>
+          <fieldset className="flex gap-2 items-center mb-3 justify-center ">
+            <div className="flex flex-row ">
+              <div>
+                {switchType ? (
+                  <div className="flex flex-col justify-center bg-slate-700 rounded-lg border-2 border-slate-600 mr-2">
+                    <button className="flex order-1 px-1 bg-slate-800 text-lg rounded-t-lg">
+                      Movie
+                    </button>
+
+                    <button
+                      className="flex order-2 text-lg px-1 "
+                      onClick={() =>
+                        !session ? alert("Please sign in") : handleSwitch()
+                      }
+                    >
+                      TV show
+                    </button>
+                  </div>
+                ) : (
+                  <div className="flex flex-col justify-center bg-slate-700 rounded-lg border-2 border-slate-600 mr-2">
+                    <button
+                      className="flex order-1 px-1  text-lg rounded-lg"
+                      onClick={() => handleSwitch()}
+                    >
+                      Movie
+                    </button>
+
+                    <button className="flex order-2 text-lg px-1 bg-slate-800 rounded-b-lg">
+                      TV show
+                    </button>
+                  </div>
+                )}
+              </div>
+              <div className="flex order-1 pr-2 ">
+                <Autocomplete
+                  options={switchType ? movieList : tvList}
+                  id="movies"
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      label={switchType ? 'Movie' : 'TV show'}
+                      variant="outlined"
+                      className="bg-slate-700 rounded-lg "
+                    />
+                  )}
+                  getOptionLabel_={(option) => option.name}
+                  classes={{ paper: classes.paper }}
+                  style={{ width: 280 }}
+                  freeSolo={true}
+                  autoSelect={true}
+                  value={selectedMovie}
+                  onChange={(_event, newMovie) => {
+                    setSelectedMovie(newMovie);
+                  }}
+                />
+              </div>
+              <div className="flex order-2 place-self-center ">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="w-6 h-6 text-gray-400 cursor-help"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"
+                  />
+                </svg>
+              </div>
             </div>
-            </div>
-      
           </fieldset>
-          
+
           <div className="flex justify-center">
             <h1>{selectedMovie}</h1>
           </div>
-          
-
 
           <div>
             <br></br>

@@ -12,7 +12,7 @@ import connectToDatabase from "../../lib/connectToDatabase";
 
 export async function getServerSideProps(context) {
   const { title } = context.query;
-  const session = await getSession(context);
+
   const client = await connectToDatabase();
 
   const url = `http://www.omdbapi.com/?apikey=4f46879e&r=json&t=${title}`;
@@ -38,12 +38,13 @@ export async function getServerSideProps(context) {
     sliderRatings.length
   ).toFixed(1);
 
-  return { props: { session, posts, averageRating, values } };
+  return { props: { posts, averageRating, values } };
 }
 
-const Title = ({ session, posts, values, averageRating }) => {
+const Title = ({ posts, values, averageRating }) => {
   const [reviews, setReviews] = useState([]);
   const router = useRouter();
+  const { data: session, status } = useSession();
 
   useEffect(() => {
     async function postsHandler() {
@@ -98,6 +99,17 @@ const Title = ({ session, posts, values, averageRating }) => {
                   {values.Title}
                 </h1>
               </div>
+              <p
+                onClick={() =>
+                  window.open(
+                    `https://www.imdb.com/title/${values.imdbID}/`,
+                    "_blank"
+                  )
+                }
+                className="cursor-pointer underline pl-2 absolute text-blue-600"
+              >
+                See on IMDB
+              </p>
               <div className="flex  order-2">
                 <div className="flex flex-row justify-around container px-2">
                   <div className="flex flex-col">
@@ -110,10 +122,15 @@ const Title = ({ session, posts, values, averageRating }) => {
                       </p>
                     </div>
                   </div>
+
                   <div className="flex p-2">
-                    <h2 className="px-2 text-xl">Director</h2>
+                    <h2 className="px-2 text-xl">
+                      {values.Director !== "N/A" ? `Director` : `Writer`}
+                    </h2>
                     <p className="bg-slate-900 h-fit border-2 rounded border-slate-700 px-2 text-xl">
-                      {values.Director}
+                      {values.Director !== "N/A"
+                        ? `${values.Director}`
+                        : `${values.Writer}`}
                     </p>
                   </div>
                   <div className="flex flex-col">
@@ -191,7 +208,10 @@ const Title = ({ session, posts, values, averageRating }) => {
                   <div className=" w-full px-4  flex justify-center">
                     <div className="bg-slate-800 container rounded-lg flex flex-col h-full w-4/5   ">
                       <div className="order-1  w-full h-12 rounded-t-lg  bg-green-400 border-2 border-slate-700">
-                        <div className="text-red-400 flex inset-x-0 top-0 justify-start float-left cursor-pointer" onClick={() => router.push(`../user/${review.user}`)}>
+                        <div
+                          className="text-red-400 flex inset-x-0 top-0 justify-start float-left cursor-pointer"
+                          onClick={() => router.push(`../user/${review.user}`)}
+                        >
                           <Image
                             alt="userImage"
                             src={review.userImage.image}
@@ -200,7 +220,12 @@ const Title = ({ session, posts, values, averageRating }) => {
                           />
                         </div>
                         <div className="flex pl-2">
-                          <h1 className="text-black font-semibold text-lg cursor-pointer" onClick={() => router.push(`../user/${review.user}`)}>
+                          <h1
+                            className="text-black font-semibold text-lg cursor-pointer"
+                            onClick={() =>
+                              router.push(`../user/${review.user}`)
+                            }
+                          >
                             {review.user}
                           </h1>
                         </div>

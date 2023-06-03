@@ -202,17 +202,17 @@ const ReviewFeed = () => {
                       id="main-right"
                       className=" bg-slate-800 w-full border-l-2 border-slate-700"
                     >
-                      <div className="  flex justify-center  border-b-2 border-b-slate-700 cursor-pointer">
+                      <div className="  flex justify-center  border-b-2 border-b-slate-700 cursor-pointer ">
                         <h1 className="text-white text-3xl" onClick={() => router.push(`titles/${review.movieData.Title}`)}>
                           {review.movieData.Title}
                         </h1>
                       </div>
 
-                      <div className="bg-slate-800 flex  justify-center  border-b-2 border-b-slate-700">
-                        <div className="text-white  ">
+                      <div className="bg-slate-800 flex  justify-center  border-b-2 border-b-slate-700 ">
+                        <div className="text-white  place-self-center">
                           {review.movieData.Year} || {review.movieData.Genre} ||
                         </div>
-                        <div className="text-white ">
+                        <div className="text-white place-self-center flex p-1 ">
                           <Image alt="IMDbLogo" src={IMDbIcon} />
                           {review.movieData.imdbRating}
                         </div>
