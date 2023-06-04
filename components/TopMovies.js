@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 function TopMovies() {
   const [topReviews, setTopReviews] = useState([]);
   const router = useRouter();
+  const [open, setOpen] = useState(true)
 
   useEffect(() => {
     // Fetch the reviews array
@@ -28,6 +29,10 @@ function TopMovies() {
       });
   }, []);
 
+  const handleOpen = () => {
+    setOpen(!open)
+  }
+
   // Function to calculate the average sliderRating for a group of reviews
   const calculateAverageRating = (reviews) => {
     const totalRating = reviews.reduce((sum, review) => sum + review.sliderRating, 0);
@@ -37,8 +42,15 @@ function TopMovies() {
 
   return (
     <div className=" w-fit  p-2">
-      <h1 className="text-xl">Highest Rated Movies</h1>
+      <h1 className="text-xl flex justify-center">Top Rated</h1>
       <br></br>
+      {open ? (
+        <div>
+      <div className="flex justify-center" onClick={()=> handleOpen()}>
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+  <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
+</svg>
+</div>
       <ul>
         {topReviews.map((review, index) => (
           <li key={index} className=" mt-2 rounded-lg flex flex-col items-center cursor-pointer" onClick={() => router.push(`../titles/${review._id}`)}>
@@ -51,6 +63,15 @@ function TopMovies() {
           </li>
         ))}
       </ul>
+      </div>
+      ) : (
+        <div className="flex justify-center" onClick={()=> handleOpen()}>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+  <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+</svg>
+
+        </div>
+      )}
     </div>
   );
 }

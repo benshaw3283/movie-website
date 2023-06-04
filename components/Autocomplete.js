@@ -9,6 +9,7 @@ import { RadixSlider } from "./RadixComponents";
 import { useRouter } from "next/router";
 import { makeStyles } from "@material-ui/core/styles";
 import tvList from "./TvList";
+import * as Tooltip from '@radix-ui/react-tooltip';
 
 async function createPost(
   sliderRating,
@@ -150,7 +151,7 @@ const MovieAutocomplete = () => {
               <div className="flex order-1 pr-2 ">
                 <Autocomplete
                   options={switchType ? movieList : tvList}
-                  id="movies"
+                  id="titles"
                   renderInput={(params) => (
                     <TextField
                       {...params}
@@ -170,8 +171,14 @@ const MovieAutocomplete = () => {
                   }}
                 />
               </div>
-              <div className="flex order-2 place-self-center ">
-                <svg
+              <div className="flex order-2 place-self-center " >
+                
+              
+                <p ></p>
+                <Tooltip.Provider>
+      <Tooltip.Root>
+        <Tooltip.Trigger asChild>
+        <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
@@ -185,6 +192,15 @@ const MovieAutocomplete = () => {
                     d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"
                   />
                 </svg>
+        </Tooltip.Trigger>
+        <Tooltip.Portal>
+          <Tooltip.Content className={styles.TooltipContent} sideOffset={5}>
+          {`If the title you want to review doesn't show up, type it in full and press enter`}
+            <Tooltip.Arrow  />
+          </Tooltip.Content>
+        </Tooltip.Portal>
+      </Tooltip.Root>
+    </Tooltip.Provider>
               </div>
             </div>
           </fieldset>

@@ -40,6 +40,12 @@ const Search = () => {
         setSwitchSearchType(!switchSearchType)
       }
 
+      const handleSearch = ()=> {
+        selected ? (
+        switchSearchType ? router.push(`../titles/${selected}`) : router.push(`../user/${selected}`)
+        ) : (null)
+      }
+
       const titles = [...tvList, ...movieList]
 
   return (
@@ -81,7 +87,7 @@ const Search = () => {
       {switchSearchType ? (
         <Autocomplete
                   options={ titles }
-                  id="movies"
+                  id="titles"
                   renderInput={(params) => (
                     <TextField
                       {...params}
@@ -108,7 +114,7 @@ const Search = () => {
                 ) : (
                     <Autocomplete
                   options={ userList }
-                  id="movies"
+                  id="users"
                   renderInput={(params) => (
                     <TextField
                       {...params}
@@ -130,7 +136,7 @@ const Search = () => {
                 />
                 )}
                 </div>
-                <div className='flex order-2 place-self-center cursor-pointer' onClick={()=> switchSearchType ? router.push(`../titles/${selected}`) : router.push(`../user/${selected}`)}>
+                <div className='flex order-2 place-self-center cursor-pointer' onClick={()=> handleSearch()}>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 text-whitefloat-right ml-1">
   <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
 </svg>
