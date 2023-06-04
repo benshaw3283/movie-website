@@ -10,6 +10,19 @@ import CommentSection from "../../components/CommentSection";
 import Like from "../../components/like";
 import connectToDatabase from "../../lib/connectToDatabase";
 
+async function deleteReview(_id) {
+  const response = await fetch("/api/mongoReviews/mongoDeleteReview", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      _id: _id,
+    }),
+  });
+  return response;
+}
+
 export async function getServerSideProps(context) {
   const { title } = context.query;
 
@@ -61,7 +74,7 @@ const Title = ({ posts, values, averageRating }) => {
       });
     }
 
-    console.log(values);
+    
 
     postsHandler();
   }, [posts, values]);
@@ -78,19 +91,29 @@ const Title = ({ posts, values, averageRating }) => {
     return date.toLocaleDateString(undefined, options);
   };
 
+  async function handleDeleteReview(_id) {
+    try {
+      await deleteReview(_id);
+      // After deleting the review, update the reviews state to remove the deleted review
+      setReviews(reviews.filter((review) => review._id !== _id));
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
   return (
     <div>
-      <div className="bg-slate-900  w-full h-screen">
+      <div className="bg-slate-900  w-full h-full min-h-screen">
         <div className="flex flex-col items-center w-full h-full">
           <div className="order-1 ">
             <br></br>
           </div>
-          <div className="bg-slate-800 border-2 border-slate-700 rounded-lg container justify-center  flex w-1/2 h-1/3 order-2 overflow-clip">
+          <div className="bg-slate-800 border-2 border-slate-700 rounded-lg container justify-center  flex w-1/2 h-1/3 order-2 overflow-clip min-h-fit">
             <Image
               src={values.Poster}
               alt="f"
-              width={300}
-              height={100}
+              width={240}
+              height={400}
               className="float-left "
             />
             <div className="flex flex-col container justify-between py-2 h-60">
@@ -187,7 +210,7 @@ const Title = ({ posts, values, averageRating }) => {
                     </div>
                     <div className="order-2 flex place-self-center">
                       <p className="bg-slate-900 h-fit border-2 rounded border-slate-700 px-2 text-lg">
-                        {averageRating}
+                        {averageRating !== 'NaN' ? averageRating : '0'}
                       </p>
                     </div>
                   </div>
@@ -198,14 +221,14 @@ const Title = ({ posts, values, averageRating }) => {
           <div className="flex order-3">
             <br></br>
           </div>
-          <div className="bg-slate-800 border-2 border-slate-700 rounded-lg container grid grid-cols-2  w-5/6 min-h-fit order-4 py-2 ">
+          <div className="bg-slate-800 border-2 border-slate-700 rounded-lg container grid grid-cols-2  w-5/6 h-full order-4 py-2 ">
             <h1 className="absolute justify-self-center font-semibold text-slate-500 text-xl underline">
               REVIEWS
             </h1>
             {reviews.length ? (
               reviews.map((review, index) => (
                 <div key={index} className=" flex my-4">
-                  <div className=" w-full px-4  flex justify-center">
+                  <div className=" w-full  px-4  flex justify-center">
                     <div className="bg-slate-800 container rounded-lg flex flex-col h-full w-4/5   ">
                       <div className="order-1  w-full h-12 rounded-t-lg  bg-green-400 border-2 border-slate-700">
                         <div
@@ -376,9 +399,9 @@ const Title = ({ posts, values, averageRating }) => {
                 </div>
               ))
             ) : (
-              <div className="bg-slate-900 h-screen">
+              <div className="bg-slate-900 h-full">
                 <div className="bg-slate-800 container rounded-lg flex justify-center h-full w-full ">
-                  <div className="justify-center ">
+                  <div className="flex  ">
                     <p>No reviews to display...</p>
                   </div>
                 </div>

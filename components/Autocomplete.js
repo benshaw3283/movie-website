@@ -2,7 +2,7 @@ import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import React, { useEffect, useRef, useState } from "react";
 import movieList from "../pages/movieList";
-import radixStyles from "../styles/radixSign.module.css";
+
 import styles from "../styles/review.module.css";
 import { useSession } from "next-auth/react";
 import { RadixSlider } from "./RadixComponents";

@@ -1,14 +1,16 @@
 
 import React from 'react'
-import HighestMovies from '../components/TopMovies'
-import TopMovies from '../components/TopMovies'
+import Search from '../components/Search'
 
-const test = () => {
+const Test = () => {
   return (
-    <div>
-      <TopMovies />
+    <div className=''>
+      <div className='flex justify-center '>
+
+      <Search />
+      </div>
     </div>
   )
 }
 
-export default test
+export default Test

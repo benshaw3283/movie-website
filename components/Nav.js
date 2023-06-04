@@ -8,6 +8,7 @@ import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import radixStyle from "../styles/radixSign.module.css";
 import { useEffect } from "react";
 import UserImage from "./UserImageNav";
+import Search from "./Search";
 
 const Nav = () => {
   const { data: session } = useSession();
@@ -51,14 +52,19 @@ const Nav = () => {
   } else {
     return (
       <div className="flex flex-row items-center w-full bg-gray-900 border-b-2 pt-2 border-slate-800 sticky top-0 z-[20] ">
-        <div className={navBar.nav1}></div>
+        <div className='flex order-1 w-1/5'>
+        <nav className="pl-24  flex">
+            <Link href="/">Home</Link>
+          </nav>
+        </div>
         <div
           id="nav2"
           className="w-3/5 order-2 justify-between flex align-middle place-items-center"
         >
-          <nav className="pl-24  flex">
-            <Link href="/">Home</Link>
-          </nav>
+          
+          <div className="flex ml-2 mb-1">
+          <Search />
+          </div>
 
           <nav className="pr-24 ">
             <DropdownMenu.Root>
