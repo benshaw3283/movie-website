@@ -158,7 +158,7 @@ const ReviewFeed = () => {
                     <div ref={intersectionRef} >HERE</div>
                   )}
                 <div className="bg-slate-800 container rounded-lg flex flex-col h-2/5 w-full my-10 border-2 border-slate-700">
-                  <div className="order-1  w-full h-12 rounded-t-lg   border-b-2 border-b-slate-700">
+                  <div className="order-1  w-full h-12  rounded-t-lg   border-b-2 border-b-slate-700">
                     <div
                       className=" flex inset-x-0 top-0 justify-start float-left cursor-pointer"
                       onClick={() => router.push(`user/${review.user}`)}
@@ -188,28 +188,28 @@ const ReviewFeed = () => {
                     </p>
                   </div>
 
-                  <div className="order-2 flex w-full h-3/4  overflow-clip">
-                    <div id="main-left" className="flex w-2/3">
+                  <div className="order-2 flex  h-3/4  overflow-clip">
+                    <div id="main-left" className="flex w-1/3 ">
                       <Image
                         alt="movieImage"
                         src={review.movieData.Poster}
                         width="230"
-                        height="350"
+                        height="350 "
                       ></Image>
                     </div>
 
                     <div
                       id="main-right"
-                      className=" bg-slate-800 w-full border-l-2 border-slate-700"
+                      className=" bg-slate-800 w-full md:w-2/3 border-l-2 border-slate-700 "
                     >
                       <div className="  flex justify-center  border-b-2 border-b-slate-700 cursor-pointer ">
-                        <h1 className="text-white text-3xl" onClick={() => router.push(`titles/${review.movieData.Title}`)}>
+                        <h1 className="text-white text-3xl md:text-2xl" onClick={() => router.push(`titles/${review.movieData.Title}`)}>
                           {review.movieData.Title}
                         </h1>
                       </div>
 
                       <div className="bg-slate-800 flex  justify-center  border-b-2 border-b-slate-700 ">
-                        <div className="text-white  place-self-center">
+                        <div className="text-white  place-self-center md:text-sm">
                           {review.movieData.Year} || {review.movieData.Genre} ||
                         </div>
                         <div className="text-white place-self-center flex p-1 ">
@@ -219,18 +219,18 @@ const ReviewFeed = () => {
                       </div>
 
                       <div className="bg-slate-900 h-5/6 flex flex-row container  border-b-2 border-b-slate-700">
-                        <div className="absolute w-64 italic text-gray-500 text-xs py-1 px-1 order-1">
-                          <p>{review.movieData.Plot}</p>
+                        <div className="absolute w-64 md:w-72 italic text-gray-500 text-xs  py-1 px-1 order-1 ">
+                          <p></p>
                         </div>
 
-                        <div className="self-center flex order-2 ">
-                          <h1 className="text-white text-3xl pl-4 ">
+                        <div className="self-center flex order-2 pl-1">
+                          <h1 className="text-white text-3xl px-1 md:text-xl border-2 border-slate-700 rounded-lg">
                             {review.sliderRating}
                           </h1>
                         </div>
 
-                        <div className=" self-center flex order-3 pl-8">
-                          <p className="text-white pl-2 pt-6 text-sm w-72">
+                        <div className=" self-center flex order-3 pl-8 md:pl-2">
+                          <p className="text-white pl-2  text-sm w-72 md:h-44 md:text-xs md:w-48">
                             {review.textReview}
                           </p>
                         </div>

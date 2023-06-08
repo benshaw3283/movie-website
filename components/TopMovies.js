@@ -57,7 +57,7 @@ function TopMovies() {
             
             <h1 className="text-xl text-white">{review._id} </h1>
             <p className="text-sm " >Average Rating: {calculateAverageRating(review.reviews)}</p>
-            <div className="">
+            <div className="md:h-40">
             <Image alt='g' src={review.Poster}  height={175} width={125}/>
             </div>
           </li>
