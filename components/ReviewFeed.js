@@ -188,13 +188,13 @@ const ReviewFeed = () => {
                     </p>
                   </div>
 
-                  <div className="order-2 flex  h-3/4  overflow-clip">
+                  <div className="order-2 flex  h-5/6  overflow-clip">
                     <div id="main-left" className="flex w-1/3 ">
                       <Image
                         alt="movieImage"
                         src={review.movieData.Poster}
                         width="230"
-                        height="350 "
+                        height="320 "
                       ></Image>
                     </div>
 
@@ -203,14 +203,14 @@ const ReviewFeed = () => {
                       className=" bg-slate-800 w-full md:w-2/3 border-l-2 border-slate-700 "
                     >
                       <div className="  flex justify-center  border-b-2 border-b-slate-700 cursor-pointer ">
-                        <h1 className="text-white text-3xl md:text-2xl" onClick={() => router.push(`titles/${review.movieData.Title}`)}>
+                        <h1 className="text-white lg:text-3xl md:text-2xl sm:text-xl" onClick={() => router.push(`titles/${review.movieData.Title}`)}>
                           {review.movieData.Title}
                         </h1>
                       </div>
 
                       <div className="bg-slate-800 flex  justify-center  border-b-2 border-b-slate-700 ">
-                        <div className="text-white  place-self-center md:text-sm">
-                          {review.movieData.Year} || {review.movieData.Genre} ||
+                        <div className="text-white  place-self-center md:text-sm ">
+                          {review.movieData.Year} | {review.movieData.Genre} |
                         </div>
                         <div className="text-white place-self-center flex p-1 ">
                           <Image alt="IMDbLogo" src={IMDbIcon} />
@@ -218,26 +218,39 @@ const ReviewFeed = () => {
                         </div>
                       </div>
 
-                      <div className="bg-slate-900 h-5/6 flex flex-row container  border-b-2 border-b-slate-700">
-                        <div className="absolute w-64 md:w-72 italic text-gray-500 text-xs  py-1 px-1 order-1 ">
-                          <p></p>
-                        </div>
-
-                        <div className="self-center flex order-2 pl-1">
-                          <h1 className="text-white text-3xl px-1 md:text-xl border-2 border-slate-700 rounded-lg">
+                      {review.textReview !== '' ? (
+                      <div className="bg-slate-900 h-5/6 flex flex-col container justify-center border-b-2 border-b-slate-700">
+                                               
+                        <div className="self-center flex order-1 ">
+                          <h1 className="text-white lg:text-3xl px-1 md:text-xl border-2 border-slate-700 rounded-lg">
                             {review.sliderRating}
                           </h1>
                         </div>
-
-                        <div className=" self-center flex order-3 pl-8 md:pl-2">
-                          <p className="text-white pl-2  text-sm w-72 md:h-44 md:text-xs md:w-48">
+                        <div className=" self-center flex order-2 ">
+                          <p className="text-white pl-2  lg:text-sm lg:w-72 md:h-44 md:text-xs md:w-48">
                             {review.textReview}
                           </p>
                         </div>
                       </div>
+                      ) : (
+                        <div className="bg-slate-900 h-5/6 flex flex-col container justify-center border-b-2 border-b-slate-700">
+                                           
+                        <div className="self-center flex order-1 ">
+                          <h1 className="text-white lg:text-3xl px-1 md:text-xl border-2 border-slate-700 rounded-lg">
+                          {review.sliderRating}
+                          </h1>
+                        </div>
+
+                        <div className="place-self-center  flex order-2 mt-2">
+                          <p className="text-gray-500 pl-2  lg:text-sm lg:w-72 md:h-44 md:text-xs md:w-48 ">
+                            {review.movieData.Plot}
+                          </p>
+                        </div>
+                      </div>
+                      )}
                     </div>
                   </div>
-                  <div className="order-3 w-full h-12 rounded-b-lg bg-green-500  border-t-2 border-t-slate-700">
+                  <div className="order-3 w-full h-12 rounded-b-lg bg-slate-800  border-t-2 border-t-slate-700">
                     <div className="flex flex-row w-full h-12 justify-around">
                       <div className="flex self-center">
                         <p>{!review.likes ? "0" : review.likes.length}</p>

@@ -2,6 +2,8 @@ import MovieAutocomplete from "../components/Autocomplete";
 import ReviewFeed from "../components/ReviewFeed";
 import { useSession } from "next-auth/react";
 import TopMovies from "../components/TopMovies";
+import Report from "../components/Report";
+import ComingSoon from "../components/ComingSoon";
 
 
 export default function Home() {
@@ -54,15 +56,12 @@ export default function Home() {
           <br></br>
           <br></br>
           
+          <Report/>
 
-          <p>agfafajsfajsf</p>
-          <p>agfafajsfajsf</p>
-          <p>agfafajsfajsf</p>
-          <p>agfafajsfajsf</p>
-          <p>agfafajsfajsf</p>
-          <p>agfafajsfajsf</p>
-          <p>agfafajsfajsf</p>
-          <p>agfafajsfajsf</p>
+<br></br>
+<br></br>
+<ComingSoon/>
+          
         </div>
       </div>
     </div>

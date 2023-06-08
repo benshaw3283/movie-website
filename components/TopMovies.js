@@ -43,7 +43,7 @@ function TopMovies() {
   return (
     <div className=" w-fit  p-2">
       <h1 className="text-xl flex justify-center">Top Rated</h1>
-      <br></br>
+      
       {open ? (
         <div>
       <div className="flex justify-center" onClick={()=> handleOpen()}>
@@ -53,12 +53,13 @@ function TopMovies() {
 </div>
       <ul>
         {topReviews.map((review, index) => (
-          <li key={index} className=" mt-2 rounded-lg flex flex-col items-center cursor-pointer" onClick={() => router.push(`../titles/${review._id}`)}>
-            
-            <h1 className="text-xl text-white">{review._id} </h1>
+          <li key={index} className=" mt-2  flex flex-col items-center cursor-pointer" onClick={() => router.push(`../titles/${review._id}`)}>
+            <div className="border-2 border-slate-800 p-1 rounded-lg ">
+            <h1 className="text-xl text-white flex justify-center">{review._id} </h1>
             <p className="text-sm " >Average Rating: {calculateAverageRating(review.reviews)}</p>
-            <div className="md:h-40">
+            <div className="flex justify-center">
             <Image alt='g' src={review.Poster}  height={175} width={125}/>
+            </div>
             </div>
           </li>
         ))}
