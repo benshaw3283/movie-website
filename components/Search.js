@@ -83,7 +83,7 @@ const Search = () => {
           </div>
         )}
       </div>
-        <div className='flex order-1 place-self-center'>
+        <div className='flex order-1 place-self-center '>
       {switchSearchType ? (
         <Autocomplete
                   options={ titles }

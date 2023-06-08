@@ -225,7 +225,7 @@ export default function UserProfilePage({ user, posts, averageRating }) {
                     </div>
 
                     <div className="flex">
-                      <h2 className="pr-2">Averating Rating</h2>
+                      <h2 className="pr-2">Average Rating</h2>
                       <p className="bg-slate-900 h-fit border-2 rounded border-slate-700 px-2">
                         {averageRating}
                       </p>
@@ -395,7 +395,7 @@ export default function UserProfilePage({ user, posts, averageRating }) {
                           </div>
 
                           <div id="main-right" className=" bg-black w-full">
-                            <div className=" bg-blue-400 flex justify-center  border-b-2 border-b-slate-700">
+                            <div className=" bg-blue-400 flex justify-center  border-b-2 border-b-slate-700 cursor-pointer" onClick={()=> router.push(`../titles/${review.movieData.Title}`)}>
                               <h1 className="text-black text-2xl">
                                 {review.movieData.Title}
                               </h1>
