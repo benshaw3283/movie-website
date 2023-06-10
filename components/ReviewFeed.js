@@ -7,7 +7,7 @@ import * as AlertDialog from "@radix-ui/react-alert-dialog";
 import styles from "../styles/radixAlertDialog.module.css";
 import IMDbIcon from "../public/imdb.png";
 import CommentSection from "./CommentSection";
-import Like from "./like";
+import Like from "./Like";
 import { useRouter } from "next/router";
 import { useIntersection } from "react-use";
 import { useInfiniteQuery } from "@tanstack/react-query";

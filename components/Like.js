@@ -5,8 +5,9 @@ import React from "react";
 
 const Like = (props) => {
   const [liked, setLiked] = useState(false);
-  const { data: session, status } = useSession();
-  const likeRef = useRef(0);
+  const { data: session } = useSession();
+  const [likesNum, setLikesNum] = useState(0)
+  
 
   async function handleLike() {
     try {
@@ -21,6 +22,9 @@ const Like = (props) => {
           user: session.user.username,
         }),
       });
+      if(response.ok){
+        fetchLikes()
+      }
 
       return response;
     } catch (err) {
@@ -41,9 +45,20 @@ const Like = (props) => {
           user: session.user.username,
         }),
       });
+      if(response.ok){
+        fetchLikes()
+      }
       return response;
     } catch (err) {
       console.log(err);
+    }
+  }
+
+  async function fetchLikes(){
+    const response = await fetch(`api/mongoReviews/mongoGetLikes?postId=${props.postId}`)
+    if(response.ok) {
+      const likesData = await response.json()
+      setLikesNum(likesData.length)
     }
   }
 
@@ -60,23 +75,22 @@ const Like = (props) => {
       }
     }
 
+    
+
     ifLiked();
-  }, [props, session, likes]);
+  }, [props, session]);
 
-  let likes;
-
-  if (!props.likes || props.likes.length === 0) {
-    likes = "0";
-  } else {
-    likes = props.likes.length;
-  }
+  useEffect(()=> {
+    fetchLikes()
+  })
+  
 
   return (
     <div>
       {!liked ? (
-        <div>
-          <p>{likes}</p>
-          <button onClick={() => handleLike(props.postId)} className="pl-2">
+        <div className="flex">
+          <p className="flex">{likesNum}</p>
+          <button onClick={() => handleLike(props.postId) } className="pl-2 flex">
             <Image
               width={25}
               height={25}
@@ -86,10 +100,11 @@ const Like = (props) => {
           </button>
         </div>
       ) : (
-        <div>
-          <p>{likes}</p>
-
-          <button onClick={() => handleUnlike(props.postId)} className="pl-2">
+        <div className="flex ">
+          
+          <p className="flex  ">{`You and ${likesNum - 1 } others`}</p>
+        
+          <button onClick={() => handleUnlike(props.postId) } className="pl-2 flex">
             <Image
               width={25}
               height={25}
