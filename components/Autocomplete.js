@@ -206,13 +206,14 @@ const MovieAutocomplete = () => {
           </fieldset>
 
           <div className="flex justify-center">
-            <h1>{selectedMovie}</h1>
+            <h1 className="font-serif:Georgia" >{selectedMovie}</h1>
           </div>
 
-          <div>
+          <div className="flex flex-col justify-center place-items-center">
             <br></br>
-            <div className="flex justify-center">
-              <div className="inline-block cursor-pointer ">
+            
+            <div className="flex justify-center border-2 w-fit place-items-center p-1 border-slate-700 rounded-lg ">
+              <div className=" cursor-pointer flex ">
                 <RadixSlider
                   min={0}
                   step={1}
@@ -223,19 +224,17 @@ const MovieAutocomplete = () => {
                   defaultValue={[80]}
                   value={[sliderValue]}
                   onValueChange={([value]) => setSliderValue(value)}
+                  size='large'
+                  rating={sliderValue}
                 />
               </div>
               <div
-                style={{
-                  display: "inline-block",
-                  paddingLeft: "20px",
-                  color: "black",
-                }}
+                className={sliderValue !== 100 ? "flex text-white pl-6" : "flex text-amber-300 pl-6 "}
               >
-                <strong>{sliderValue}/100</strong>
+                <strong>{sliderValue}</strong>
               </div>
             </div>
-
+            </div>
             <br></br>
             <div className="flex justify-center h-32">
               <textarea
@@ -247,7 +246,7 @@ const MovieAutocomplete = () => {
                 ref={textReviewRef}
               ></textarea>
             </div>
-          </div>
+          
         </div>
       </div>
 

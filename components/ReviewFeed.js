@@ -32,11 +32,7 @@ const ReviewFeed = () => {
   const router = useRouter();
   const intersectionRef = useRef(null);
 
-  const intersection = useIntersection(intersectionRef, {
-    root: null,
-    rootMargin: "0px",
-    threshold: 1,
-  });
+  
 
   const limit = 5;
 
@@ -55,6 +51,12 @@ const ReviewFeed = () => {
 
     return response.json();
   }
+
+  const intersection = useIntersection(intersectionRef, {
+    root: null,
+    rootMargin: "0px",
+    threshold: 1,
+  });
 
   const { data, isSuccess, hasNextPage, fetchNextPage, isFetchingNextPage } =
     useInfiniteQuery(

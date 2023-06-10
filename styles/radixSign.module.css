@@ -197,18 +197,19 @@
 
 .SliderRange {
   position: absolute;
-  background-color: cornflowerblue;
-  border-radius: 9999px;
+  background-color: #4338ca;
+  
   height: 100%;
 }
 
 .SliderThumb {
   display: block;
-  width: 10px;
-  height: 10px;
-  background-color: black;
+  width: 8px;
+  height: 8px;
+  background-color: white;
   box-shadow: 0 2px 10px var(--blackA7);
   border-radius: 10px;
+  
 }
 .SliderThumb:hover {
   background-color: var(--violet3);

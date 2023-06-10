@@ -29,7 +29,7 @@ const RadixSlider = (props) => (
   <form>
     <Slider.Root {...props} className={styles.SliderRoot}>
       <Slider.Track className={styles.SliderTrack}>
-        <Slider.Range className={styles.SliderRange} />
+        <Slider.Range  className={props.rating !== 100 ? 'absolute h-full bg-indigo-600' : 'absolute h-full bg-amber-400'} />
       </Slider.Track>
       <Slider.Thumb className={styles.SliderThumb} />
     </Slider.Root>

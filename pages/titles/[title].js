@@ -7,7 +7,7 @@ import styles from "/styles/radixAlertDialog.module.css";
 import IMDbIcon from "/public/imdb.png";
 
 import CommentSection from "../../components/CommentSection";
-import Like from "../../components/like";
+import Like from "../../components/Like";
 import connectToDatabase from "../../lib/connectToDatabase";
 
 async function deleteReview(_id) {
