@@ -26,15 +26,12 @@ async function deleteReview(_id) {
 }
 
 const ReviewFeed = () => {
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
   const [followed, setFollowed] = useState(false);
-  
+
   const router = useRouter();
   const intersectionRef = useRef(null);
-  
-  
 
- 
   const intersection = useIntersection(intersectionRef, {
     root: null,
     rootMargin: "0px",
@@ -72,26 +69,21 @@ const ReviewFeed = () => {
     );
 
   useEffect(() => {
-  
-    
-    if ( intersection && intersection.isIntersecting && hasNextPage) {
+    if (intersection && intersection.isIntersecting && hasNextPage) {
       fetchNextPage();
     }
-  
+
     console.log(intersection, intersectionRef);
   }, [intersection, fetchNextPage, hasNextPage]);
 
- 
-  async function handleDeleteReview(_id){
+  async function handleDeleteReview(_id) {
     try {
       await deleteReview(_id);
-      router.reload()
-
-    } catch(err) {
-      console.log(err)
+      router.reload();
+    } catch (err) {
+      console.log(err);
     }
   }
- 
 
   function formatLocalDate(date) {
     const options = {
@@ -115,7 +107,7 @@ const ReviewFeed = () => {
   }
 
   return (
-    <div >
+    <div>
       <div className="flex container  justify-center">
         {!followed ? (
           <div className="flex flex-row justify-center bg-slate-700 rounded-lg border-2 border-slate-600">
@@ -153,39 +145,50 @@ const ReviewFeed = () => {
           data.pages.map((page) =>
             page.map((review, index) => (
               <div key={index}>
-                {
-                  index === page.length - 1 && (
-                    <div ref={intersectionRef} >HERE</div>
-                  )}
+                {index === page.length - 1 && (
+                  <div ref={intersectionRef}>HERE</div>
+                )}
                 <div className="bg-slate-800 container rounded-lg flex flex-col h-2/5 w-full my-10 border-2 border-slate-700">
                   <div className="order-1  w-full h-12  rounded-t-lg   border-b-2 border-b-slate-700">
-                    <div
-                      className=" flex inset-x-0 top-0 justify-start float-left cursor-pointer"
-                      onClick={() => router.push(`user/${review.user}`)}
-                    >
-                      {review.userImage ? (
-                        <Image
-                          alt="userImage"
-                          src={review.userImage.image}
-                          width={40}
-                          height={40}
-                        />
-                      ) : (
-                        <div> </div>
-                      )}
+                    <div className="flex flex-row ">
+                      <div className="flex order-1 w-full">
+                        <div
+                          className=" flex inset-x-0 top-0 justify-start float-left cursor-pointer"
+                          onClick={() => router.push(`user/${review.user}`)}
+                        >
+                          {review.userImage ? (
+                            <Image
+                              alt="userImage"
+                              src={review.userImage.image}
+                              width={40}
+                              height={40}
+                            />
+                          ) : (
+                            <div> </div>
+                          )}
+                        </div>
+                        <div className="flex flex-col">
+                          <div
+                            className="pl-2 flex cursor-pointer w-fit order-1"
+                            onClick={() => router.push(`user/${review.user}`)}
+                          >
+                            <h1 className="text-white font-semibold text-lg">
+                              {review.user}
+                            </h1>
+                          </div>
+                          <div className="flex order-2">
+                            <p className="text-gray-400  text-sm">
+                              {formatLocalDate(review.createdAt)}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="flex order-2 place-items-end justify-end">
+                        <p className="flex p-1 text-slate-500">
+                          {review.movieData.Type === "movie" ? "Movie" : "TV"}
+                        </p>
+                      </div>
                     </div>
-                    <div
-                      className="pl-2 flex cursor-pointer w-fit"
-                      onClick={() => router.push(`user/${review.user}`)}
-                    >
-                      <h1 className="text-white font-semibold text-lg">
-                        {review.user}
-                      </h1>
-                    </div>
-
-                    <p className="text-gray-400  text-sm">
-                      {formatLocalDate(review.createdAt)}
-                    </p>
                   </div>
 
                   <div className="order-2 flex  h-5/6  overflow-clip">
@@ -202,10 +205,26 @@ const ReviewFeed = () => {
                       id="main-right"
                       className=" bg-slate-800 w-full md:w-2/3 border-l-2 border-slate-700 "
                     >
-                      <div className="  flex justify-center  border-b-2 border-b-slate-700 cursor-pointer ">
-                        <h1 className="text-white lg:text-3xl md:text-2xl sm:text-xl" onClick={() => router.push(`titles/${review.movieData.Title}`)}>
-                          {review.movieData.Title}
-                        </h1>
+                      <div className=" flex justify-center  border-b-2 border-b-slate-700 cursor-pointer ">
+                        {review.movieData.Title.length <= 22 ? (
+                          <h1
+                            className="text-white lg:text-3xl md:text-2xl sm:text-xl "
+                            onClick={() =>
+                              router.push(`titles/${review.movieData.Title}`)
+                            }
+                          >
+                            {review.movieData.Title}
+                          </h1>
+                        ) : (
+                          <h1
+                            className="text-white lg:text-2xl md:text-xl sm:text-lg "
+                            onClick={() =>
+                              router.push(`titles/${review.movieData.Title}`)
+                            }
+                          >
+                            {review.movieData.Title}
+                          </h1>
+                        )}
                       </div>
 
                       <div className="bg-slate-800 flex  justify-center  border-b-2 border-b-slate-700 ">
@@ -218,43 +237,41 @@ const ReviewFeed = () => {
                         </div>
                       </div>
 
-                      {review.textReview !== '' ? (
-                      <div className="bg-slate-900 h-5/6 flex flex-col container justify-center border-b-2 border-b-slate-700">
-                                               
-                        <div className="self-center flex order-1 ">
-                          <h1 className="text-white lg:text-3xl px-1 md:text-xl border-2 border-slate-700 rounded-lg">
-                            {review.sliderRating}
-                          </h1>
+                      {review.textReview !== "" ? (
+                        <div className="bg-slate-900 h-5/6 flex flex-col container justify-center border-b-2 border-b-slate-700">
+                          <div className="self-center flex order-1 ">
+                            <h1 className="text-white lg:text-3xl px-1 md:text-xl border-2 border-slate-700 rounded-lg">
+                              {review.sliderRating}
+                            </h1>
+                          </div>
+                          <div className=" self-center flex order-2 ">
+                            <p className="text-white pl-2  lg:text-sm lg:w-72 md:h-44 md:text-xs md:w-48">
+                              {review.textReview}
+                            </p>
+                          </div>
                         </div>
-                        <div className=" self-center flex order-2 ">
-                          <p className="text-white pl-2  lg:text-sm lg:w-72 md:h-44 md:text-xs md:w-48">
-                            {review.textReview}
-                          </p>
-                        </div>
-                      </div>
                       ) : (
                         <div className="bg-slate-900 h-5/6 flex flex-col container justify-center border-b-2 border-b-slate-700">
-                                           
-                        <div className="self-center flex order-1 ">
-                          <h1 className="text-white lg:text-3xl px-1 md:text-xl border-2 border-slate-700 rounded-lg">
-                          {review.sliderRating}
-                          </h1>
-                        </div>
+                          <div className="self-center flex order-1 ">
+                            <h1 className="text-white lg:text-3xl px-1 md:text-xl border-2 border-slate-700 rounded-lg">
+                              {review.sliderRating}
+                            </h1>
+                          </div>
 
-                        <div className="place-self-center  flex order-2 mt-2">
-                          <p className="text-gray-500 pl-2  lg:text-sm lg:w-72 md:h-44 md:text-xs md:w-48 ">
-                            {review.movieData.Plot}
-                          </p>
+                          <div className="place-self-center  flex order-2 mt-2">
+                            <p className="text-gray-500 pl-2  lg:text-sm lg:w-72 md:h-44 md:text-xs md:w-48 ">
+                              {review.movieData.Plot}
+                            </p>
+                          </div>
                         </div>
-                      </div>
                       )}
                     </div>
                   </div>
                   <div className="order-3 w-full h-12 rounded-b-lg bg-slate-800  border-t-2 border-t-slate-700">
                     <div className="flex flex-row w-full h-12 justify-around">
                       <div className="flex self-center">
-                        <p>{!review.likes ? "0" : review.likes.length}</p>
-                        <Like postId={review._id} reviewLikes={review.likes} />
+                      
+                        <Like postId={review._id} reviewLikes={review.likes} likes={review.likes}/>
                       </div>
                       <CommentSection postId={review._id} />
                       <p className="text-gray-400 self-center ">Share</p>
@@ -315,7 +332,12 @@ const ReviewFeed = () => {
                                     </button>
                                   </AlertDialog.Cancel>
                                   <AlertDialog.Action asChild>
-                                    <button onClick={()=> handleDeleteReview(review._id)} className="bg-slate-700 border-2 border-slate-800 rounded py-0.5 px-0.5">
+                                    <button
+                                      onClick={() =>
+                                        handleDeleteReview(review._id)
+                                      }
+                                      className="bg-slate-700 border-2 border-slate-800 rounded py-0.5 px-0.5"
+                                    >
                                       Yes, delete review
                                     </button>
                                   </AlertDialog.Action>
@@ -330,7 +352,6 @@ const ReviewFeed = () => {
                     </div>
                   </div>
                 </div>
-                
               </div>
             ))
           )}

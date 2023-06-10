@@ -50,8 +50,11 @@ const CommentSection = (props) => {
       }),
     });
     commentRef.current.value = "";
+    if (response.ok) {fetchComments()}
     return response;
   }
+
+ 
 
   return (
     <Popover.Root>

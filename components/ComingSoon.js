@@ -9,7 +9,7 @@ const ComingSoon = () => {
         <ul className='  text-gray-400'>
             <li className='bg-slate-700 rounded-lg p-1 mt-1'>Share to facebook</li>           
             <li className='bg-slate-700 rounded-lg p-1 mt-1'>Notifications Tab</li>
-            <li className='bg-slate-700 rounded-lg p-1 mt-1'>More review options</li>
+            <li className='bg-slate-700 rounded-lg p-1 mt-1'>Block users</li>
         </ul>
         </div>
     </div>

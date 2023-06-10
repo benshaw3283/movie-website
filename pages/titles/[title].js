@@ -129,9 +129,9 @@ const Title = ({ posts, values, averageRating }) => {
                     "_blank"
                   )
                 }
-                className="cursor-pointer underline pl-2 absolute text-blue-600"
+                className="cursor-pointer underline pl-1 absolute text-blue-600 text-sm"
               >
-                See on IMDB
+                IMDB
               </p>
               <div className="flex  order-2">
                 <div className="flex flex-row justify-around container px-2">
