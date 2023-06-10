@@ -7,7 +7,7 @@ import styles from "/styles/radixAlertDialog.module.css";
 import IMDbIcon from "/public/imdb.png";
 
 import CommentSection from "../../components/CommentSection";
-import Like from "../../components/Like";
+import Like from "../../components/LikeComponent";
 import connectToDatabase from "../../lib/connectToDatabase";
 
 async function deleteReview(_id) {
@@ -73,8 +73,6 @@ const Title = ({ posts, values, averageRating }) => {
         return updatedReviews;
       });
     }
-
-    
 
     postsHandler();
   }, [posts, values]);
@@ -210,7 +208,7 @@ const Title = ({ posts, values, averageRating }) => {
                     </div>
                     <div className="order-2 flex place-self-center">
                       <p className="bg-slate-900 h-fit border-2 rounded border-slate-700 px-2 text-lg">
-                        {averageRating !== 'NaN' ? averageRating : '0'}
+                        {averageRating !== "NaN" ? averageRating : "0"}
                       </p>
                     </div>
                   </div>

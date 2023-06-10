@@ -7,7 +7,7 @@ import * as AlertDialog from "@radix-ui/react-alert-dialog";
 import styles from "../styles/radixAlertDialog.module.css";
 import IMDbIcon from "../public/imdb.png";
 import CommentSection from "./CommentSection";
-import Like from "./Like";
+import Like from "./LikeComponent";
 import { useRouter } from "next/router";
 import { useIntersection } from "react-use";
 import { useInfiniteQuery } from "@tanstack/react-query";
@@ -32,8 +32,6 @@ const ReviewFeed = () => {
   const router = useRouter();
   const intersectionRef = useRef(null);
 
-  
-
   const limit = 5;
 
   async function fetchReviews(page) {
@@ -52,12 +50,6 @@ const ReviewFeed = () => {
     return response.json();
   }
 
-  const intersection = useIntersection(intersectionRef, {
-    root: null,
-    rootMargin: "0px",
-    threshold: 1,
-  });
-
   const { data, isSuccess, hasNextPage, fetchNextPage, isFetchingNextPage } =
     useInfiniteQuery(
       ["reviews", followed],
@@ -70,13 +62,15 @@ const ReviewFeed = () => {
       }
     );
 
-  useEffect(() => {
-    if (intersection && intersection.isIntersecting && hasNextPage) {
-      fetchNextPage();
-    }
+  const intersection = useIntersection(intersectionRef, {
+    root: null,
+    rootMargin: "0px",
+    threshold: 1,
+  });
 
-    console.log(intersection, intersectionRef);
-  }, [intersection, fetchNextPage, hasNextPage]);
+  if (intersection && intersection.isIntersecting && hasNextPage) {
+    fetchNextPage();
+  }
 
   async function handleDeleteReview(_id) {
     try {
@@ -147,9 +141,6 @@ const ReviewFeed = () => {
           data.pages.map((page) =>
             page.map((review, index) => (
               <div key={index}>
-                {index === page.length - 1 && (
-                  <div ref={intersectionRef}>HERE</div>
-                )}
                 <div className="bg-slate-800 container rounded-lg flex flex-col h-2/5 w-full my-10 border-2 border-slate-700">
                   <div className="order-1  w-full h-12  rounded-t-lg   border-b-2 border-b-slate-700">
                     <div className="flex flex-row ">
@@ -272,8 +263,11 @@ const ReviewFeed = () => {
                   <div className="order-3 w-full h-12 rounded-b-lg bg-slate-800  border-t-2 border-t-slate-700">
                     <div className="flex flex-row w-full h-12 justify-around">
                       <div className="flex self-center">
-                      
-                        <Like postId={review._id} reviewLikes={review.likes} likes={review.likes}/>
+                        <Like
+                          postId={review._id}
+                          reviewLikes={review.likes}
+                          likes={review.likes}
+                        />
                       </div>
                       <CommentSection postId={review._id} />
                       <p className="text-gray-400 self-center ">Share</p>
@@ -361,6 +355,7 @@ const ReviewFeed = () => {
           <p className="flex self-center text-white">Loading...</p>
         )}
       </div>
+      <div ref={intersectionRef}></div>
     </div>
   );
 };
