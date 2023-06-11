@@ -30,7 +30,7 @@ export default function Home() {
           <br></br>
 
           <div className="bg-slate-800 border-2 border-slate-700 rounded-lg container justify-center  flex w-3/5 h-2/5 py-1 order-1 ">
-            <MovieAutocomplete />
+          <MovieAutocomplete />
             
           </div>
 

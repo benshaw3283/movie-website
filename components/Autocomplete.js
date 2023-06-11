@@ -1,13 +1,14 @@
-import TextField from "@material-ui/core/TextField";
-import Autocomplete from "@material-ui/lab/Autocomplete";
+import TextField from "@mui/material/TextField";
+import  Autocomplete  from "@mui/material/Autocomplete";
 import React, { useEffect, useRef, useState } from "react";
 import movieList from "../pages/movieList";
+
 
 import styles from "../styles/review.module.css";
 import { useSession } from "next-auth/react";
 import { RadixSlider } from "./RadixComponents";
 import { useRouter } from "next/router";
-import { makeStyles } from "@material-ui/core/styles";
+//import { makeStyles } from "@mui/styles";
 import tvList from "./TvList";
 import * as Tooltip from '@radix-ui/react-tooltip';
 
@@ -95,15 +96,7 @@ const MovieAutocomplete = () => {
     }
   }
 
-  const useStyles = makeStyles({
-    paper: {
-      border: "4px white",
-
-      backgroundColor: "rgb(100 116 139)",
-    },
-  });
-
-  const classes = useStyles();
+  
 
   const handleSwitch = () => {
     setSwitchType(!switchType)
@@ -149,7 +142,7 @@ const MovieAutocomplete = () => {
                 )}
               </div>
               <div className="flex order-1 pr-2 ">
-                <Autocomplete
+              <Autocomplete
                   options={switchType ? movieList : tvList}
                   id="titles"
                   renderInput={(params) => (
@@ -161,7 +154,7 @@ const MovieAutocomplete = () => {
                     />
                   )}
                   getOptionLabel_={(option) => option.name}
-                  classes={{ paper: classes.paper }}
+                  
                   style={{ width: 280 }}
                   freeSolo={true}
                   autoSelect={true}

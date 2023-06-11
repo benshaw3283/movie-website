@@ -1,11 +1,12 @@
 
 import React, {useState, useRef, useEffect} from 'react'
-import Autocomplete from "@material-ui/lab/Autocomplete";
-import TextField from "@material-ui/core/TextField";
+import Autocomplete from "@mui/material/Autocomplete";
+import TextField from '@mui/material/TextField';
 import tvList from "./TvList";
 import movieList from '../pages/movieList';
-import { makeStyles } from "@material-ui/core/styles";
+//import { makeStyles } from "@mui/styles";
 import { useRouter } from "next/router";
+
 
 const Search = () => {
     const [switchSearchType, setSwitchSearchType] = useState(true)
@@ -13,15 +14,9 @@ const Search = () => {
     const [userList, setUserList] = useState([])
     const router = useRouter()
 
-    const useStyles = makeStyles({
-        paper: {
-          border: "4px white",
     
-          backgroundColor: "rgb(100 116 139)",
-        },
-      });
     
-      const classes = useStyles();
+      
 
       useEffect(()=> {
 
@@ -101,7 +96,7 @@ const Search = () => {
                     />
                   )}
                   getOptionLabel_={(option) => option.name}
-                  classes={{ paper: classes.paper }}
+                  
                   style={{ width: 200 }}
                   
                   freeSolo={true}

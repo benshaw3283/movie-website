@@ -1,5 +1,5 @@
 import "../styles/globals.css";
-import Nav from "../components/Nav";
+
 import Layout from "../components/Layout";
 import { SessionProvider } from "next-auth/react";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";

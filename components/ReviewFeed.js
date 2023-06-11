@@ -190,8 +190,8 @@ const ReviewFeed = () => {
                       <Image
                         alt="movieImage"
                         src={review.movieData.Poster}
-                        width="230"
-                        height="320 "
+                        width={230}
+                        height={320}
                       ></Image>
                     </div>
 

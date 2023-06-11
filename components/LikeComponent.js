@@ -65,7 +65,7 @@ const Like = (props) => {
 
   useEffect(() => {
     async function ifLiked() {
-      const reviewLikes = props.reviewLikes;
+      let reviewLikes = props.reviewLikes;
       if (!reviewLikes) {
         reviewLikes = [];
       }
