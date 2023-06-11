@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "npm run generate-meta-tag && react-scripts build",
+    "build": "npm run generate-meta-tag && react-scripts build && next build",
     "start": "next start",
     "lint": "next lint",
     "generate-meta-tag": "node ./node_modules/react-cache-buster/dist/generate-meta-tag.js"
