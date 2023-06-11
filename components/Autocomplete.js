@@ -61,7 +61,7 @@ const MovieAutocomplete = () => {
 
     const sliderRating = sliderValue;
     const user =
-      session.user.username || session.user.email || session.user.name;
+      session.user.username || session.user.name || session.user.email;
     const textReview = textReviewRef.current.value;
 
     const userImage = await getUserImage(user);

@@ -9,7 +9,7 @@ import dynamic from "next/dynamic";
 import * as Dialog from "@radix-ui/react-dialog";
 import dialogStyles from "/styles/radixSign.module.css";
 import CommentSection from "../../components/CommentSection";
-import Like from "../../components/like";
+import Like from "../../components/LikeComponent";
 import connectToDatabase from "../../lib/connectToDatabase";
 
 const EditAvatar = dynamic(() => import("/components/EditAvatar"), {
@@ -42,7 +42,9 @@ export async function getServerSideProps(context) {
   const user = await client
     .db()
     .collection("users")
-    .findOne({ username }, { projection: { password: 0, _id: 0 } });
+    .findOne({
+      $or : [ {username : username }, {name: username}]},
+      { projection: { password: 0, _id: 0 } });
 
   if (!user) {
     return { notFound: true };
@@ -89,7 +91,7 @@ export default function UserProfilePage({ user, posts, averageRating }) {
         return updatedReviews;
       });
 
-      if (user.followers.includes(session.user.username)) {
+      if (user.followers?.includes(session.user.username || session.user.name)) {
         setFollowing(true);
       } else {
         setFollowing(false);
@@ -99,7 +101,7 @@ export default function UserProfilePage({ user, posts, averageRating }) {
     
 
     postsHandler();
-  }, [posts, session.user.username, user.followers]);
+  }, [posts, session.user.username, session.user.name, user.followers]);
 
   const formatLocalDate = (date) => {
     const options = {
@@ -188,7 +190,7 @@ export default function UserProfilePage({ user, posts, averageRating }) {
   if (status === "authenticated") {
     return (
       <div>
-        <div className="bg-slate-900  w-full h-full">
+        <div className="bg-slate-900  w-full h-full min-h-screen">
           <div className="flex flex-col items-center w-full h-full">
             <div className="order-1 ">
               <br></br>
@@ -199,12 +201,12 @@ export default function UserProfilePage({ user, posts, averageRating }) {
                 alt="f"
                 width={300}
                 height={100}
-                className="float-left "
+                className="float-left rounded-full "
               />
               <div className="flex flex-col container justify-between py-2 h-60">
                 <div className="order-1 place-self-center bg-slate-800 h-16 w-fit rounded-lg border-2 border-slate-700 py-2 px-2">
                   <h1 className="text-white font-bold font-mono text-5xl">
-                    {user.username}
+                    {user.username || user.name}
                   </h1>
                 </div>
 
@@ -213,7 +215,7 @@ export default function UserProfilePage({ user, posts, averageRating }) {
                     <div className="flex ">
                       <h2 className="pr-2">Followers </h2>
                       <p className="bg-slate-900 h-fit border-2 rounded border-slate-700 px-2">
-                        {user.followers.length}
+                        {user.followers ? user.followers.length : 0}
                       </p>
                     </div>
 
@@ -365,13 +367,14 @@ export default function UserProfilePage({ user, posts, averageRating }) {
                   <div key={index} className=" flex my-4">
                     <div className=" w-full px-4  flex justify-center">
                       <div className="bg-slate-800 container rounded-lg flex flex-col h-full w-4/5   ">
-                        <div className="order-1  w-full h-12 rounded-t-lg  bg-green-400 border-2 border-slate-700">
+                        <div className="order-1  w-full h-12 rounded-t-lg  bg-green-400 border-2 border-slate-700 ">
                           <div className="text-red-400 flex inset-x-0 top-0 justify-start float-left">
                             <Image
                               alt="userImage"
                               src={user.image}
                               width={40}
                               height={40}
+                              className="rounded-full"
                             />
                           </div>
                           <div className="flex pl-2">

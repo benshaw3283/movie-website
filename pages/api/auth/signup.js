@@ -1,5 +1,4 @@
 import { hashPassword } from "../../../lib/auth";
-import { MongoClient } from "mongodb";
 import connectToDatabase from "../../../lib/connectToDatabase";
 
 export default async function signUpHandler(req, res) {

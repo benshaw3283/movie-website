@@ -153,8 +153,9 @@ const ReviewFeed = () => {
                             <Image
                               alt="userImage"
                               src={review.userImage.image}
-                              width={40}
+                              width={45}
                               height={40}
+                              className="rounded-full"
                             />
                           ) : (
                             <div> </div>

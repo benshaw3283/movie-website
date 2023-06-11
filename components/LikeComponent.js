@@ -10,6 +10,7 @@ const Like = (props) => {
   
 
   async function handleLike() {
+    
     try {
       setLiked(true);
       const response = await fetch("/api/userActions/like", {

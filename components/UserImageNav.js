@@ -20,7 +20,7 @@ const UserImage = (props) => {
 
   return (
     <div>
-      {image && <Image alt="userImage" src={image} width={props.width} height={props.height} />}
+      {image && <Image alt="userImage" src={image} width={props.width} height={props.height} className="rounded-full"/>}
     </div>
   );
 };

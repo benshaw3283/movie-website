@@ -6,7 +6,6 @@ import Image from "next/image";
 import { AvatarIcon, Dropdown } from "./RadixComponents";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import radixStyle from "../styles/radixSign.module.css";
-import { useEffect } from "react";
 import UserImage from "./UserImageNav";
 import Search from "./Search";
 
@@ -52,8 +51,8 @@ const Nav = () => {
   } else {
     return (
       <div className="flex flex-row items-center w-full bg-gray-900 border-b-2 pt-2 border-slate-800 sticky top-0 z-[20] ">
-        <div className='flex order-1 w-1/5'>
-        <nav className="pl-24  flex">
+        <div className="flex order-1 w-1/5">
+          <nav className="pl-24  flex">
             <Link href="/">Home</Link>
           </nav>
         </div>
@@ -61,9 +60,8 @@ const Nav = () => {
           id="nav2"
           className="w-3/5 order-2 justify-between flex align-middle place-items-center"
         >
-          
           <div className="flex ml-2 mb-1">
-          <Search />
+            <Search />
           </div>
 
           <nav className="pr-24 ">
@@ -87,13 +85,19 @@ const Nav = () => {
                   className={radixStyle.DropdownMenuContent}
                 >
                   <DropdownMenu.Item className={radixStyle.DropdownMenuItem}>
-                    <Link href={`/user/${session.user.username}`}>Profile</Link>
+                    <Link
+                      href={`/user/${
+                        session.user.username || session.user.name
+                      }`}
+                    >
+                      Profile
+                    </Link>
                   </DropdownMenu.Item>
 
                   <div>
                     <DropdownMenu.Item
                       className={radixStyle.DropdownMenuItem}
-                      onClick={() => signOut()}
+                      onClick={() => signOut({ callbackUrl: "/login" })}
                     >
                       Sign Out
                     </DropdownMenu.Item>
