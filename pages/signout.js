@@ -9,4 +9,4 @@ const Signout = () => {
   );
 };
 
-export default S;
+export default Signout;
