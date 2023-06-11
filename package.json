@@ -33,6 +33,7 @@
     "express": "^4.18.2",
     "formik": "^2.2.9",
     "getstream": "^8.1.2",
+    "jsonwebtoken": "^9.0.0",
     "mongodb": "^5.1.0",
     "next": "^12.3.4",
     "next-auth": "^4.20.1",
