@@ -19,7 +19,6 @@ export default function Home() {
           <br></br>
           <br></br>
           
-<button onClick={()=> alert(session.user.username, session.user.name, session.user.email)}>hi</button>
           <TopMovies />
         </div>
 
