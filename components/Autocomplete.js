@@ -68,7 +68,7 @@ const MovieAutocomplete = () => {
 
     //movieTitle only used for url now
     const movieTitle = selectedMovie;
-    const url = `http://www.omdbapi.com/?apikey=4f46879e&r=json&t=${movieTitle}`;
+    const url = `https://www.omdbapi.com/?apikey=4f46879e&r=json&t=${movieTitle}`;
     const options = {
       method: "GET",
     };
