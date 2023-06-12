@@ -225,8 +225,8 @@ const Title = ({ posts, values, averageRating }) => {
           <div className="flex order-3">
             <br></br>
           </div>
-          <div className="bg-slate-800 border-2 border-slate-700 rounded-lg container grid grid-cols-2  w-5/6 h-full order-4 py-2 ">
-            <h1 className="absolute justify-self-center font-semibold text-slate-500 text-xl underline">
+          <div className="bg-slate-900 border-4 border-double border-slate-700 rounded-lg container grid grid-cols-2  w-5/6 h-full order-4 py-2 ">
+            <h1 className="absolute justify-self-center font-semibold text-slate-500 text-xl ">
               REVIEWS
             </h1>
             {reviews.length ? (
