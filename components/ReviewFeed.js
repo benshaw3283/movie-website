@@ -141,7 +141,7 @@ const ReviewFeed = () => {
           data.pages.map((page) =>
             page.map((review, index) => (
               <div key={index}>
-                <div className="bg-slate-800 container rounded-lg flex flex-col h-2/5 w-full my-10 border-2 border-slate-700">
+                <div className="bg-slate-800 container rounded-lg flex flex-col h-2/5 w-full  my-10 border-2 border-slate-700">
                   <div className="order-1  w-full h-12  rounded-t-lg   border-b-2 border-b-slate-700">
                     <div className="flex flex-row ">
                       <div className="flex order-1 w-full">
@@ -185,19 +185,20 @@ const ReviewFeed = () => {
                     </div>
                   </div>
 
-                  <div className="order-2 flex  h-5/6  overflow-clip">
-                    <div id="main-left" className="flex w-1/3 ">
+                  <div className="order-2 flex w-full h-5/6  overflow-clip">
+                    <div id="main-left" className="flex w-1/3  ">
                       <Image
                         alt="movieImage"
                         src={review.movieData.Poster}
                         width={230}
                         height={320}
+                       
                       ></Image>
                     </div>
 
                     <div
                       id="main-right"
-                      className=" bg-slate-800 w-full md:w-2/3 border-l-2 border-slate-700 "
+                      className=" bg-slate-800 w-full lg:w-2/3 md:w-2/3 sm:w-2/3 border-l-2 border-slate-700 "
                     >
                       <div className=" flex justify-center  border-b-2 border-b-slate-700 cursor-pointer ">
                         {review.movieData.Title.length <= 22 ? (
@@ -222,12 +223,12 @@ const ReviewFeed = () => {
                       </div>
 
                       <div className="bg-slate-800 flex  justify-center  border-b-2 border-b-slate-700 ">
-                        <div className="text-white  place-self-center md:text-sm ">
-                          {review.movieData.Year} | {review.movieData.Genre} |
+                        <div className=" flex place-self-center md:text-sm ">
+                         <p className="text-white pr-1 font-semibold">{review.movieData.Year}</p>  <p className="text-slate-500">{review.movieData.Genre} </p> 
                         </div>
                         <div className="text-white place-self-center flex p-1 ">
                           <Image alt="IMDbLogo" src={IMDbIcon} />
-                          {review.movieData.imdbRating}
+                         <p className="pl-1 font-semibold">{review.movieData.imdbRating}</p> 
                         </div>
                       </div>
 
@@ -239,7 +240,7 @@ const ReviewFeed = () => {
                             </h1>
                           </div>
                           <div className=" self-center flex order-2 ">
-                            <p className="text-white pl-2  lg:text-sm lg:w-72 md:h-44 md:text-xs md:w-48">
+                            <p className="text-white pl-2 mt-1 lg:text-sm lg:w-72 md:h-44 md:text-xs md:w-48">
                               {review.textReview}
                             </p>
                           </div>
@@ -247,9 +248,15 @@ const ReviewFeed = () => {
                       ) : (
                         <div className="bg-slate-900 h-5/6 flex flex-col container justify-center border-b-2 border-b-slate-700">
                           <div className="self-center flex order-1 ">
+                            {review.sliderRating !== 100 ? (
                             <h1 className="text-white lg:text-3xl px-1 md:text-xl border-2 border-slate-700 rounded-lg">
                               {review.sliderRating}
                             </h1>
+                            ) : (
+                              <h1 className="text-amber-400 lg:text-3xl px-1 md:text-xl border-2 border-slate-700 rounded-lg">
+                              {review.sliderRating}
+                            </h1>
+                            )}
                           </div>
 
                           <div className="place-self-center  flex order-2 mt-2">

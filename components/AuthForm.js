@@ -163,6 +163,8 @@ function AuthFormLI() {
       //authorize();
       // set some auth state
       router.replace("/");
+    } else {
+      alert('No user found with these details')
     }
   }
 

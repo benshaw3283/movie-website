@@ -16,16 +16,21 @@ const Nav = () => {
     return (
       <div className="flex flex-row items-center w-full bg-gray-900 border-b-2 border-slate-800 sticky py-2 top-0 z-[20] ">
         <div className={navBar.nav1}>
-          <h1>LOGO</h1>
+
+        <Link href="/" className="pl-8 font-mono font-bold text-xl">Home</Link>
         </div>
 
         <div className={navBar.nav2}>
           <div style={{ display: "inline-block" }}>
             <nav className={navBar.home}>
-              <Link href="/">Home</Link>
+              
             </nav>
           </div>
-          <div
+          
+        </div>
+
+        <div className={navBar.nav3}>
+        <div
             style={{
               display: "inline-block",
               float: "right",
@@ -44,15 +49,13 @@ const Nav = () => {
             </nav>
           </div>
         </div>
-
-        <div className={navBar.nav3}></div>
       </div>
     );
   } else {
     return (
       <div className="flex flex-row items-center w-full bg-gray-900 border-b-2 pt-2 border-slate-800 sticky top-0 z-[20] ">
         <div className="flex order-1 w-1/5">
-          <nav className="pl-24  flex">
+          <nav className="pl-24  flex font-mono font-bold text-lg">
             <Link href="/">Home</Link>
           </nav>
         </div>
@@ -64,18 +67,21 @@ const Nav = () => {
             <Search />
           </div>
 
-          <nav className="pr-24 ">
+          
+        </div>
+        <div className={navBar.nav3}>
+        <nav className="pr-10 ">
             <DropdownMenu.Root>
               <DropdownMenu.Trigger asChild>
                 <div style={{ position: "center", cursor: "pointer" }}>
                   <div
                     style={{ display: "inline-block", alignItems: "center" }}
                   >
-                    <p> {session.user.name || session.user.username} </p>
+                    <p className="font-semibold"> {session.user.name || session.user.username} </p>
                   </div>
 
                   <div className="inline-block pl-5 align-middle">
-                    <UserImage height={50} width={50} />
+                    <UserImage height={40} width={42} />
                   </div>
                 </div>
               </DropdownMenu.Trigger>
@@ -107,7 +113,6 @@ const Nav = () => {
             </DropdownMenu.Root>
           </nav>
         </div>
-        <div className={navBar.nav3}></div>
       </div>
     );
   }

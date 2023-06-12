@@ -110,7 +110,7 @@ const Search = () => {
                 />
               )}
               getOptionLabel_={(option) => option.name}
-              classes={{ paper: classes.paper }}
+              
               style={{ width: 200 }}
               freeSolo={true}
               autoSelect={true}

@@ -14,7 +14,7 @@ export default async function signUpHandler(req, res) {
       !password ||
       password.length < 7 ||
       !username ||
-      username.length < 5
+      username.length < 3
     ) {
       res.status(422).json({
         message:

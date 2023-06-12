@@ -11,7 +11,7 @@ export default function Home() {
 
   return (
     <div>
-      <title>Movie Website</title>
+      <title>SHAWreviews</title>
 
       <div className="flex flex-row justify-between  h-full bg-slate-900">
         <div className="bg-slate-900 w-1/3 text-slate-500 sticky top-0 h-full grid place-items-center">

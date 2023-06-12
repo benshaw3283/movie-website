@@ -53,10 +53,14 @@ function TopMovies() {
 </div>
       <ul>
         {topReviews.map((review, index) => (
-          <li key={index} className=" mt-2  flex flex-col items-center cursor-pointer" onClick={() => router.push(`../titles/${review._id}`)}>
-            <div className="border-2 border-slate-800 p-1 rounded-lg ">
+          <li key={index} className=" mt-2  flex flex-col items-center cursor-pointer " onClick={() => router.push(`../titles/${review._id}`)}>
+            <div className="border-2 border-slate-800 p-1 rounded-lg w-40">
+              {review._id.length < 16 ? (
             <h1 className="text-xl text-white flex justify-center">{review._id} </h1>
-            <p className="text-sm " >Average Rating: {calculateAverageRating(review.reviews)}</p>
+            ) : (
+              <h1 className=" text-white flex justify-center break-normal">{review._id} </h1>
+            )}
+            <p className="text-sm flex justify-center" >Average Rating: {calculateAverageRating(review.reviews)}</p>
             <div className="flex justify-center">
             <Image alt='g' src={review.Poster}  height={175} width={125}/>
             </div>
