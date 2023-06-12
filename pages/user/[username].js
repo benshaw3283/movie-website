@@ -17,7 +17,6 @@ const EditAvatar = dynamic(() => import("/components/EditAvatar"), {
   loading: () => <p>Loading...</p>,
 });
 
-
 async function deleteReview(_id) {
   const response = await fetch("/api/mongoReviews/mongoDeleteReview", {
     method: "POST",
@@ -35,16 +34,18 @@ export async function getServerSideProps(context) {
   const { username } = context.query;
   const session = await getSession(context);
 
-  const client = await connectToDatabase()
+  const client = await connectToDatabase();
 
- 
   // Fetch user data
   const user = await client
     .db()
     .collection("users")
-    .findOne({
-      $or : [ {username : username }, {name: username}]},
-      { projection: { password: 0, _id: 0 } });
+    .findOne(
+      {
+        $or: [{ username: username }, { name: username }],
+      },
+      { projection: { password: 0, _id: 0 } }
+    );
 
   if (!user) {
     return { notFound: true };
@@ -57,16 +58,15 @@ export async function getServerSideProps(context) {
     .find({ user: username })
     .toArray();
 
-    const posts = JSON.parse(JSON.stringify(data));
+  const posts = JSON.parse(JSON.stringify(data));
 
-    const sliderRatings = posts.map((post) => post.sliderRating);
-    const averageRating = (sliderRatings.reduce(
-      (total, rating) => total + rating,
-      0
-    ) / sliderRatings.length).toFixed(1);
-    
+  const sliderRatings = posts.map((post) => post.sliderRating);
+  const averageRating = (
+    sliderRatings.reduce((total, rating) => total + rating, 0) /
+    sliderRatings.length
+  ).toFixed(1);
 
-  return { props: { user, session, posts,averageRating   } };
+  return { props: { user, session, posts, averageRating } };
 }
 
 export default function UserProfilePage({ user, posts, averageRating }) {
@@ -76,8 +76,7 @@ export default function UserProfilePage({ user, posts, averageRating }) {
   const [following, setFollowing] = useState(false);
   const bioRef = useRef("");
 
-  useEffect(() => { 
-   
+  useEffect(() => {
     async function postsHandler() {
       const mapPosts = posts.map((post) => ({
         ...post,
@@ -91,14 +90,14 @@ export default function UserProfilePage({ user, posts, averageRating }) {
         return updatedReviews;
       });
 
-      if (user.followers?.includes(session.user.username || session.user.name)) {
+      if (
+        user.followers?.includes(session.user.username || session.user.name)
+      ) {
         setFollowing(true);
       } else {
         setFollowing(false);
       }
     }
-
-    
 
     postsHandler();
   }, [posts, session.user.username, session.user.name, user.followers]);
@@ -358,101 +357,173 @@ export default function UserProfilePage({ user, posts, averageRating }) {
               <br></br>
             </div>
 
-            <div className="bg-slate-800 border-2 border-slate-700 rounded-lg container grid grid-cols-2  w-5/6 min-h-fit order-4 py-2 ">
-              <h1 className="absolute justify-self-center font-semibold text-slate-500 text-xl underline">
+            <div className="bg-slate-900 border-4 border-slate-700 rounded-lg container grid grid-cols-2  w-5/6 min-h-fit order-4 py-2 ">
+              <h1 className="absolute justify-self-center font-semibold text-slate-500 text-xl ">
                 REVIEWS
               </h1>
               {reviews.length ? (
                 reviews.map((review, index) => (
-                  <div key={index} className=" flex my-4">
+                  <div key={index}>
                     <div className=" w-full px-4  flex justify-center">
-                      <div className="bg-slate-800 container rounded-lg flex flex-col h-full w-4/5   ">
-                        <div className="order-1  w-full h-12 rounded-t-lg  bg-green-400 border-2 border-slate-700 ">
-                          <div className="text-red-400 flex inset-x-0 top-0 justify-start float-left">
-                            <Image
-                              alt="userImage"
-                              src={user.image}
-                              width={40}
-                              height={40}
-                              className="rounded-full"
-                            />
+                      <div className="bg-slate-800 container rounded-lg flex flex-col h-2/5 w-5/6  my-10 border-2 border-slate-700">
+                        <div className="order-1  w-full h-12  rounded-t-lg   border-b-2 border-b-slate-700">
+                          <div className="flex flex-row ">
+                            <div className="flex order-1 w-full">
+                              <div
+                                className=" flex inset-x-0 top-0 justify-start float-left cursor-pointer"
+                                onClick={() =>
+                                  router.push(`user/${review.user}`)
+                                }
+                              >
+                                {review.userImage ? (
+                                  <Image
+                                    alt="userImage"
+                                    src={user.image}
+                                    width={45}
+                                    height={40}
+                                    className="rounded-full"
+                                  />
+                                ) : (
+                                  <div> </div>
+                                )}
+                              </div>
+                              <div className="flex flex-col">
+                                <div
+                                  className="pl-2 flex cursor-pointer w-fit order-1"
+                                  onClick={() =>
+                                    router.push(`user/${review.user}`)
+                                  }
+                                >
+                                  <h1 className="text-white font-semibold text-lg">
+                                    {review.user}
+                                  </h1>
+                                </div>
+                                <div className="flex order-2">
+                                  <p className="text-gray-400  text-sm">
+                                    {formatLocalDate(review.createdAt)}
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+                            <div className="flex order-2 place-items-end justify-end">
+                              <p className="flex p-1 text-slate-500">
+                                {review.movieData.Type === "movie"
+                                  ? "Movie"
+                                  : "TV"}
+                              </p>
+                            </div>
                           </div>
-                          <div className="flex pl-2">
-                            <h1 className="text-black font-semibold text-lg">
-                              {review.user}
-                            </h1>
-                          </div>
-
-                          <p className="text-blue-400 px-8 text-sm">
-                            {formatLocalDate(review.createdAt)}
-                          </p>
                         </div>
-                        <div className="order-2 flex w-full h-3/4  overflow-clip border-x-2 border-slate-700">
-                          <div id="main-left" className="flex w-2/3">
+
+                        <div className="order-2 flex w-full h-5/6  overflow-clip">
+                          <div id="main-left" className="flex w-1/3  ">
                             <Image
                               alt="movieImage"
                               src={review.movieData.Poster}
-                              width="230"
-                              height="350"
+                              width={230}
+                              height={320}
                             ></Image>
                           </div>
 
-                          <div id="main-right" className=" bg-black w-full">
-                            <div className=" bg-blue-400 flex justify-center  border-b-2 border-b-slate-700 cursor-pointer" onClick={()=> router.push(`../titles/${review.movieData.Title}`)}>
-                              <h1 className="text-black text-2xl">
-                                {review.movieData.Title}
-                              </h1>
-                            </div>
-
-                            <div className="bg-white flex  justify-center  border-b-2 border-b-slate-700 items-center ">
-                              <div className="text-gray-500 self-center ">
-                                {review.movieData.Year} ||
-                                {review.movieData.Genre} ||
-                              </div>
-                              <div className="text-gray-500 ">
-                                <Image alt="IMDbLogo" src={IMDbIcon} />
-                                {review.movieData.imdbRating}
-                              </div>
-                            </div>
-
-                            <div className="bg-black h-5/6 flex flex-row container  border-b-2 border-b-slate-700">
-                              <div className="absolute w-64 italic text-gray-500 text-xs py-1 px-1 order-1">
-                                <p>{review.movieData.Plot}</p>
-                              </div>
-
-                              <div className="self-center flex order-2 ">
-                                <h1 className="text-white text-3xl pl-4 ">
-                                  {review.sliderRating}
+                          <div
+                            id="main-right"
+                            className=" bg-slate-800 w-full lg:w-2/3 md:w-2/3 sm:w-2/3 border-l-2 border-slate-700 "
+                          >
+                            <div className=" flex justify-center  border-b-2 border-b-slate-700 cursor-pointer ">
+                              {review.movieData.Title.length <= 22 ? (
+                                <h1
+                                  className="text-white lg:text-3xl md:text-2xl sm:text-xl "
+                                  onClick={() =>
+                                    router.push(
+                                      `../titles/${review.movieData.Title}`
+                                    )
+                                  }
+                                >
+                                  {review.movieData.Title}
                                 </h1>
-                              </div>
+                              ) : (
+                                <h1
+                                  className="text-white lg:text-2xl md:text-xl sm:text-lg "
+                                  onClick={() =>
+                                    router.push(
+                                      `../titles/${review.movieData.Title}`
+                                    )
+                                  }
+                                >
+                                  {review.movieData.Title}
+                                </h1>
+                              )}
+                            </div>
 
-                              <div className=" self-center flex order-3 pl-8">
-                                <p className="text-white pl-2 pt-6 text-sm w-72">
-                                  {review.textReview}
+                            <div className="bg-slate-800 flex  justify-center  border-b-2 border-b-slate-700 ">
+                              <div className=" flex place-self-center md:text-sm ">
+                                <p className="text-white pr-1 font-semibold">
+                                  {review.movieData.Year}
+                                </p>
+                                <p className="text-slate-500">
+                                  {review.movieData.Genre}
+                                </p>
+                              </div>
+                              <div className="text-white place-self-center flex p-1 ">
+                                <Image alt="IMDbLogo" src={IMDbIcon} />
+                                <p className="pl-1 font-semibold">
+                                  {review.movieData.imdbRating}
                                 </p>
                               </div>
                             </div>
+
+                            {review.textReview !== "" ? (
+                              <div className="bg-slate-900 h-5/6 flex flex-col container justify-center border-b-2 border-b-slate-700">
+                                <div className="self-center flex order-1 ">
+                                  <h1 className="text-white lg:text-3xl px-1 md:text-xl border-2 border-slate-700 rounded-lg">
+                                    {review.sliderRating}
+                                  </h1>
+                                </div>
+                                <div className=" self-center flex order-2 ">
+                                  <p className="text-white pl-2 mt-3 lg:text-sm lg:w-72 md:h-44 md:text-xs md:w-48">
+                                    {review.textReview}
+                                  </p>
+                                </div>
+                              </div>
+                            ) : (
+                              <div className="bg-slate-900 h-5/6 flex flex-col container justify-center border-b-2 border-b-slate-700">
+                                <div className="self-center flex order-1 ">
+                                  {review.sliderRating !== 100 ? (
+                                    <h1 className="text-white lg:text-3xl px-1 md:text-xl border-2 border-slate-700 rounded-lg">
+                                      {review.sliderRating}
+                                    </h1>
+                                  ) : (
+                                    <h1 className="text-amber-400 lg:text-3xl px-1 md:text-xl border-2 border-slate-700 rounded-lg">
+                                      {review.sliderRating}
+                                    </h1>
+                                  )}
+                                </div>
+
+                                <div className="place-self-center  flex order-2 mt-2">
+                                  <p className="text-gray-500 pl-2  lg:text-sm lg:w-72 md:h-44 md:text-xs md:w-48 ">
+                                    {review.movieData.Plot}
+                                  </p>
+                                </div>
+                              </div>
+                            )}
                           </div>
                         </div>
-                        <div className="order-3 w-full h-12 rounded-b-lg bg-green-500  border-2 border-slate-700">
-                          <div className="flex flex-row w-full h-12 justify-around ">
+                        <div className="order-3 w-full h-12 rounded-b-lg bg-slate-800  border-t-2 border-t-slate-700">
+                          <div className="flex flex-row w-full h-12 justify-around">
                             <div className="flex self-center">
-                              <p>{!review.likes ? "0" : review.likes.length}</p>
                               <Like
                                 postId={review._id}
                                 reviewLikes={review.likes}
+                                likes={review.likes}
                               />
                             </div>
                             <CommentSection postId={review._id} />
-
-                            <p className="text-black self-center cursor-pointer">
-                              Share
-                            </p>
+                            <p className="text-gray-400 self-center ">Share</p>
 
                             {session &&
-                            (session.user.username === review.user ||
-                              session.user.email === review.user ||
-                              session.user.name === review.user) ? (
+                            (session.user.username === review.user.username ||
+                              session.user.email === review.user.email ||
+                              session.user.name === review.user.name) ? (
                               <div className="self-center cursor-pointer">
                                 <AlertDialog.Root>
                                   <AlertDialog.Trigger asChild>

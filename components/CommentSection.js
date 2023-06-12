@@ -59,7 +59,7 @@ const CommentSection = (props) => {
   return (
     <Popover.Root>
       <Popover.Trigger asChild>
-        <button onClick={() => fetchComments()}>Comment</button>
+        <button onClick={() => fetchComments()} className="font-semibold ">Comment</button>
       </Popover.Trigger>
 
       <Popover.Portal>

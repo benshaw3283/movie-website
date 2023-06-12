@@ -103,7 +103,7 @@ const Like = (props) => {
       ) : (
         <div className="flex ">
           
-          <p className="flex  ">{`You and ${likesNum - 1 } others`}</p>
+          <p className="flex  ">{`You and ${likesNum } others`}</p>
         
           <button onClick={() => handleUnlike(props.postId) } className="pl-2 flex">
             <Image
