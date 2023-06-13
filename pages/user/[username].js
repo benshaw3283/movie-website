@@ -371,9 +371,7 @@ export default function UserProfilePage({ user, posts, averageRating }) {
                             <div className="flex order-1 w-full">
                               <div
                                 className=" flex inset-x-0 top-0 justify-start float-left cursor-pointer"
-                                onClick={() =>
-                                  router.push(`user/${review.user}`)
-                                }
+                                
                               >
                                 {review.userImage ? (
                                   <Image
@@ -390,9 +388,7 @@ export default function UserProfilePage({ user, posts, averageRating }) {
                               <div className="flex flex-col">
                                 <div
                                   className="pl-2 flex cursor-pointer w-fit order-1"
-                                  onClick={() =>
-                                    router.push(`user/${review.user}`)
-                                  }
+                                  
                                 >
                                   <h1 className="text-white font-semibold text-lg">
                                     {review.user}

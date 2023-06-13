@@ -296,18 +296,14 @@ const Title = ({ posts, values, averageRating }) => {
                         {review.movieData.Title.length <= 22 ? (
                           <h1
                             className="text-white lg:text-3xl md:text-2xl sm:text-xl "
-                            onClick={() =>
-                              router.push(`titles/${review.movieData.Title}`)
-                            }
+                            
                           >
                             {review.movieData.Title}
                           </h1>
                         ) : (
                           <h1
                             className="text-white lg:text-2xl md:text-xl sm:text-lg "
-                            onClick={() =>
-                              router.push(`titles/${review.movieData.Title}`)
-                            }
+                            
                           >
                             {review.movieData.Title}
                           </h1>

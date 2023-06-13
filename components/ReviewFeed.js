@@ -281,9 +281,9 @@ const ReviewFeed = () => {
                       <p className="text-gray-400 self-center ">Share</p>
 
                       {session &&
-                      (session.user.username === review.user.username ||
+                      (session.user.name === review.user.name ||
                         session.user.email === review.user.email ||
-                        session.user.name === review.user.name) ? (
+                        session.user.username === review.user.username) ? (
                         <div className="self-center cursor-pointer">
                           <AlertDialog.Root>
                             <AlertDialog.Trigger asChild>

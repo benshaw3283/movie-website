@@ -103,7 +103,7 @@ const Search = () => {
               renderInput={(params) => (
                 <TextField
                   {...params}
-                  label={"Search"}
+                  label="Search"
                   variant="outlined"
                   className="bg-slate-700 rounded-lg "
                   size="small"
