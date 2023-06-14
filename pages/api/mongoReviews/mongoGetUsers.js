@@ -15,7 +15,7 @@ export default async function mongoGetUsers(req, res) {
         .toArray(); // Fetch all reviews from the database
         
         
-        const users = allUsers.map((user)=> (user.username))
+        const users = allUsers.map((user)=> (user.username ? user.username : user.name))
         
       res.status(200).json(users); // Send the retrieved reviews as response
     } catch (err) {

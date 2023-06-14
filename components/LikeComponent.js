@@ -56,7 +56,7 @@ const Like = (props) => {
   }
 
   async function fetchLikes(){
-    const response = await fetch(`api/mongoReviews/mongoGetLikes?postId=${props.postId}`)
+    const response = await fetch(`../api/mongoReviews/mongoGetLikes?postId=${props.postId}`)
     if(response.ok) {
       const likesData = await response.json()
       setLikesNum(likesData.length)
