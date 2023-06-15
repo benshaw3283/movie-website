@@ -154,7 +154,7 @@ const MovieAutocomplete = () => {
                       {...params}
                       label={switchType ? "Movie" : "TV show"}
                       variant="outlined"
-                      className="bg-slate-700 rounded-lg w-48 lg:w-72"
+                      className="bg-slate-700 rounded-lg w-56 lg:w-72"
                     />
                   )}
                   getOptionLabel_={(option) => option.name}

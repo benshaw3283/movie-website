@@ -78,7 +78,7 @@ const Search = () => {
                   {...params}
                   label="Search"
                   variant="outlined"
-                  className="bg-slate-700 rounded-lg w-32 lg:w-48"
+                  className="bg-slate-700 rounded-lg w-36 lg:w-48"
                   size="small"
                   onKeyDown={(e) =>
                     e.key === "Enter"
@@ -105,7 +105,7 @@ const Search = () => {
                   {...params}
                   label="Search"
                   variant="outlined"
-                  className="bg-slate-700 rounded-lg w-32 lg:w-48"
+                  className="bg-slate-700 rounded-lg w-36 lg:w-48"
                   size="small"
                 />
               )}
@@ -131,7 +131,7 @@ const Search = () => {
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="w-6 h-6 text-whitefloat-right ml-1"
+            className="lg:w-6 lg:h-6 w-4 h-4 text-whitefloat-right ml-1"
           >
             <path
               strokeLinecap="round"
