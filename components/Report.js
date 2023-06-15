@@ -35,7 +35,7 @@ const Report = () => {
 
   return (
     <div>
-      <div>
+      <div >
       <div className=" absolute left-3/4 top-1/4">
       <FadeLoader color='blue' loading={loading} aria-label="loading" height={10}
       />

@@ -108,21 +108,21 @@ const MovieAutocomplete = () => {
       <FadeLoader color='blue' loading={loading} aria-label="loading" height={10}
       />
       </div>
-      <div className={styles.main}>
+      <div className='w-fit h-fit flex justify-around border-slate-600 border-double'>
         <div className={styles.content}>
           <br></br>
 
-          <fieldset className="flex gap-2 items-center mb-3 justify-center ">
+          <fieldset className="flex gap-2 items-center mb-3 justify-center">
             <div className="flex flex-row ">
               <div>
                 {switchType ? (
-                  <div className="flex flex-col justify-center bg-slate-700 rounded-lg border-2 border-slate-600 mr-2">
-                    <button className="flex order-1 px-1 bg-slate-800 text-lg rounded-t-lg">
+                  <div className="flex flex-col justify-center bg-slate-700 rounded-lg border-2 border-slate-600 mr-2 ">
+                    <button className="flex order-1 px-1 bg-slate-800 lg:text-lg text-sm rounded-t-lg">
                       Movie
                     </button>
 
                     <button
-                      className="flex order-2 text-lg px-1 "
+                      className="flex order-2 lg:text-lg text-sm px-1 "
                       onClick={() =>
                         !session ? alert("Please sign in") : handleSwitch()
                       }
@@ -133,13 +133,13 @@ const MovieAutocomplete = () => {
                 ) : (
                   <div className="flex flex-col justify-center bg-slate-700 rounded-lg border-2 border-slate-600 mr-2">
                     <button
-                      className="flex order-1 px-1  text-lg rounded-lg"
+                      className="flex order-1 px-1  lg:text-lg text-sm rounded-lg"
                       onClick={() => handleSwitch()}
                     >
                       Movie
                     </button>
 
-                    <button className="flex order-2 text-lg px-1 bg-slate-800 rounded-b-lg">
+                    <button className="flex order-2 lg:text-lg text-sm px-1 bg-slate-800 rounded-b-lg">
                       TV show
                     </button>
                   </div>
@@ -154,11 +154,11 @@ const MovieAutocomplete = () => {
                       {...params}
                       label={switchType ? "Movie" : "TV show"}
                       variant="outlined"
-                      className="bg-slate-700 rounded-lg "
+                      className="bg-slate-700 rounded-lg w-52 lg:w-72"
                     />
                   )}
                   getOptionLabel_={(option) => option.name}
-                  style={{ width: 280 }}
+                  
                   freeSolo={true}
                   autoSelect={true}
                   value={selectedMovie}
@@ -209,7 +209,7 @@ const MovieAutocomplete = () => {
           <div className="flex flex-col justify-center place-items-center">
             <br></br>
 
-            <div className="flex justify-center border-2 w-fit place-items-center p-1 border-slate-700 rounded-lg ">
+            <div className="flex justify-center border-2 lg:w-fit  place-items-center p-1 border-slate-700 rounded-lg ">
               <div className=" cursor-pointer flex ">
                 <RadixSlider
                   min={0}
@@ -221,7 +221,7 @@ const MovieAutocomplete = () => {
                   defaultValue={[80]}
                   value={[sliderValue]}
                   onValueChange={([value]) => setSliderValue(value)}
-                  size="large"
+                  
                   rating={sliderValue}
                 />
               </div>
@@ -237,9 +237,9 @@ const MovieAutocomplete = () => {
             </div>
           </div>
           <br></br>
-          <div className="flex justify-center h-32">
+          <div className="flex justify-center lg:h-32 h-16">
             <textarea
-              className="bg-slate-800 w-3/4 h-full flex resize-none border-2 border-slate-700 rounded-lg pl-2"
+              className="bg-slate-800 w-3/4 lg:h-full h-full flex resize-none border-2 border-slate-700 rounded-lg pl-2 text-sm lg:text-lg"
               type="text"
               placeholder="Create Review..."
               maxLength="300"
@@ -251,12 +251,9 @@ const MovieAutocomplete = () => {
       </div>
 
       <div
-        style={{
-          display: "flex",
-          marginTop: 25,
-          justifyContent: "center",
-          paddingBottom: "1%",
-        }}
+        
+
+        className="flex lg:mt-10 mt-4 justify-center pb-1"
       >
         <button
           className="bg-slate-900 border-2 border-slate-600 hover:bg-slate-600 hover:border-slate-900 text-white hover:text-black 
