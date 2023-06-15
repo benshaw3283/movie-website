@@ -10,6 +10,7 @@ import { useRouter } from "next/router";
 //import { makeStyles } from "@mui/styles";
 import tvList from "./TvList";
 import * as Tooltip from "@radix-ui/react-tooltip";
+import { FadeLoader } from "react-spinners";
 
 async function createPost(
   sliderRating,
@@ -55,6 +56,7 @@ const MovieAutocomplete = () => {
   const { data: session } = useSession();
   const router = useRouter();
   const [switchType, setSwitchType] = useState(true);
+  const [loading, setLoading] = useState(false)
 
   async function submitHandler(event) {
     event.preventDefault();
@@ -86,6 +88,7 @@ const MovieAutocomplete = () => {
       alert("Failed to find film - Please try again");
     } else {
       try {
+        setLoading(!loading)
         await createPost(sliderRating, user, movieData, textReview, userImage);
 
         router.reload();
@@ -101,6 +104,10 @@ const MovieAutocomplete = () => {
 
   return (
     <div>
+      <div className="absolute left-1/2 top-14">
+      <FadeLoader color='blue' loading={loading} aria-label="loading" height={10}
+      />
+      </div>
       <div className={styles.main}>
         <div className={styles.content}>
           <br></br>

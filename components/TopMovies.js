@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import Image from 'next/image'
 import { useRouter } from "next/router";
+import { FadeLoader } from "react-spinners";
 
 function TopMovies() {
   const [topReviews, setTopReviews] = useState([]);
   const router = useRouter();
   const [open, setOpen] = useState(true)
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     // Fetch the reviews array
@@ -42,6 +44,10 @@ function TopMovies() {
 
   return (
     <div className=" w-fit  p-2">
+      <div className="absolute right-36 top-4">
+      <FadeLoader color='blue' loading={loading} aria-label="loading" height={10}
+      />
+      </div>
       <h1 className="text-xl flex justify-center">Top Rated</h1>
       
       {open ? (
@@ -53,7 +59,7 @@ function TopMovies() {
 </div>
       <ul>
         {topReviews.map((review, index) => (
-          <li key={index} className=" mt-2  flex flex-col items-center cursor-pointer " onClick={() => router.push(`../titles/${review._id}`)}>
+          <li key={index} className=" mt-2  flex flex-col items-center cursor-pointer " onClick={() => setLoading(!loading) & router.push(`../titles/${review._id}`)}>
             <div className="border-2 border-slate-800 p-1 rounded-lg w-40">
               {review._id.length < 16 ? (
             <h1 className="text-xl text-white flex justify-center">{review._id} </h1>

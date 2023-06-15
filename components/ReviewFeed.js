@@ -11,6 +11,7 @@ import Like from "./LikeComponent";
 import { useRouter } from "next/router";
 import { useIntersection } from "react-use";
 import { useInfiniteQuery } from "@tanstack/react-query";
+import FadeLoader from "react-spinners/FadeLoader";
 
 async function deleteReview(_id) {
   const response = await fetch("/api/mongoReviews/mongoDeleteReview", {
@@ -28,6 +29,7 @@ async function deleteReview(_id) {
 const ReviewFeed = () => {
   const { data: session } = useSession();
   const [followed, setFollowed] = useState(false);
+  const [loading, setLoading] = useState(false)
 
   const router = useRouter();
   const intersectionRef = useRef(null);
@@ -102,8 +104,15 @@ const ReviewFeed = () => {
     }
   }
 
+  
+
   return (
     <div>
+      <div className=" sticky top-20 left-1/2 pl-64">
+      <FadeLoader color='blue' loading={loading} aria-label="loading" 
+      />
+      </div>
+      
       <div className="flex container  justify-center">
         {!followed ? (
           <div className="flex flex-row justify-center bg-slate-700 rounded-lg border-2 border-slate-600">
@@ -147,7 +156,7 @@ const ReviewFeed = () => {
                       <div className="flex order-1 w-full">
                         <div
                           className=" flex inset-x-0 top-0 justify-start float-left cursor-pointer"
-                          onClick={() => router.push(`user/${review.user}`)}
+                          onClick={() => setLoading(!loading) & router.push(`user/${review.user}`)}
                         >
                           {review.userImage ? (
                             <Image
@@ -164,7 +173,7 @@ const ReviewFeed = () => {
                         <div className="flex flex-col">
                           <div
                             className="pl-2 flex cursor-pointer w-fit order-1"
-                            onClick={() => router.push(`user/${review.user}`)}
+                            onClick={() => setLoading(!loading) & router.push(`user/${review.user}`)}
                           >
                             <h1 className="text-white font-semibold text-lg">
                               {review.user}
@@ -205,7 +214,7 @@ const ReviewFeed = () => {
                           <h1
                             className="text-white lg:text-3xl md:text-2xl sm:text-xl "
                             onClick={() =>
-                              router.push(`titles/${review.movieData.Title}`)
+                            setLoading(!loading) &  router.push(`titles/${review.movieData.Title}`)
                             }
                           >
                             {review.movieData.Title}
@@ -214,7 +223,7 @@ const ReviewFeed = () => {
                           <h1
                             className="text-white lg:text-2xl md:text-xl sm:text-lg "
                             onClick={() =>
-                              router.push(`titles/${review.movieData.Title}`)
+                              setLoading(!loading) & router.push(`titles/${review.movieData.Title}`)
                             }
                           >
                             {review.movieData.Title}
@@ -281,9 +290,9 @@ const ReviewFeed = () => {
                       <p className="text-gray-400 self-center ">Share</p>
 
                       {session &&
-                      (session.user.name === review.user.name ||
-                        session.user.email === review.user.email ||
-                        session.user.username === review.user.username) ? (
+                      (session.user.name === review.user ||
+                        session.user.email === review.user ||
+                        session.user.username === review.user) ? (
                         <div className="self-center cursor-pointer">
                           <AlertDialog.Root>
                             <AlertDialog.Trigger asChild>
@@ -338,7 +347,7 @@ const ReviewFeed = () => {
                                   <AlertDialog.Action asChild>
                                     <button
                                       onClick={() =>
-                                        handleDeleteReview(review._id)
+                                        setLoading(!loading) &  handleDeleteReview(review._id)
                                       }
                                       className="bg-slate-700 border-2 border-slate-800 rounded py-0.5 px-0.5"
                                     >
