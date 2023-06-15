@@ -42,12 +42,12 @@ const Search = () => {
         <div className="flex   justify-center mr-1">
           {switchSearchType ? (
             <div className="flex flex-col justify-center bg-slate-700 rounded-lg border-2 border-slate-600">
-              <button className="flex order-1 px-1 bg-slate-800 text-sm rounded-lg">
+              <button className="flex order-1 px-1 bg-slate-800 lg:text-sm text-xs rounded-lg">
                 Movies/TV
               </button>
 
               <button
-                className="flex order-2 text-sm px-1 "
+                className="flex order-2 lg:text-sm text-xs px-1 "
                 onClick={() => handleSwitchSearch()}
               >
                 Users
@@ -56,13 +56,13 @@ const Search = () => {
           ) : (
             <div className="flex flex-col justify-center bg-slate-700 rounded-lg border-2 border-slate-600">
               <button
-                className="flex order-1 px-1  text-sm rounded-lg"
+                className="flex order-1 px-1  lg:text-sm text-xs rounded-lg"
                 onClick={() => handleSwitchSearch()}
               >
                 Movies/TV
               </button>
 
-              <button className="flex order-2 text-sm px-1 bg-slate-800 rounded-lg">
+              <button className="flex order-2 lg:text-sm text-xs px-1 bg-slate-800 rounded-lg">
                 Users
               </button>
             </div>
@@ -78,7 +78,7 @@ const Search = () => {
                   {...params}
                   label="Search"
                   variant="outlined"
-                  className="bg-slate-700 rounded-lg "
+                  className="bg-slate-700 rounded-lg w-32 lg:w-48"
                   size="small"
                   onKeyDown={(e) =>
                     e.key === "Enter"
@@ -88,8 +88,8 @@ const Search = () => {
                 />
               )}
               getOptionLabel_={(option) => option.name}
-              style={{ width: 200 }}
-              freeSolo={true}
+              
+              freeSolo={false}
               autoSelect={true}
               value={selected}
               onChange={(_event, newValue) => {
@@ -105,14 +105,14 @@ const Search = () => {
                   {...params}
                   label="Search"
                   variant="outlined"
-                  className="bg-slate-700 rounded-lg "
+                  className="bg-slate-700 rounded-lg w-32 lg:w-48"
                   size="small"
                 />
               )}
               getOptionLabel_={(option) => option.name}
               
-              style={{ width: 200 }}
-              freeSolo={true}
+              
+              freeSolo={false}
               autoSelect={true}
               value={selected}
               onChange={(_event, newValue) => {

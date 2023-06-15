@@ -2,8 +2,7 @@ import Link from "next/link";
 import navBar from "../styles/nav.module.css";
 import { RadixDialogSign, RadixDialogLog } from "./RadixSign";
 import { useSession, signIn, signOut } from "next-auth/react";
-import Image from "next/image";
-import { AvatarIcon, Dropdown } from "./RadixComponents";
+
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import radixStyle from "../styles/radixSign.module.css";
 import UserImage from "./UserImageNav";
@@ -38,7 +37,7 @@ const Nav = () => {
             }}
           >
             <nav>
-              <ul className={navBar.sign}>
+              <ul className='font-semibold flex'>
                 <li style={{ display: "inline-block", paddingRight: " 10px" }}>
                   <RadixDialogSign />
                 </li>
@@ -55,32 +54,32 @@ const Nav = () => {
     return (
       <div className="flex flex-row items-center w-full bg-gray-900 border-b-2 pt-2 border-slate-800 sticky top-0 z-[20] ">
         <div className="flex order-1 w-1/5">
-          <nav className="pl-24  flex font-mono font-bold text-lg">
+          <nav className="lg:pl-24 pl-2  flex font-mono font-bold text-lg">
             <Link href="/">Home</Link>
           </nav>
         </div>
         <div
           id="nav2"
-          className="w-3/5 order-2 justify-between flex align-middle place-items-center"
+          className="lg:w-3/5 w-3/5 order-2 justify-between flex align-middle place-items-center"
         >
-          <div className="flex ml-2 mb-1">
+          <div className="flex  lg:ml-2 mb-1">
             <Search />
           </div>
 
           
         </div>
         <div className={navBar.nav3}>
-        <nav className="pr-10 ">
+        <nav className="lg:pr-10 ">
             <DropdownMenu.Root>
               <DropdownMenu.Trigger asChild>
                 <div style={{ position: "center", cursor: "pointer" }}>
                   <div
                     style={{ display: "inline-block", alignItems: "center" }}
                   >
-                    <p className="font-semibold"> {session.user.name || session.user.username} </p>
+                    <p className="font-semibold text-sm lg:text-base"> {session.user.name || session.user.username} </p>
                   </div>
 
-                  <div className="inline-block pl-5 align-middle">
+                  <div className="inline-block lg:pl-5 pl-10 align-middle">
                     <UserImage height={40} width={42} />
                   </div>
                 </div>
