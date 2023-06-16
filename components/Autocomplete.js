@@ -242,7 +242,7 @@ const MovieAutocomplete = () => {
               className="bg-slate-800 w-3/4 lg:h-full h-full flex resize-none border-2 border-slate-700 rounded-lg pl-2 text-sm lg:text-lg"
               type="text"
               placeholder="Create Review..."
-              maxLength="300"
+              maxLength="250"
               wrap="soft"
               ref={textReviewRef}
             ></textarea>

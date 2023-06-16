@@ -77,13 +77,11 @@ const Like = (props) => {
     }
 
     
-
+    
     ifLiked();
   }, [props, session]);
 
-  useEffect(()=> {
-    fetchLikes()
-  })
+  fetchLikes()
   
 
   return (
