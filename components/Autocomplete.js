@@ -17,7 +17,8 @@ async function createPost(
   user,
   movieData,
   textReview,
-  userImage
+  userImage,
+  likes
 ) {
   const response = await fetch("/api/mongoReviews/mongoCreateReview", {
     method: "POST",
@@ -30,6 +31,7 @@ async function createPost(
       movieData,
       textReview,
       userImage,
+      likes
     }),
   });
 
@@ -79,6 +81,7 @@ const MovieAutocomplete = () => {
     const result = await response.json();
 
     const movieData = result;
+    const likes = []
 
     if (
       movieData.Title === "Null" ||
@@ -89,7 +92,7 @@ const MovieAutocomplete = () => {
     } else {
       try {
         setLoading(!loading)
-        await createPost(sliderRating, user, movieData, textReview, userImage);
+        await createPost(sliderRating, user, movieData, textReview, userImage, likes);
 
         router.reload();
       } catch (error) {

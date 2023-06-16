@@ -18,7 +18,7 @@ export default async function mongoGetLikes(req, res) {
         .findOne({ _id: new ObjectId(postId) });
 
       if (post) {
-        const likes = post.likes ? post.likes : []; // Get the likes array from the post
+        let likes = post.likes || []; // Get the likes array from the post
         res.status(200).json(likes); // Send the retrieved likes as response
       } else {
         res.status(404).json({ message: "Post not found" });
