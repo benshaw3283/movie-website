@@ -68,7 +68,7 @@ const Search = () => {
             </div>
           )}
         </div>
-        <div className="flex order-1 place-self-center ">
+        <div className="flex order-1 place-self-center lg:w-48 w-36">
           {switchSearchType ? (
             <Autocomplete
               options={titles}
@@ -79,7 +79,8 @@ const Search = () => {
                   label="Search"
                   variant="outlined"
                   className="bg-slate-700 rounded-lg w-36 lg:w-48"
-                  size="small"
+                  size='small'
+                  fullWidth={true}
                   onKeyDown={(e) =>
                     e.key === "Enter"
                       ? router.push(`../titles/${selected}`)
@@ -107,6 +108,7 @@ const Search = () => {
                   variant="outlined"
                   className="bg-slate-700 rounded-lg w-36 lg:w-48"
                   size="small"
+                  
                 />
               )}
               getOptionLabel_={(option) => option.name}
