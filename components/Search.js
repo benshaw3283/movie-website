@@ -89,7 +89,7 @@ const Search = () => {
                 />
               )}
               getOptionLabel_={(option) => option.name}
-              
+              style={{width: 154}}
               freeSolo={false}
               autoSelect={true}
               value={selected}
@@ -108,7 +108,7 @@ const Search = () => {
                   variant="outlined"
                   className="bg-slate-700 rounded-lg w-36 lg:w-48"
                   size="small"
-                  style={{width:160}}
+                  style={{width:154}}
                 />
               )}
               getOptionLabel_={(option) => option.name}
