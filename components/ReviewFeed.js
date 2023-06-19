@@ -108,7 +108,7 @@ const ReviewFeed = () => {
 
   return (
     <div>
-      <div className=" sticky top-20 left-1/2 pl-64">
+      <div className=" sticky top-20 left-1/2 lg:pl-64">
       <FadeLoader color='blue' loading={loading} aria-label="loading" 
       />
       </div>
@@ -233,7 +233,7 @@ const ReviewFeed = () => {
 
                       <div className="bg-slate-800 flex  justify-center  border-b-2 border-b-slate-700 ">
                         <div className=" flex place-self-center md:text-sm place-items-center ">
-                         <p className="text-white pr-1 font-semibold lg:text-lg  ">{review.movieData.Year}</p>  <p className="text-slate-500 text-xs lg:text-lg pl-4">{review.movieData.Genre} </p> 
+                         <p className="text-white pr-1 font-semibold lg:text-lg ">{review.movieData.Year}</p>  <p className="text-slate-500 text-xs lg:text-lg px-2 flex">{review.movieData.Genre} </p> 
                         </div>
                         <div className="text-white place-self-center  lg:flex p-1 ">
                           <Image alt="IMDbLogo" src={IMDbIcon} />
