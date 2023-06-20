@@ -445,7 +445,7 @@ export default function UserProfilePage({ user, posts, averageRating }) {
                           </h1>
                         ) : (
                           <h1
-                            className="text-white lg:text-2xl md:text-xl text-sm font-semibold"
+                            className="text-white lg:text-2xl md:text-xl text-base font-semibold"
                             onClick={() =>
                               setLoading(!loading) & router.push(`../titles/${review.movieData.Title}`)
                             }

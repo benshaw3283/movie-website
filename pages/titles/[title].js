@@ -106,22 +106,24 @@ const Title = ({ posts, values, averageRating }) => {
           <div className="order-1 ">
             <br></br>
           </div>
-          <div className="bg-slate-800 border-2 border-slate-700 rounded-lg container justify-center  flex w-1/2 h-1/3 order-2 overflow-clip min-h-fit">
+          <div className="bg-slate-800 border-2 border-slate-700 rounded-lg container justify-center  flex lg:w-1/2 w-11/12 h-1/3 order-2 overflow-clip  min-h-fit">
+            <div className="lg:w-fit w-24 ">
             <Image
               src={values.Poster}
               alt="f"
-              width={220}
-              height={400}
-              className="float-left "
+              width={320}
+              height={100}
+              className="float-left lg:w-fit absolute lg:relative"
             />
+            </div>
             <div className="flex flex-col container justify-between py-2 h-60">
-              <div className="order-1 place-self-center bg-slate-800 h-16 w-fit rounded-lg border-2 border-slate-700 py-2 px-2">
+              <div className="order-1 place-self-center bg-slate-800 h-16  w-fit rounded-lg border-2 border-slate-700 py-2 px-2">
                 {values.Title.length > 16 ? (
-                  <h1 className="text-white font-bold font-mono text-2xl">
+                  <h1 className="text-white font-bold font-mono lg:text-2xl text-base">
                   {values.Title}
                 </h1> 
                 ) : (
-                <h1 className="text-white font-bold font-mono text-5xl">
+                <h1 className="text-white font-bold font-mono lg:text-5xl text-2xl">
                   {values.Title}
                 </h1>
                 )}
@@ -137,11 +139,11 @@ const Title = ({ posts, values, averageRating }) => {
               >
                 IMDB
               </p>
-              <div className="flex  order-2">
+              <div className="flex  order-2 py-4">
                 <div className="flex flex-row justify-around container px-2">
                   <div className="flex flex-col">
                     <div className="order-1 ">
-                      <h2 className="px-2 text-lg flex ">Runtime</h2>
+                      <h2 className="px-2 lg:text-lg  flex ">Runtime</h2>
                     </div>
                     <div className="order-2 flex place-self-center">
                       <p className="bg-slate-900 h-fit border-2 rounded border-slate-700 px-2 text-lg">
@@ -225,7 +227,7 @@ const Title = ({ posts, values, averageRating }) => {
           <div className="flex order-3">
             <br></br>
           </div>
-          <div className="bg-slate-900 border-4 border-double border-slate-700 rounded-lg container grid grid-cols-2  w-5/6 h-full order-4 py-2 ">
+          <div className="bg-slate-900 border-4 border-double border-slate-700 rounded-lg container grid lg:grid-cols-2 grid-cols-1 w-5/6 h-full order-4 py-2 ">
             <h1 className="absolute justify-self-center font-semibold text-slate-500 text-xl ">
               REVIEWS
             </h1>
@@ -233,13 +235,13 @@ const Title = ({ posts, values, averageRating }) => {
               reviews.map((review, index) => (
                 <div key={index} className="">
                   <div className=" w-full  px-4  flex justify-center">
-                  <div className="bg-slate-800 container rounded-lg flex flex-col h-2/5 w-5/6  my-10 border-2 border-slate-700 ">
+                  <div className="bg-slate-800 container rounded-lg flex flex-col h-2/5 lg:w-5/6 w-full  my-10 border-2 border-slate-700">
                   <div className="order-1  w-full h-12  rounded-t-lg   border-b-2 border-b-slate-700">
                     <div className="flex flex-row ">
                       <div className="flex order-1 w-full">
                         <div
                           className=" flex inset-x-0 top-0 justify-start float-left cursor-pointer"
-                          onClick={() => router.push(`user/${review.user}`)}
+                          
                         >
                           {review.userImage ? (
                             <Image
@@ -256,7 +258,7 @@ const Title = ({ posts, values, averageRating }) => {
                         <div className="flex flex-col">
                           <div
                             className="pl-2 flex cursor-pointer w-fit order-1"
-                            onClick={() => router.push(`user/${review.user}`)}
+                            
                           >
                             <h1 className="text-white font-semibold text-lg">
                               {review.user}
@@ -278,7 +280,7 @@ const Title = ({ posts, values, averageRating }) => {
                   </div>
 
                   <div className="order-2 flex w-full h-5/6  overflow-clip">
-                    <div id="main-left" className="flex w-1/3  ">
+                    <div id="main-left" className="flex lg:w-1/3  ">
                       <Image
                         alt="movieImage"
                         src={review.movieData.Poster}
@@ -295,15 +297,19 @@ const Title = ({ posts, values, averageRating }) => {
                       <div className=" flex justify-center  border-b-2 border-b-slate-700 cursor-pointer ">
                         {review.movieData.Title.length <= 22 ? (
                           <h1
-                            className="text-white lg:text-3xl md:text-2xl sm:text-xl "
-                            
+                            className="text-white lg:text-3xl md:text-2xl text-lg font-semibold "
+                            onClick={() =>
+                            setLoading(!loading) &  router.push(`../titles/${review.movieData.Title}`)
+                            }
                           >
                             {review.movieData.Title}
                           </h1>
                         ) : (
                           <h1
-                            className="text-white lg:text-2xl md:text-xl sm:text-lg "
-                            
+                            className="text-white lg:text-2xl md:text-xl text-base font-semibold"
+                            onClick={() =>
+                              setLoading(!loading) & router.push(`../titles/${review.movieData.Title}`)
+                            }
                           >
                             {review.movieData.Title}
                           </h1>
@@ -311,44 +317,44 @@ const Title = ({ posts, values, averageRating }) => {
                       </div>
 
                       <div className="bg-slate-800 flex  justify-center  border-b-2 border-b-slate-700 ">
-                        <div className=" flex place-self-center md:text-sm ">
-                         <p className="text-white pr-1 font-semibold">{review.movieData.Year}</p>  <p className="text-slate-500">{review.movieData.Genre} </p> 
+                        <div className=" flex place-self-center md:text-sm place-items-center ">
+                         <p className="text-white pr-1 font-semibold lg:text-lg ">{review.movieData.Year}</p>  <p className="text-slate-500 text-xs lg:text-lg px-2 flex">{review.movieData.Genre} </p> 
                         </div>
-                        <div className="text-white place-self-center flex p-1 ">
+                        <div className="text-white place-self-center  lg:flex p-1 ">
                           <Image alt="IMDbLogo" src={IMDbIcon} />
                          <p className="pl-1 font-semibold">{review.movieData.imdbRating}</p> 
                         </div>
                       </div>
 
                       {review.textReview !== "" ? (
-                        <div className="bg-slate-900 h-5/6 flex flex-col container justify-center border-b-2 border-b-slate-700">
+                        <div className="bg-slate-900 h-5/6 flex flex-col container lg:justify-center border-b-2 border-b-slate-700 pt-1">
                           <div className="self-center flex order-1 ">
-                            <h1 className="text-white lg:text-3xl px-1 md:text-xl border-2 border-slate-700 rounded-lg">
+                            <h1 className="text-white lg:text-3xl px-1 md:text-xl border-2 border-slate-700 rounded-lg font-semibold">
                               {review.sliderRating}
                             </h1>
                           </div>
                           <div className=" self-center flex order-2 ">
-                            <p className="text-white pl-2 mt-1 lg:text-sm lg:w-72 md:h-44 md:text-xs md:w-48">
+                            <p className="text-white pl-2 mt-1 lg:text-sm text-xs lg:w-72 md:h-44 md:text-xs md:w-48 h-28">
                               {review.textReview}
                             </p>
                           </div>
                         </div>
                       ) : (
-                        <div className="bg-slate-900 h-5/6 flex flex-col container justify-center border-b-2 border-b-slate-700">
+                        <div className="bg-slate-900 h-5/6 flex flex-col lg:justify-center  border-b-2 border-b-slate-700 pt-1">
                           <div className="self-center flex order-1 ">
                             {review.sliderRating !== 100 ? (
-                            <h1 className="text-white lg:text-3xl px-1 md:text-xl border-2 border-slate-700 rounded-lg">
+                            <h1 className="text-white lg:text-3xl px-1 md:text-xl border-2 border-slate-700 rounded-lg font-semibold">
                               {review.sliderRating}
                             </h1>
                             ) : (
-                              <h1 className="text-amber-400 lg:text-3xl px-1 md:text-xl border-2 border-slate-700 rounded-lg">
+                              <h1 className="text-amber-400 lg:text-3xl px-1 md:text-xl border-2 border-slate-700 rounded-lg font-semibold">
                               {review.sliderRating}
                             </h1>
                             )}
                           </div>
 
                           <div className="place-self-center  flex order-2 mt-2">
-                            <p className="text-gray-500 pl-2  lg:text-sm lg:w-72 md:h-44 md:text-xs md:w-48 ">
+                            <p className="text-gray-500 pl-2  lg:text-sm lg:w-72 md:h-44 md:text-xs md:w-48 text-xs">
                               {review.movieData.Plot}
                             </p>
                           </div>
@@ -369,9 +375,9 @@ const Title = ({ posts, values, averageRating }) => {
                       <p className="text-gray-400 self-center ">Share</p>
 
                       {session &&
-                      (session.user.username === review.user.username ||
-                        session.user.email === review.user.email ||
-                        session.user.name === review.user.name) ? (
+                      (session.user.name === review.user ||
+                        session.user.email === review.user ||
+                        session.user.username === review.user) ? (
                         <div className="self-center cursor-pointer">
                           <AlertDialog.Root>
                             <AlertDialog.Trigger asChild>
@@ -426,7 +432,7 @@ const Title = ({ posts, values, averageRating }) => {
                                   <AlertDialog.Action asChild>
                                     <button
                                       onClick={() =>
-                                        handleDeleteReview(review._id)
+                                        setLoading(!loading) &  handleDeleteReview(review._id)
                                       }
                                       className="bg-slate-700 border-2 border-slate-800 rounded py-0.5 px-0.5"
                                     >

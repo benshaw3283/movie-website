@@ -221,7 +221,7 @@ const ReviewFeed = () => {
                           </h1>
                         ) : (
                           <h1
-                            className="text-white lg:text-2xl md:text-xl text-sm font-semibold "
+                            className="text-white lg:text-2xl md:text-xl text-basefont-semibold "
                             onClick={() =>
                               setLoading(!loading) & router.push(`titles/${review.movieData.Title}`)
                             }
