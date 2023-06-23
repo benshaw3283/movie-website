@@ -86,9 +86,6 @@ export const RadixDialogLog = () => {
             <Image src={googleIcon} alt='googleIcon'/>
           </button>
 
-          <button onClick={()=> signIn('facebook')}>
-            <Image src={facebookIcon} alt='facebookIcon'/>
-          </button>
           </div>
           <Dialog.Close asChild>
             <button className={styles.IconButton} aria-label="Close"></button>
