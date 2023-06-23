@@ -1,4 +1,4 @@
-import { MongoClient } from "mongodb";
+
 import { useSession, getSession } from "next-auth/react";
 import connectToDatabase from "../../../lib/connectToDatabase";
 

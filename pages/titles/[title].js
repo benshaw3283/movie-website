@@ -106,20 +106,20 @@ const Title = ({ posts, values, averageRating }) => {
           <div className="order-1 ">
             <br></br>
           </div>
-          <div className="bg-slate-800 border-2 border-slate-700 rounded-lg container justify-center  flex lg:w-1/2 w-11/12 h-1/3 order-2 overflow-clip  min-h-fit">
-            <div className="lg:w-fit w-24 ">
+          <div className="bg-slate-800 border-2 border-slate-700 rounded-lg container justify-center  flex lg:w-1/2 w-11/12 lg:h-1/3  order-2 overflow-clip  min-h-fit pb-3 lg:pb-0">
+            <div className="lg:w-fit  absolute lg:relative">
             <Image
               src={values.Poster}
               alt="f"
               width={320}
               height={100}
-              className="float-left lg:w-fit absolute lg:relative"
+              className="float-left lg:w-fit  invisible lg:visible lg:relative "
             />
             </div>
-            <div className="flex flex-col container justify-between py-2 h-60">
-              <div className="order-1 place-self-center bg-slate-800 h-16  w-fit rounded-lg border-2 border-slate-700 py-2 px-2">
+            <div className="flex flex-col container justify-between py-2 h-60 px-1">
+              <div className="order-1 place-self-center bg-slate-800 lg:h-16  w-fit rounded-lg border-2 border-slate-700 py-2 px-2 ">
                 {values.Title.length > 16 ? (
-                  <h1 className="text-white font-bold font-mono lg:text-2xl text-base">
+                  <h1 className="text-white font-bold font-mono lg:text-2xl text-base ">
                   {values.Title}
                 </h1> 
                 ) : (
@@ -135,28 +135,28 @@ const Title = ({ posts, values, averageRating }) => {
                     "_blank"
                   )
                 }
-                className="cursor-pointer underline pl-1 absolute text-blue-600 text-sm"
+                className="cursor-pointer underline pl-1 absolute text-blue-600 text-xs"
               >
                 IMDB
               </p>
               <div className="flex  order-2 py-4">
-                <div className="flex flex-row justify-around container px-2">
+                <div className="flex flex-row justify-around container px-2 pb-3 lg:pb-0">
                   <div className="flex flex-col">
                     <div className="order-1 ">
-                      <h2 className="px-2 lg:text-lg  flex ">Runtime</h2>
+                      <h2 className="px-2 lg:text-lg  flex font-semibold">Runtime</h2>
                     </div>
                     <div className="order-2 flex place-self-center">
-                      <p className="bg-slate-900 h-fit border-2 rounded border-slate-700 px-2 text-lg">
+                      <p className="bg-slate-900 h-fit border-2 rounded border-slate-700 px-2 lg:text-lg">
                         {values.Runtime}
                       </p>
                     </div>
                   </div>
 
-                  <div className="flex p-2">
-                    <h2 className="px-2 text-xl">
+                  <div className="flex p-2 flex-col lg:flex-row">
+                    <h2 className="px-2 lg:text-xl font-semibold justify-center flex">
                       {values.Director !== "N/A" ? `Director` : `Writer`}
                     </h2>
-                    <p className="bg-slate-900 h-fit border-2 rounded border-slate-700 px-2 text-xl">
+                    <p className="bg-slate-900 h-fit border-2 rounded border-slate-700 lg:px-2 px-1 lg:text-xl ">
                       {values.Director !== "N/A"
                         ? `${values.Director}`
                         : `${values.Writer}`}
@@ -164,10 +164,10 @@ const Title = ({ posts, values, averageRating }) => {
                   </div>
                   <div className="flex flex-col">
                     <div className="order-1 place-self-center flex">
-                      <h2 className="px-2 text-lg">Box Office</h2>
+                      <h2 className="px-2 lg:text-lg font-semibold">Box Office</h2>
                     </div>
                     <div className="order-2 flex place-self-center">
-                      <p className="bg-slate-900 h-fit border-2 rounded border-slate-700 px-2 text-lg">
+                      <p className="bg-slate-900 h-fit border-2 rounded border-slate-700 px-2 lg:text-lg">
                         {values.BoxOffice}
                       </p>
                     </div>
@@ -175,14 +175,14 @@ const Title = ({ posts, values, averageRating }) => {
                 </div>
               </div>
 
-              <div className="order-3 pl-4 flex">
-                <div className="flex flex-row justify-around container px-2">
-                  <div className="flex flex-col">
-                    <div className="order-1 place-self-center flex">
-                      <h2 className="px-2  text-lg">Actors</h2>
+              <div className="order-3 pl-4 flex ">
+                <div className="flex flex-row justify-around container px-2 ">
+                  <div className="flex flex-col ">
+                    <div className="order-1 place-self-center flex ">
+                      <h2 className="px-2  text-lg font-semibold">Actors</h2>
                     </div>
-                    <div className="order-2">
-                      <p className="bg-slate-900 h-fit border-2 rounded border-slate-700 px-2 ">
+                    <div className="order-2 ">
+                      <p className="bg-slate-900 h-fit border-2 rounded border-slate-700 px-2 text-sm lg:text-base">
                         {values.Actors}
                       </p>
                     </div>
@@ -190,11 +190,12 @@ const Title = ({ posts, values, averageRating }) => {
                 </div>
               </div>
 
-              <div className="order-4 pl-4 flex pt-10">
+              <div className="order-4 pl-4 lg:flex pt-32 lg:relative absolute lg:pt-10">
                 <div className="flex flex-row justify-around container">
-                  <div className="flex flex-col">
-                    <div className="order-1 place-self-center flex">
-                      <h2 className="px-2 text-lg">Rated</h2>
+
+                  <div className="flex flex-col pt-2">
+                    <div className="order-1 place-self-center flex ">
+                      <h2 className="px-2 lg:text-lg font-semibold">Rated</h2>
                     </div>
                     <div className="order-2 flex place-self-center">
                       <p className="bg-slate-900 h-fit border-2 rounded border-slate-700 px-2 text-lg">
@@ -203,19 +204,19 @@ const Title = ({ posts, values, averageRating }) => {
                     </div>
                   </div>
 
-                  <div className="flex place-self-end">
-                    <h2 className="px-2 text-lg">Reviews</h2>
+                  <div className="flex place-self-end invisible lg:visible">
+                    <h2 className="px-2 text-lg ">Reviews</h2>
                     <p className="bg-slate-900 h-fit border-2 rounded border-slate-700 px-2 text-lg">
                       {reviews.length}
                     </p>
                   </div>
 
-                  <div className="flex flex-col">
-                    <div className="order-1 place-self-center flex">
-                      <h2 className="px-2 text-lg">Average Rating</h2>
+                  <div className="flex flex-col pt-2 ">
+                    <div className="order-1 place-self-center flex ">
+                      <h2 className="px-2 lg:text-lg font-semibold pl-12">Average Rating</h2>
                     </div>
-                    <div className="order-2 flex place-self-center">
-                      <p className="bg-slate-900 h-fit border-2 rounded border-slate-700 px-2 text-lg">
+                    <div className="order-2 flex place-self-center ">
+                      <p className="bg-slate-900 h-fit border-2 rounded border-slate-700 px-2 text-lg ml-12">
                         {averageRating !== "NaN" ? averageRating : "0"}
                       </p>
                     </div>

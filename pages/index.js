@@ -1,13 +1,15 @@
 import MovieAutocomplete from "../components/Autocomplete";
 import ReviewFeed from "../components/ReviewFeed";
-import { useSession } from "next-auth/react";
+
 import TopMovies from "../components/TopMovies";
 import Report from "../components/Report";
 import ComingSoon from "../components/ComingSoon";
+import PhoneTopMovies from "../components/PhoneTopMovies";
+import PhoneReport from "../components/PhoneReport";
 
 
 export default function Home() {
-  const { data: session, status } = useSession();
+  
 
   return (
     <div>
@@ -26,7 +28,15 @@ export default function Home() {
           //mainDivMiddle
           className="bg-slate-900  flex flex-col container items-center lg:w-full  h-fit "
         >
-          <br></br>
+          <div className="flex flex-row justify-between place-items-center w-full">
+            <div className="flex order-1 visible lg:invisible">
+             <PhoneTopMovies />
+            </div>
+
+            <div className="order-2 flex visible lg:invisible mr-40">
+              <PhoneReport />
+            </div>
+          </div>
 
           <div className="bg-slate-800 border-2 border-slate-700 rounded-lg container justify-center  flex lg:w-3/5 w-5/6 lg:h-2/5 py-1 order-1 ">
           <MovieAutocomplete />

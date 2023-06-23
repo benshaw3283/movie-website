@@ -12,15 +12,7 @@ export const RadixDialogSign = () => {
   const ref = useRef('password')
   
 
-////////NOT WORKING RIGHT////////
-  const handleClick = () => {
-      if (ref.current === 'password') {
-        ref.current.setAttribute('type','text')
-      } else {
-        ref.current.setAttribute('type','password')
-      }         
-  }
-////////
+
 
   
   return (
@@ -56,15 +48,6 @@ export const RadixDialogSign = () => {
 export const RadixDialogLog = () => {
   const ref = useRef('password')
 
-////////NOT WORKING////////
-  const handleClick = () => {
-      if (ref.current === 'password') {
-        ref.current.setAttribute('type','text')
-      } else {
-        ref.current.setAttribute('type','password')
-      }         
-  }
-////////
 
   
   return (

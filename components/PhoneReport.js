@@ -3,10 +3,11 @@ import { useSession } from "next-auth/react";
 import { useRef } from "react";
 import { FadeLoader } from "react-spinners";
 
-const Report = () => {
+const PhoneReport = () => {
   const { data: session } = useSession();
   const reportRef = useRef("");
   const [loading, setLoading] = useState(false)
+  const [show, setShow] = useState(false)
 
   async function reportBug() {
     let input = reportRef.current.value;
@@ -32,14 +33,26 @@ const Report = () => {
   return response;
   }
 
+  const handleShow = ()=> {
+    setShow(!show)
+  }
+
 
   return (
     <div>
+        {show ? (
       <div >
+    
       <div className=" absolute left-3/4 top-1/4">
       <FadeLoader color='grey' loading={loading} aria-label="loading" height={10}
       />
       </div>
+      <div className="flex justify-center" onClick={()=> handleShow()}>
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+  <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
+</svg>
+</div>
+    <div className="bg-slate-800 w-fit h-fit rounded-lg border-2 border-slate-700 px-1 absolute z-10 mr-20">
         <h2 className="flex justify-center text-lg">Report Bugs</h2>
         <textarea
           ref={reportRef}
@@ -56,10 +69,22 @@ const Report = () => {
             Submit
           </button>
         </div>
-        
+        </div>
       </div>
+      ) : (
+        <div>
+            <h2 className="text-xs ">Report Bugs</h2>
+        <div className="flex justify-center " onClick={()=> handleShow()}>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+  <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+</svg>
+
+        </div>
+        </div>
+    )
+    }
     </div>
   );
 };
 
-export default Report;
+export default PhoneReport;

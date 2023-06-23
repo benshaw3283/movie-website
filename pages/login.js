@@ -4,7 +4,14 @@ import {AuthFormLI} from "../components/AuthForm";
 
 
 const Login = () => {
-  return <AuthFormLI />;
+  return (
+    <div className="bg-slate-800 h-screen pt-1">
+      <div className="">
+      <AuthFormLI />
+      </div>
+      
+    </div>
+  )
 };
 
 export default Login;

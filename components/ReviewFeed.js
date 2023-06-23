@@ -146,7 +146,7 @@ const ReviewFeed = () => {
       </div>
 
       <div>
-        {isSuccess &&
+        {isSuccess ? (
           data.pages.map((page) =>
             page.map((review, index) => (
               <div key={index}>
@@ -367,6 +367,9 @@ const ReviewFeed = () => {
                 </div>
               </div>
             ))
+          )): (
+            <div className="h-screen bg-slate-900">
+               </div>
           )}
         {isFetchingNextPage && (
           <p className="flex self-center text-white">Loading...</p>

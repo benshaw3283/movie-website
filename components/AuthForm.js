@@ -48,10 +48,11 @@ function AuthFormSU() {
         enteredUsername,
         enteredPassword
       );
-      console.log(result);
-      router.push("/login");
+      if (result.ok) {
+        router.push("/login");
+      }
     } catch (error) {
-      console.log(error);
+      alert('Unable to create account!', error);
       router.push("/");
     }
   }
@@ -164,7 +165,7 @@ function AuthFormLI() {
       // set some auth state
       router.replace("/");
     } else {
-      alert('No user found with these details')
+      alert("No user found with these details");
     }
   }
 
