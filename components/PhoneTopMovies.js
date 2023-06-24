@@ -9,38 +9,49 @@ function PhoneTopMovies() {
   const [open, setOpen] = useState(false)
   const [loading, setLoading] = useState(false)
 
- 
-    // Fetch the reviews array
-    fetch("../api/mongoReviews/mongoGetHighestReviews")
-      .then((response) => response.json())
-      .then((data) => {
+   // Function to calculate the average sliderRating for a group of reviews
+   const calculateAverageRating = (reviews) => {
+    const totalRating = reviews.reduce((sum, review) => sum + review.sliderRating, 0);
+    const averageRating = totalRating / reviews.length;
+    return averageRating.toFixed(1);
+  };
+
+  useEffect(()=> {
+
+  
+    async function getHighestReviews() {
+      
+      const data = await fetch("./api/mongoReviews/mongoGetHighestReviews");
+      const response = await data.json()
+      console.log(response)
+  
+      try {
         // Sort the reviews based on average sliderRating in descending order
-        const sortedReviews = data.sort(
+        const sortedReviews = response.sort(
           (a, b) =>
             calculateAverageRating(b.reviews) - calculateAverageRating(a.reviews)
         );
-
+  
         // Get the top 3 reviews
         const top3Reviews = sortedReviews.slice(0, 3);
-
+  
         // Set the topReviews state
         setTopReviews(top3Reviews);
-      })
-      .catch((error) => {
-        console.error("Error fetching reviews:", error);
-      });
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  
+    getHighestReviews();
+  
+  }, [])
  
 
   const handleOpen = () => {
     setOpen(!open)
   }
 
-  // Function to calculate the average sliderRating for a group of reviews
-  const calculateAverageRating = (reviews) => {
-    const totalRating = reviews.reduce((sum, review) => sum + review.sliderRating, 0);
-    const averageRating = totalRating / reviews.length;
-    return averageRating.toFixed(1);
-  };
+
 
   return (
     <div className=" w-fit  p-2 ">
