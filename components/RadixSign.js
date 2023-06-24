@@ -3,7 +3,7 @@ import * as Dialog from "@radix-ui/react-dialog";
 import styles from "../styles/radixSign.module.css";
 import { useSession, signIn, signOut } from 'next-auth/react'
 import googleIcon from '../public/googleIcon.png'
-import facebookIcon from '../public/facebookIcon.png'
+
 import Image from "next/image";
 import { AuthFormLI, AuthFormSU } from "./AuthForm";
 
