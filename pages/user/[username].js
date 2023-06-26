@@ -367,7 +367,7 @@ export default function UserProfilePage({ user, posts, averageRating }) {
 
             <div className="bg-slate-900 border-4 border-double border-slate-700 rounded-lg container grid lg:grid-cols-2 grid-cols-1  w-5/6 min-h-fit order-4 py-2 ">
            
-              <h1 className="absolute justify-self-center font-semibold text-slate-500 text-xl left-1/2">
+              <h1 className="absolute justify-self-center font-semibold text-slate-500 text-xl left-1/3">
                 REVIEWS
               </h1>
               {reviews.length ? (
