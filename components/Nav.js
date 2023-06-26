@@ -74,7 +74,7 @@ const Nav = () => {
               <DropdownMenu.Trigger asChild>
                 <div style={{ position: "center", cursor: "pointer" }}>
 
-                  <div className="flex lg:pl-5 pl-8 align-middle place-self-center">
+                  <div className="flex lg:pl-5 pl-2 align-middle place-self-center">
                     <UserImage height={40} width={42} />
                   </div>
                 </div>

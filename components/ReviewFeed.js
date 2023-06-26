@@ -373,7 +373,7 @@ const ReviewFeed = () => {
                </div>
           )}
         {isFetchingNextPage && (
-          <p className="flex self-center text-white">Loading...</p>
+          <p className="flex self-center text-slate-500 justify-center">Loading...</p>
         )}
       </div>
       <div ref={intersectionRef}></div>

@@ -217,7 +217,7 @@ const Title = ({ posts, values, averageRating }) => {
                     </div>
                     <div className="order-2 flex place-self-center ">
                       <p className="bg-slate-900 h-fit border-2 rounded border-slate-700 px-2 lg:text-lg ">
-                        {averageRating !== "NaN" ? averageRating : "0"}
+                        {averageRating !== "NaN" ? averageRating : "N/A"}
                       </p>
                     </div>
                   </div>

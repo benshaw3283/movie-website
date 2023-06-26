@@ -232,7 +232,7 @@ export default function UserProfilePage({ user, posts, averageRating }) {
                     <div className="flex order-3">
                       <h2 className="pr-2">Average Rating</h2>
                       <p className="bg-slate-900 h-fit border-2 rounded border-slate-700 lg:px-2 px-1">
-                        {averageRating}
+                        {averageRating !== "NaN" ? averageRating : "N/A"}
                       </p>
                     </div>
                   </div>
