@@ -57,7 +57,7 @@ function TopMovies() {
     <div className=" w-fit  p-2 ">
       <div className="absolute right-36 top-4">
         <FadeLoader
-          color="blue"
+          color="grey"
           loading={loading}
           aria-label="loading"
           height={10}

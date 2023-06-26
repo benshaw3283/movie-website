@@ -108,7 +108,7 @@ const MovieAutocomplete = () => {
   return (
     <div>
       <div className="absolute left-1/2 top-14">
-      <FadeLoader color='blue' loading={loading} aria-label="loading" height={10}
+      <FadeLoader color='grey' loading={loading} aria-label="loading" height={10}
       />
       </div>
       <div className='w-fit h-fit flex justify-around border-slate-600 border-double'>

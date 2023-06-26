@@ -106,14 +106,14 @@ const Title = ({ posts, values, averageRating }) => {
           <div className="order-1 ">
             <br></br>
           </div>
-          <div className="bg-slate-800 border-2 border-slate-700 rounded-lg container justify-center  flex lg:w-1/2 w-11/12 lg:h-1/3  order-2 overflow-clip  min-h-fit pb-3 lg:pb-0">
+          <div className="bg-slate-800 border-2 border-slate-700 rounded-lg container justify-center  flex lg:w-1/2 w-11/12 lg:h-1/3 order-2 overflow-clip  min-h-fit pb-1 lg:pb-0">
             <div className="lg:w-fit w-0 h-0 lg:h-fit absolute lg:relative">
             <Image
               src={values.Poster}
               alt="f"
               width={320}
-              height={100}
-              className="float-left lg:w-fit  invisible lg:visible lg:relative "
+              height={300}
+              className="float-left  invisible lg:visible lg:relative "
             />
             </div>
             <div className="flex flex-col container justify-around lg:justify-between py-2 pt-4 lg:pt-2 h-fit px-1">
@@ -135,7 +135,7 @@ const Title = ({ posts, values, averageRating }) => {
                     "_blank"
                   )
                 }
-                className="cursor-pointer underline pl-1 absolute text-blue-600 text-xs top-28 "
+                className="cursor-pointer underline pl-1 absolute text-blue-600 text-xs top-24 "
               >
                 IMDB
               </p>
@@ -456,8 +456,8 @@ const Title = ({ posts, values, averageRating }) => {
               ))
             ) : (
               <div className="bg-slate-900 h-full">
-                <div className="bg-slate-800 container rounded-lg flex justify-center h-full w-full ">
-                  <div className="flex  ">
+                <div className=" container rounded-lg flex justify-center h-full w-full ">
+                  <div className="flex  pt-10">
                     <p>No reviews to display...</p>
                   </div>
                 </div>

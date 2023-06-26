@@ -109,8 +109,8 @@ const ReviewFeed = () => {
 
   return (
     <div>
-      <div className=" sticky top-20 left-1/2 lg:pl-64">
-      <FadeLoader color='blue' loading={loading} aria-label="loading" 
+      <div className=" sticky top-20 left-1/2 lg:pl-64 pl-32">
+      <FadeLoader color='grey' loading={loading} aria-label="loading" 
       />
       </div>
       

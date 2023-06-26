@@ -238,7 +238,7 @@ export default function UserProfilePage({ user, posts, averageRating }) {
                   </div>
                 </div>
 
-                <div className="order-3 w-1/2 pl-4">
+                <div className="order-3 w-5/6 pl-4">
                   <p className="text-sm">{user.bio}</p>
                 </div>
 
@@ -360,14 +360,14 @@ export default function UserProfilePage({ user, posts, averageRating }) {
             <div className="order-3 ">
               <br></br>
               <div className=" sticky top-20 left-1/2 lg:pl-64">
-      <FadeLoader color='blue' loading={loading} aria-label="loading" 
+      <FadeLoader color='grey' loading={loading} aria-label="loading" 
       />
       </div>
             </div>
 
             <div className="bg-slate-900 border-4 border-double border-slate-700 rounded-lg container grid lg:grid-cols-2 grid-cols-1  w-5/6 min-h-fit order-4 py-2 ">
            
-              <h1 className="absolute justify-self-center font-semibold text-slate-500 text-xl ">
+              <h1 className="absolute justify-self-center font-semibold text-slate-500 text-xl left-1/2">
                 REVIEWS
               </h1>
               {reviews.length ? (
@@ -594,8 +594,8 @@ export default function UserProfilePage({ user, posts, averageRating }) {
                 ))
               ) : (
                 <div className="bg-slate-900 h-screen">
-                  <div className="bg-slate-800 container rounded-lg flex justify-center h-full w-full ">
-                    <div className="justify-center ">
+                  <div className=" container rounded-lg flex justify-center h-fit w-full ">
+                    <div className="justify-center mt-10">
                       <p>No reviews to display...</p>
                     </div>
                   </div>
