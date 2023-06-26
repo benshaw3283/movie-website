@@ -38,6 +38,9 @@ const CommentSection = (props) => {
   }
 
   async function createComment() {
+    if (commentRef.current.value === '') {
+      return null
+    } 
     const response = await fetch("/api/userActions/createComment", {
       method: "PATCH",
       headers: {
@@ -50,6 +53,7 @@ const CommentSection = (props) => {
       }),
     });
     commentRef.current.value = "";
+  
     if (response.ok) {fetchComments()}
     return response;
   }

@@ -41,7 +41,7 @@ const PhoneReport = () => {
   return (
     <div>
         {show ? (
-      <div className="mr-20">
+      <div className="mr-32">
     
       <div className=" absolute left-3/4 top-1/4">
       <FadeLoader color='grey' loading={loading} aria-label="loading" height={10}

@@ -39,6 +39,7 @@ export default function Home() {
             <MovieAutocomplete />
           </div>
 
+          
           <div className="order-2 ">
             <br></br>
           </div>
