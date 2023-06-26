@@ -26,7 +26,7 @@ function TopMovies() {
     
     const data = await fetch("./api/mongoReviews/mongoGetHighestReviews");
     const response = await data.json()
-    console.log(response)
+    
 
     try {
       // Sort the reviews based on average sliderRating in descending order

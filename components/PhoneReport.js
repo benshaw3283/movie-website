@@ -41,7 +41,7 @@ const PhoneReport = () => {
   return (
     <div>
         {show ? (
-      <div >
+      <div className="mr-20">
     
       <div className=" absolute left-3/4 top-1/4">
       <FadeLoader color='grey' loading={loading} aria-label="loading" height={10}
@@ -52,7 +52,7 @@ const PhoneReport = () => {
   <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
 </svg>
 </div>
-    <div className="bg-slate-800 w-fit h-fit rounded-lg border-2 border-slate-700 px-1 absolute z-10 mr-20">
+    <div className="bg-slate-800 w-fit h-fit rounded-lg border-2 border-slate-700 px-1 absolute z-10">
         <h2 className="flex justify-center text-lg">Report Bugs</h2>
         <textarea
           ref={reportRef}

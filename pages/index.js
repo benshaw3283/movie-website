@@ -7,10 +7,7 @@ import ComingSoon from "../components/ComingSoon";
 import PhoneTopMovies from "../components/PhoneTopMovies";
 import PhoneReport from "../components/PhoneReport";
 
-
 export default function Home() {
-  
-
   return (
     <div>
       <title>SHAWreviews</title>
@@ -20,7 +17,7 @@ export default function Home() {
           <br></br>
           <br></br>
           <br></br>
-          
+
           <TopMovies />
         </div>
 
@@ -28,24 +25,22 @@ export default function Home() {
           //mainDivMiddle
           className="bg-slate-900  flex flex-col container items-center lg:w-full  h-fit "
         >
-          <div className="flex flex-row justify-between place-items-center w-full">
-            <div className="flex order-1 visible lg:invisible">
-             <PhoneTopMovies />
+          <div className="flex flex-row justify-around place-items-center w-full">
+            <div className="flex order-1 visible lg:invisible text-slate-500 font-semibold">
+              <PhoneTopMovies />
             </div>
 
-            <div className="order-2 flex visible lg:invisible mr-40">
+            <div className="order-2 flex visible lg:invisible text-slate-500 font-semibold">
               <PhoneReport />
             </div>
           </div>
 
           <div className="bg-slate-800 border-2 border-slate-700 rounded-lg container justify-center  flex lg:w-3/5 w-5/6 lg:h-2/5 py-1 order-1 ">
-          <MovieAutocomplete />
-            
+            <MovieAutocomplete />
           </div>
 
           <div className="order-2 ">
             <br></br>
-            
           </div>
 
           <div className="bg-slate-900 lg:w-1/2 w-3/4 h-2/5 flex justify-center container items-center rounded-lg order-3  ">
@@ -64,13 +59,12 @@ export default function Home() {
           <br></br>
           <br></br>
           <br></br>
-          
-          <Report/>
+
+          <Report />
 
           <br></br>
-<br></br>
-<ComingSoon/>
-          
+          <br></br>
+          <ComingSoon />
         </div>
       </div>
     </div>
