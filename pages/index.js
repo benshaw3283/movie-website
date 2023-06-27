@@ -13,7 +13,7 @@ export default function Home() {
       <title>ShawReviews</title>
 
       <div className="lg:flex flex-row  justify-between  h-fit lg:h-full bg-slate-900">
-        <div className="bg-slate-900 lg:w-1/3 w-0 text-slate-500 lg:sticky top-0 lg:h-full h-0 invisible lg:visible grid place-items-center">
+        <div className="bg-slate-900  lg:w-1/3 w-0 text-slate-500 lg:sticky top-0 lg:h-full h-0 invisible lg:visible grid place-items-center">
           <br></br>
           <br></br>
           <br></br>

@@ -107,12 +107,12 @@ const Title = ({ posts, values, averageRating }) => {
             <br></br>
           </div>
           <div className="bg-slate-800 border-2 border-slate-700 rounded-lg container justify-center  flex lg:w-1/2 w-11/12 lg:h-1/3 order-2 overflow-clip  min-h-fit pb-1 lg:pb-0">
-            <div className="lg:w-fit w-0 h-0 lg:h-fit absolute lg:relative">
+            <div className="lg:w-fit w-0 h-0 lg:h-fit absolute lg:relative ">
             <Image
               src={values.Poster}
               alt="f"
-              width={320}
-              height={300}
+              width={385}
+              height={320}
               className="float-left  invisible lg:visible lg:relative "
             />
             </div>
@@ -242,7 +242,7 @@ const Title = ({ posts, values, averageRating }) => {
                       <div className="flex order-1 w-full">
                         <div
                           className=" flex inset-x-0 top-0 justify-start float-left cursor-pointer"
-                          
+                          onClick={()=> router.push(`../user/${review.user}`)}
                         >
                           {review.userImage ? (
                             <Image
@@ -259,7 +259,7 @@ const Title = ({ posts, values, averageRating }) => {
                         <div className="flex flex-col">
                           <div
                             className="pl-2 flex cursor-pointer w-fit order-1"
-                            
+                            onClick={()=> router.push(`../user/${review.user}`)}
                           >
                             <h1 className="text-white font-semibold text-lg">
                               {review.user}
@@ -281,7 +281,7 @@ const Title = ({ posts, values, averageRating }) => {
                   </div>
 
                   <div className="order-2 flex w-full h-5/6  overflow-clip">
-                    <div id="main-left" className="flex lg:w-1/3  ">
+                    <div id="main-left" className="flex lg:w-2/5 ">
                       <Image
                         alt="movieImage"
                         src={review.movieData.Poster}
