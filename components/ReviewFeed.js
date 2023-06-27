@@ -5,7 +5,7 @@ import { useSession } from "next-auth/react";
 
 import * as AlertDialog from "@radix-ui/react-alert-dialog";
 import styles from "../styles/radixAlertDialog.module.css";
-import IMDbIcon from "../public/imdb.png";
+
 import CommentSection from "./CommentSection";
 import Like from "./LikeComponent";
 import { useRouter } from "next/router";

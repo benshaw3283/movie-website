@@ -4,7 +4,6 @@ import { useEffect, useState, useRef } from "react";
 import * as AlertDialog from "@radix-ui/react-alert-dialog";
 import Image from "next/dist/client/image";
 import styles from "/styles/radixAlertDialog.module.css";
-import IMDbIcon from "/public/imdb.png";
 import dynamic from "next/dynamic";
 import * as Dialog from "@radix-ui/react-dialog";
 import dialogStyles from "/styles/radixSign.module.css";
