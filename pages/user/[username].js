@@ -459,8 +459,8 @@ export default function UserProfilePage({ user, posts, averageRating }) {
                         <div className=" flex place-self-center md:text-sm place-items-center ">
                          <p className="text-white pr-1 font-semibold lg:text-lg ">{review.movieData.Year}</p>  <p className="text-slate-500 text-xs lg:text-lg px-2 flex">{review.movieData.Genre} </p> 
                         </div>
-                        <div className="text-white place-self-center  lg:flex p-1 ">
-                          <Image alt="IMDbLogo" src={IMDbIcon} />
+                        <div className="text-white place-self-center flex lg:flex p-1 ">
+                        <p className="text-xs bg-yellow-500 font-bold text-black rounded-md p-1"><strong>IMDb</strong></p>
                          <p className="pl-1 font-semibold">{review.movieData.imdbRating}</p> 
                         </div>
                       </div>
