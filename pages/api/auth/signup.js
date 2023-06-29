@@ -12,13 +12,13 @@ export default async function signUpHandler(req, res) {
       !email ||
       !email.includes("@") ||
       !password ||
-      password.length < 7 ||
+      password.length < 5 ||
       !username ||
       username.length < 3
     ) {
       res.status(422).json({
         message:
-          "Invalid input - password should be at least 7 characters long.",
+          "Invalid input - password should be at least 5 characters long.",
       });
       return;
     }

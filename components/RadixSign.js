@@ -2,7 +2,7 @@ import React, {useState, useRef, useEffect} from "react";
 import * as Dialog from "@radix-ui/react-dialog";
 import styles from "../styles/radixSign.module.css";
 import { useSession, signIn, signOut } from 'next-auth/react'
-import googleIcon from '../public/googleIcon.png'
+import googleIcon from '../public/googleSign.png'
 
 import Image from "next/image";
 import { AuthFormLI, AuthFormSU } from "./AuthForm";
@@ -68,10 +68,11 @@ export const RadixDialogLog = () => {
           <button onClick={()=> signIn('google')} >
             <Image src={googleIcon} alt='googleIcon'/>
           </button>
+          
 
           </div>
           <Dialog.Close asChild>
-            <button className={styles.IconButton} aria-label="Close"></button>
+            <button className={styles.IconButton} aria-label="Close">X</button>
           </Dialog.Close>
         </Dialog.Content>
       </Dialog.Overlay>

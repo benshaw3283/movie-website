@@ -39,8 +39,12 @@ function AuthFormSU() {
     const enteredEmail = emailInputRef.current.value;
     const enteredUsername = usernameInputRef.current.value;
     const enteredPassword = passwordInputRef.current.value;
+    const enteredCpassword = cpasswordInputRef.current.value;
 
-    // optional: Add validation
+    if (enteredCpassword !== enteredPassword) {
+      alert('Password confirmation unsuccessful')
+    } else {
+    
 
     try {
       const result = await createUser(
@@ -52,9 +56,10 @@ function AuthFormSU() {
         router.push("/login");
       }
     } catch (error) {
-      alert('Unable to create account!', error);
+      alert('Unable to create account! Password must be at least 5 characters, username must be at least 3', error);
       router.push("/");
     }
+  }
   }
 
   return (
@@ -73,6 +78,7 @@ function AuthFormSU() {
             id="username"
             required
             ref={usernameInputRef}
+            placeholder="Minimum 3 characters"
           />
         </div>
         <div className={classes.control}>
@@ -83,6 +89,7 @@ function AuthFormSU() {
               id="password"
               required
               ref={passwordInputRef}
+              placeholder="Minimum 5 characters"
             />
             <span className="absolute pr-2">
               {!show ? (
