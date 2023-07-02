@@ -162,7 +162,7 @@ const MovieAutocomplete = () => {
                     />
                   )}
                   getOptionLabel_={(option) => option.name}
-                  
+                  style={{width: 200}}
                   freeSolo={true}
                   autoSelect={true}
                   value={selectedMovie}
@@ -183,7 +183,7 @@ const MovieAutocomplete = () => {
                     />
                   )}
                   getOptionLabel_={(option) => option.name}
-                  
+                  style={{width: 200}}
                   freeSolo={true}
                   autoSelect={true}
                   value={selectedMovie}
