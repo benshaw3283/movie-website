@@ -149,19 +149,20 @@ const MovieAutocomplete = () => {
                 )}
               </div>
               <div className="flex order-1 pr-2 ">
+                {switchType ? (
                 <Autocomplete
-                  options={switchType ? movieList : tvList}
+                  options={ movieList}
                   id="titles"
                   renderInput={(params) => (
                     <TextField
                       {...params}
-                      label={switchType ? "Movie" : "TV show"}
+                      label={ "Movie"}
                       variant="outlined"
                       className="bg-slate-700 rounded-lg w-56 lg:w-72 z-0"
                     />
                   )}
                   getOptionLabel_={(option) => option.name}
-                  style={{width: 200}}
+                  
                   freeSolo={true}
                   autoSelect={true}
                   value={selectedMovie}
@@ -169,6 +170,28 @@ const MovieAutocomplete = () => {
                     setSelectedMovie(newMovie);
                   }}
                 />
+                ) : (
+                  <Autocomplete
+                  options={ tvList}
+                  id="titles"
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      label={"TV show"}
+                      variant="outlined"
+                      className="bg-slate-700 rounded-lg w-56 lg:w-72 z-0"
+                    />
+                  )}
+                  getOptionLabel_={(option) => option.name}
+                  
+                  freeSolo={true}
+                  autoSelect={true}
+                  value={selectedMovie}
+                  onChange={(_event, newMovie) => {
+                    setSelectedMovie(newMovie);
+                  }}
+                />
+                )}
               </div>
               <div className="flex order-2 place-self-center ">
                 <p></p>

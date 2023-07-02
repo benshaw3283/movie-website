@@ -117,8 +117,8 @@ const Title = ({ posts, values, averageRating }) => {
             />
             </div>
             <div className="flex flex-col container justify-around lg:justify-between py-2 pt-4 lg:pt-2 h-fit px-1">
-              <div className="order-1 place-self-center bg-slate-800 lg:h-16  w-fit rounded-lg border-2 border-slate-700 py-2 px-2 ">
-                {values.Title.length > 16 ? (
+              <div className="order-1 place-self-center bg-slate-800 lg:fit  w-fit rounded-lg border-2 border-slate-700 py-2 px-2 ">
+                {values.Title.length > 14 ? (
                   <h1 className="text-white font-bold font-mono lg:text-2xl text-lg ">
                   {values.Title}
                 </h1> 
@@ -190,7 +190,7 @@ const Title = ({ posts, values, averageRating }) => {
                 </div>
               </div>
 
-              <div className="order-4  lg:flex   lg:pt-10 justify-around flex ">
+              <div className="order-4  lg:flex    justify-around flex ">
                 <div className="flex flex-row justify-between container place-items-center">
 
                   <div className="flex flex-col pt-2 order-1">
@@ -242,7 +242,7 @@ const Title = ({ posts, values, averageRating }) => {
                       <div className="flex order-1 w-full">
                         <div
                           className=" flex inset-x-0 top-0 justify-start float-left cursor-pointer"
-                          onClick={()=> router.push(`../user/${review.user}`)}
+                          onClick={()=> !session ? alert('Please sign in') : router.push(`../user/${review.user}`)}
                         >
                           {review.userImage ? (
                             <Image
@@ -259,7 +259,7 @@ const Title = ({ posts, values, averageRating }) => {
                         <div className="flex flex-col">
                           <div
                             className="pl-2 flex cursor-pointer w-fit order-1"
-                            onClick={()=> router.push(`../user/${review.user}`)}
+                            onClick={()=> !session ? alert('Please sign in') : router.push(`../user/${review.user}`)}
                           >
                             <h1 className="text-white font-semibold text-lg">
                               {review.user}

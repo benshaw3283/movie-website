@@ -12,15 +12,18 @@ const Search = () => {
   const [userList, setUserList] = useState([]);
   const router = useRouter();
 
-  useEffect(() => {
+
+
+ 
     async function fetchUsers() {
       const data = await fetch("/api/mongoReviews/mongoGetUsers");
       const users = await data.json();
 
       setUserList(() => users);
     }
-    fetchUsers();
-  }, []);
+    
+    
+  
 
   const handleSwitchSearch = () => {
     setSwitchSearchType(!switchSearchType);
@@ -68,7 +71,7 @@ const Search = () => {
             </div>
           )}
         </div>
-        <div className="flex order-1 place-self-center ">
+        <div className="flex order-1 place-self-center " onClick={()=> fetchUsers()}>
           {switchSearchType ? (
             <Autocomplete
               options={titles}
@@ -80,17 +83,17 @@ const Search = () => {
                   variant="outlined"
                   className="bg-slate-700 rounded-lg w-36 lg:w-48"
                   size='small'
-                
+                  style={{width: 154}}
                   onKeyDown={(e) =>
                     e.key === "Enter"
-                      ? router.push(`../titles/${selected}`)
+                      ? handleSearch()
                       : null
                   }
                 />
               )}
               getOptionLabel_={(option) => option.name}
-              style={{width: 154}}
-              freeSolo={false}
+              
+              freeSolo={true}
               autoSelect={true}
               value={selected}
               onChange={(_event, newValue) => {
@@ -100,6 +103,7 @@ const Search = () => {
           ) : (
             <Autocomplete
               options={userList}
+              
               id="users"
               renderInput={(params) => (
                 <TextField
@@ -108,7 +112,13 @@ const Search = () => {
                   variant="outlined"
                   className="bg-slate-700 rounded-lg w-36 lg:w-48"
                   size="small"
+                  onKeyDown={(e) =>
+                    e.key === "Enter"
+                      ? handleSearch()
+                      : null
+                  }
                   style={{width:154}}
+                  
                 />
               )}
               getOptionLabel_={(option) => option.name}
