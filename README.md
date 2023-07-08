@@ -1,4 +1,16 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+This is my first project - a film review site with a social media element. 
+It uses:
+- MongoDB database to store users and reviews.
+- NextAuth credentials/google sign up/in
+- Bcrypt for password hashing
+- OMDb api for film information and poster.
+- MUI autocomplete
+- Radix UI components (dialog, popover, slider, tooltip,  etc..)
+- Tailwind
+- Infinite scroll with the useIntersection hook (Intersection observer api)
+- Tanstack query
+  
+(https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
 
