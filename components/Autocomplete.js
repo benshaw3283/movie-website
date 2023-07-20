@@ -72,10 +72,13 @@ const MovieAutocomplete = () => {
 
     //movieTitle only used for url now
     const movieTitle = selectedMovie;
-    const url = `https://www.omdbapi.com/?apikey=4f46879e&r=json&t=${movieTitle}`;
+    let url = `https://www.omdbapi.com/?apikey=4f46879e&r=json&t=${movieTitle}`;
     const options = {
       method: "GET",
     };
+    if (movieTitle === 'Oppenheimer' || 'oppenheimer') {
+      url = `https://www.omdbapi.com/?apikey=4f46879e&r=json&t=Oppenheimer&y=2023` 
+    }
 
     const response = await fetch(url, options);
     const result = await response.json();
