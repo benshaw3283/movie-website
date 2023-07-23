@@ -44,7 +44,7 @@ export default function Home() {
             <br></br>
           </div>
 
-          <div className="bg-slate-900 lg:w-1/2 w-3/4 h-2/5 flex justify-center container items-center rounded-lg order-3  ">
+          <div className="bg-slate-900 lg:w-3/5 w-5/6 h-2/5 flex justify-center container items-center rounded-lg order-3  ">
             <div className="w-full">
               <ReviewFeed />
             </div>

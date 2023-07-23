@@ -20,28 +20,20 @@ const Nav = () => {
         </div>
 
         <div className={navBar.nav2}>
-          <div style={{ display: "inline-block" }}>
-            <nav className={navBar.home}>
-              
-            </nav>
-          </div>
+          
           
         </div>
 
         <div className={navBar.nav3}>
         <div
-            style={{
-              display: "inline-block",
-              float: "right",
-              paddingRight: "25px",
-            }}
+            className="flex pr-4 "
           >
             <nav>
               <ul className='font-semibold flex'>
-                <li style={{ display: "inline-block", paddingRight: " 10px" }}>
+                <li className="flex pr-2">
                   <RadixDialogSign />
                 </li>
-                <li style={{ display: "inline-block", paddingLeft: "10px" }}>
+                <li className=" pl-2 flex">
                   <RadixDialogLog />
                 </li>
               </ul>

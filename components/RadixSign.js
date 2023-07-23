@@ -18,7 +18,7 @@ export const RadixDialogSign = () => {
   return (
   <Dialog.Root>
     <Dialog.Trigger asChild>
-      <button className="bg-transparent hover:bg-slate-700 text-white hover:text-black font-semibold  py-2 px-4 border-2 border-slate-600 hover:border-black rounded">
+      <button className="bg-transparent hover:bg-slate-700 text-white hover:text-black font-semibold   border-2 border-slate-600 hover:border-black rounded w-20 h-fit py-2">
         Sign Up
       </button>
     </Dialog.Trigger>
@@ -53,7 +53,7 @@ export const RadixDialogLog = () => {
   return (
   <Dialog.Root>
     <Dialog.Trigger asChild>
-      <button className="bg-transparent hover:bg-slate-700 text-white hover:text-black font-semibold  py-2 px-4 border-2 border-slate-600 hover:border-black rounded">
+      <button className="bg-transparent hover:bg-slate-700 text-white hover:text-black font-semibold  py-2 border-2 border-slate-600 hover:border-black rounded w-20">
         Log In
       </button>
     </Dialog.Trigger>
