@@ -28,10 +28,14 @@ export async function getServerSideProps(context) {
 
   const client = await connectToDatabase();
 
-  const url = `http://www.omdbapi.com/?apikey=4f46879e&r=json&t=${title}`;
+  let url = `http://www.omdbapi.com/?apikey=4f46879e&r=json&t=${title}`;
   const options = {
     method: "GET",
   };
+
+  if (title === 'Oppenheimer' || 'oppenheimer') {
+    url = `https://www.omdbapi.com/?apikey=4f46879e&r=json&t=Oppenheimer&y=2023` 
+  }
   const value = await fetch(url, options);
   const response = await value.json();
   const values = JSON.parse(JSON.stringify(response));
@@ -219,7 +223,7 @@ const Title = ({ posts, values, averageRating }) => {
             <br></br>
           </div>
           <div className="bg-slate-900 border-4 border-double border-slate-700 rounded-lg container grid lg:grid-cols-2 grid-cols-1 w-5/6 h-full order-4 py-2 ">
-            <h1 className="absolute justify-self-center font-semibold text-slate-500 text-xl left-1/2 lg:left-0">
+            <h1 className="absolute justify-self-center font-semibold text-slate-500 text-xl">
               REVIEWS
             </h1>
             {reviews.length ? (
