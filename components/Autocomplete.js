@@ -76,7 +76,7 @@ const MovieAutocomplete = () => {
     const options = {
       method: "GET",
     };
-    if (movieTitle === 'Oppenheimer' || 'oppenheimer') {
+    if (movieTitle === 'Oppenheimer' || movieTitle === 'oppenheimer') {
       url = `https://www.omdbapi.com/?apikey=4f46879e&r=json&t=Oppenheimer&y=2023` 
     }
 

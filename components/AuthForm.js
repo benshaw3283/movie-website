@@ -16,6 +16,7 @@ async function createUser(email, username, password) {
   const data = await response.json();
 
   if (!response.ok) {
+    console.log(data);
     throw new Error(data.message || "Something went wrong!");
   }
 
@@ -42,24 +43,22 @@ function AuthFormSU() {
     const enteredCpassword = cpasswordInputRef.current.value;
 
     if (enteredCpassword !== enteredPassword) {
-      alert('Password confirmation unsuccessful')
+      alert("Password confirmation unsuccessful");
     } else {
-    
-
-    try {
-      const result = await createUser(
-        enteredEmail,
-        enteredUsername,
-        enteredPassword
-      );
-      if (result.ok) {
+      try {
+        const result = await createUser(
+          enteredEmail,
+          enteredUsername,
+          enteredPassword
+        );
+        if (result.ok) {
+          router.push("/login");
+        }
+      } catch (error) {
+        alert("Unable to create account: " + error.message);
         router.push("/login");
       }
-    } catch (error) {
-      alert('Unable to create account! Password must be at least 5 characters, username must be at least 3', error);
-      router.push("/");
     }
-  }
   }
 
   return (

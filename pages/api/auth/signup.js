@@ -1,8 +1,10 @@
 import { hashPassword } from "../../../lib/auth";
 import connectToDatabase from "../../../lib/connectToDatabase";
 
+const client = await connectToDatabase();
+
 export default async function signUpHandler(req, res) {
-  const client = await connectToDatabase();
+  
 
   if (req.method === "POST") {
     //Getting email and password from body
@@ -19,7 +21,7 @@ export default async function signUpHandler(req, res) {
       const db = client.db();
       //Check existing
       const checkExisting = await db
-        .collection("users", "accounts")
+        .collection("users")
         .findOne({ username: username, email: email });
       //Send error response if duplicate user is found
       if (checkExisting) {
@@ -30,6 +32,7 @@ export default async function signUpHandler(req, res) {
       }
       //Hash password
       const hashedPassword = await hashPassword(password);
+      console.log('Password hashed')
 
       const status = await db.collection("users").insertOne({
         email: email,
@@ -40,6 +43,7 @@ export default async function signUpHandler(req, res) {
         follows: [],
         bio: "",
       });
+      console.log('New user created')
       //Send success response
       res.status(201).json({ message: "User created!", ...status });
     } catch (err) {

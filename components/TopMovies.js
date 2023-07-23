@@ -95,15 +95,15 @@ function TopMovies() {
                 <div className="border-2 border-slate-800 p-1 rounded-lg lg:w-40">
                   {review._id.length < 16 ? (
                     <h1 className="lg:text-xl text-sm text-white flex justify-center">
-                      {review._id}{" "}
+                      {review._id}
                     </h1>
                   ) : (
                     <h1 className=" text-white lg:text-lg text-sm flex justify-center break-normal">
-                      {review._id}{" "}
+                      {review._id}
                     </h1>
                   )}
-                  <p className="lg:text-sm text-xs flex justify-center">
-                    Average Rating: {calculateAverageRating(review.reviews)}
+                  <p className="lg:text-sm text-xs flex justify-center ">
+                    Average Rating: {" "} <strong>{calculateAverageRating(review.reviews)}</strong>
                   </p>
                   <div className="flex justify-center">
                     <Image

@@ -33,9 +33,10 @@ export async function getServerSideProps(context) {
     method: "GET",
   };
 
-  if (title === 'Oppenheimer' || 'oppenheimer') {
+  if (title === 'Oppenheimer' || title === 'oppenheimer') {
     url = `https://www.omdbapi.com/?apikey=4f46879e&r=json&t=Oppenheimer&y=2023` 
   }
+
   const value = await fetch(url, options);
   const response = await value.json();
   const values = JSON.parse(JSON.stringify(response));
@@ -146,7 +147,7 @@ const Title = ({ posts, values, averageRating }) => {
                     </div>
                   </div>
 
-                  <div className="flex p-2 flex-col lg:flex-row ">
+                  <div className="flex p-2 flex-col ">
                     <h2 className="px-2 lg:text-xl font-semibold justify-center flex">
                       {values.Director !== "N/A" ? `Director` : `Writer`}
                     </h2>
