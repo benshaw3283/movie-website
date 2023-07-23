@@ -8,7 +8,7 @@ export default async function signUpHandler(req, res) {
     //Getting email and password from body
     const { email, username, password } = req.body;
     //Validate
-    if (!email || !email.includes("@") || !password || !username) {
+    if (!email || !email.includes("@") ) {
       res.status(422).json({
         message:
           "Invalid input - missing required fields.",
