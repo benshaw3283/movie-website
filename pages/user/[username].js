@@ -11,6 +11,7 @@ import CommentSection from "../../components/CommentSection";
 import Like from "../../components/LikeComponent";
 import connectToDatabase from "../../lib/connectToDatabase";
 import { FadeLoader } from "react-spinners";
+import Link from 'next/link'
 
 const EditAvatar = dynamic(() => import("/components/EditAvatar"), {
   ssr: false,
@@ -364,9 +365,9 @@ export default function UserProfilePage({ user, posts, averageRating }) {
       </div>
             </div>
 
-            <div className="bg-slate-900 border-4 border-double border-slate-700 rounded-lg container grid lg:grid-cols-2 grid-cols-1  w-5/6 min-h-fit order-4 py-2 ">
+            <div className="bg-slate-900 border-4 border-double border-slate-700 rounded-lg container grid lg:grid-cols-2 grid-cols-1  w-full min-h-fit order-4 py-2 ">
            
-              <h1 className="absolute justify-self-center font-semibold text-slate-500 text-xl left-1/3">
+              <h1 className="absolute justify-self-center font-semibold text-slate-500 text-xl left-2/5">
                 REVIEWS
               </h1>
               {reviews.length ? (
@@ -459,12 +460,13 @@ export default function UserProfilePage({ user, posts, averageRating }) {
                          <p className="text-white pr-1 font-semibold lg:text-lg ">{review.movieData.Year}</p>  <p className="text-slate-500 text-xs lg:text-lg px-2 flex">{review.movieData.Genre} </p> 
                         </div>
                         <div className="text-white place-self-center flex lg:flex p-1 ">
-                        <p className="text-xs bg-yellow-500 font-bold text-black rounded-md p-1 cursor-pointer" onClick={() =>
-                  window.open(
-                    `https://www.imdb.com/title/${review.movieData.imdbID}/`,
-                    "_blank"
-                  )
-                }><strong>IMDb</strong></p>
+                        <Link
+                            className="text-xs bg-yellow-500 font-bold text-black rounded-md p-1 cursor-pointer"
+                            href={`https://www.imdb.com/title/${review.movieData.imdbID}`}
+                            target="_blank"
+                          >
+                            <strong>IMDb</strong>
+                          </Link>
                          <p className="pl-1 font-semibold">{review.movieData.imdbRating}</p> 
                         </div>
                       </div>

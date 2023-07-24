@@ -12,7 +12,7 @@ import { useRouter } from "next/router";
 import { useIntersection } from "react-use";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import FadeLoader from "react-spinners/FadeLoader";
-
+import Link from "next/link";
 
 async function deleteReview(_id) {
   const response = await fetch("/api/mongoReviews/mongoDeleteReview", {
@@ -30,7 +30,7 @@ async function deleteReview(_id) {
 const ReviewFeed = () => {
   const { data: session } = useSession();
   const [followed, setFollowed] = useState(false);
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
 
   const router = useRouter();
   const intersectionRef = useRef(null);
@@ -105,15 +105,12 @@ const ReviewFeed = () => {
     }
   }
 
-  
-
   return (
     <div>
       <div className=" sticky top-20 left-1/2 lg:pl-64 pl-32">
-      <FadeLoader color='grey' loading={loading} aria-label="loading" 
-      />
+        <FadeLoader color="grey" loading={loading} aria-label="loading" />
       </div>
-      
+
       <div className="flex container  justify-center">
         {!followed ? (
           <div className="flex flex-row justify-center bg-slate-700 rounded-lg border-2 border-slate-600">
@@ -157,7 +154,10 @@ const ReviewFeed = () => {
                       <div className="flex order-1 w-full">
                         <div
                           className=" flex inset-x-0 top-0 justify-start float-left cursor-pointer"
-                          onClick={() => setLoading(!loading) & router.push(`user/${review.user}`)}
+                          onClick={() =>
+                            setLoading(!loading) &
+                            router.push(`user/${review.user}`)
+                          }
                         >
                           {review.userImage ? (
                             <Image
@@ -174,7 +174,10 @@ const ReviewFeed = () => {
                         <div className="flex flex-col">
                           <div
                             className="pl-2 flex cursor-pointer w-fit order-1"
-                            onClick={() => setLoading(!loading) & router.push(`user/${review.user}`)}
+                            onClick={() =>
+                              setLoading(!loading) &
+                              router.push(`user/${review.user}`)
+                            }
                           >
                             <h1 className="text-white font-semibold text-lg">
                               {review.user}
@@ -202,7 +205,6 @@ const ReviewFeed = () => {
                         src={review.movieData.Poster}
                         width={230}
                         height={320}
-                       
                       ></Image>
                     </div>
 
@@ -215,7 +217,8 @@ const ReviewFeed = () => {
                           <h1
                             className="text-white lg:text-3xl md:text-2xl text-lg font-semibold "
                             onClick={() =>
-                            setLoading(!loading) &  router.push(`titles/${review.movieData.Title}`)
+                              setLoading(!loading) &
+                              router.push(`titles/${review.movieData.Title}`)
                             }
                           >
                             {review.movieData.Title}
@@ -224,7 +227,8 @@ const ReviewFeed = () => {
                           <h1
                             className="text-white lg:text-2xl md:text-xl text-base font-semibold "
                             onClick={() =>
-                              setLoading(!loading) & router.push(`titles/${review.movieData.Title}`)
+                              setLoading(!loading) &
+                              router.push(`titles/${review.movieData.Title}`)
                             }
                           >
                             {review.movieData.Title}
@@ -234,16 +238,24 @@ const ReviewFeed = () => {
 
                       <div className="bg-slate-800 flex  justify-center  border-b-2 border-b-slate-700 ">
                         <div className=" flex place-self-center md:text-sm place-items-center ">
-                         <p className="text-white pr-1 font-semibold lg:text-lg ml-1 lg:ml-0">{review.movieData.Year}</p>  <p className="text-slate-500 text-xs lg:text-lg px-2 flex">{review.movieData.Genre} </p> 
+                          <p className="text-white pr-1 font-semibold lg:text-lg ml-1 lg:ml-0">
+                            {review.movieData.Year}
+                          </p>{" "}
+                          <p className="text-slate-500 text-xs lg:text-lg px-2 flex">
+                            {review.movieData.Genre}{" "}
+                          </p>
                         </div>
                         <div className="text-white place-self-center flex lg:flex p-1 ">
-                         <p className="text-xs bg-yellow-500 font-bold text-black rounded-md p-1 cursor-pointer" onClick={() =>
-                  window.open(
-                    `https://www.imdb.com/title/${review.movieData.imdbID}/`,
-                    "_blank"
-                  )
-                }><strong>IMDb</strong></p>
-                         <p className="pl-1 font-semibold">{review.movieData.imdbRating}</p> 
+                          <Link
+                            className="text-xs bg-yellow-500 font-bold text-black rounded-md p-1 cursor-pointer"
+                            href={`https://www.imdb.com/title/${review.movieData.imdbID}`}
+                            target="_blank"
+                          >
+                            <strong>IMDb</strong>
+                          </Link>
+                          <p className="pl-1 font-semibold">
+                            {review.movieData.imdbRating}
+                          </p>
                         </div>
                       </div>
 
@@ -264,13 +276,13 @@ const ReviewFeed = () => {
                         <div className="bg-slate-900 h-5/6 flex flex-col lg:justify-center  border-b-2 border-b-slate-700 pt-1">
                           <div className="self-center flex order-1 ">
                             {review.sliderRating !== 100 ? (
-                            <h1 className="text-white lg:text-3xl px-1 md:text-xl border-2 border-slate-700 rounded-lg font-semibold">
-                              {review.sliderRating}
-                            </h1>
+                              <h1 className="text-white lg:text-3xl px-1 md:text-xl border-2 border-slate-700 rounded-lg font-semibold">
+                                {review.sliderRating}
+                              </h1>
                             ) : (
                               <h1 className="text-amber-400 lg:text-3xl px-1 md:text-xl border-2 border-slate-700 rounded-lg font-semibold">
-                              {review.sliderRating}
-                            </h1>
+                                {review.sliderRating}
+                              </h1>
                             )}
                           </div>
 
@@ -353,7 +365,8 @@ const ReviewFeed = () => {
                                   <AlertDialog.Action asChild>
                                     <button
                                       onClick={() =>
-                                        setLoading(!loading) &  handleDeleteReview(review._id)
+                                        setLoading(!loading) &
+                                        handleDeleteReview(review._id)
                                       }
                                       className="bg-slate-700 border-2 border-slate-800 rounded py-0.5 px-0.5"
                                     >
@@ -373,12 +386,14 @@ const ReviewFeed = () => {
                 </div>
               </div>
             ))
-          )): (
-            <div className="h-screen bg-slate-900">
-               </div>
-          )}
+          )
+        ) : (
+          <div className="h-screen bg-slate-900"></div>
+        )}
         {isFetchingNextPage && (
-          <p className="flex self-center text-slate-500 justify-center">Loading...</p>
+          <p className="flex self-center text-slate-500 justify-center">
+            Loading...
+          </p>
         )}
       </div>
       <div ref={intersectionRef}></div>

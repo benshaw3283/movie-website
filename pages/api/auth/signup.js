@@ -28,8 +28,8 @@ export default async function signUpHandler(req, res) {
         res.status(422).json({
           message: "Account with this username or email already exists",
         });
-        return;
-      }
+        
+      } else {
       //Hash password
       const hashedPassword = await hashPassword(password);
       console.log('Password hashed')
@@ -46,6 +46,7 @@ export default async function signUpHandler(req, res) {
       console.log('New user created')
       //Send success response
       res.status(201).json({ message: "User created!", ...status });
+    }
     } catch (err) {
       res.status(500).json({ message: "Internal Server Error" });
     }
