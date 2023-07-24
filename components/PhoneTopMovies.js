@@ -67,12 +67,12 @@ function PhoneTopMovies() {
 </div>
       <ul>
         {topReviews.map((review, index) => (
-          <li key={index} className=" mt-2  flex flex-col items-center cursor-pointer " onClick={() => setLoading(!loading) & router.push(`../titles/${review._id}`)}>
-            <div className="border-2 border-slate-800 p-1 rounded-lg lg:w-40">
+          <li key={index} className=" mt-2  flex flex-col items-center  cursor-pointer " onClick={() => setLoading(!loading) & router.push(`../titles/${review._id}`)}>
+            <div className="border-2 border-slate-800 p-1 rounded-lg lg:w-40 w-40 ">
               {review._id.length < 16 ? (
-            <h1 className="lg:text-xl text-sm text-white flex justify-center">{review._id} </h1>
+            <h1 className="lg:text-xl text-lg text-white flex justify-center">{review._id} </h1>
             ) : (
-              <h1 className=" text-white lg:text-lg text-sm flex justify-center break-normal">{review._id} </h1>
+              <h1 className=" text-white lg:text-lg text-sm flex justify-center">{review._id} </h1>
             )}
             <p className="lg:text-sm text-xs flex justify-center" >Average Rating: {calculateAverageRating(review.reviews)}</p>
             <div className="flex justify-center">

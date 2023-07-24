@@ -9,14 +9,12 @@ import { AuthFormLI, AuthFormSU } from "./AuthForm";
 
 
 export const RadixDialogSign = () => {
-  const ref = useRef('password')
+ const [open, setOpen] = useState(false)
+
   
-
-
-
   
   return (
-  <Dialog.Root>
+  <Dialog.Root open={open} onOpenChange={setOpen}>
     <Dialog.Trigger asChild>
       <button className="bg-transparent hover:bg-slate-700 text-white hover:text-black font-semibold   border-2 border-slate-600 hover:border-black rounded w-20 h-fit py-2">
         Sign Up
@@ -29,7 +27,7 @@ export const RadixDialogSign = () => {
         <Dialog.Content className={styles.DialogContent}>
 
 
-          <AuthFormSU/>
+          <AuthFormSU closeOnSuccess={( ) => setOpen(false)}/>
           
 
 

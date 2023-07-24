@@ -25,16 +25,32 @@ const CheckboxPassword = () => (
 
 export { CheckboxPassword };
 
-const RadixSlider = (props) => (
+const RadixSlider = (props) => {
+let background;
+
+if (props.rating > 0 && props.rating < 11) background = 'absolute h-full bg-red-700'
+if (props.rating > 10 && props.rating < 21) background = 'absolute h-full bg-red-600'
+if (props.rating > 20 && props.rating < 31) background = 'absolute h-full bg-red-500'
+if (props.rating > 30 && props.rating < 41) background = 'absolute h-full bg-red-400'
+if (props.rating > 40 && props.rating < 51) background = 'absolute h-full bg-orange-400'
+if (props.rating > 50 && props.rating < 61) background = 'absolute h-full bg-yellow-500'
+if (props.rating > 60 && props.rating < 71) background = 'absolute h-full bg-yellow-400'
+if (props.rating > 70 && props.rating < 81) background = 'absolute h-full bg-green-400'
+if (props.rating > 80 && props.rating < 91) background = 'absolute h-full bg-green-500'
+if (props.rating > 90 && props.rating < 100) background = 'absolute h-full bg-green-600'
+if (props.rating === 100)  background = 'absolute h-full bg-violet-700'
+
+  return (
   <form>
     <Slider.Root {...props} className={styles.SliderRoot}>
       <Slider.Track className={styles.SliderTrack}>
-        <Slider.Range  className={props.rating !== 100 ? 'absolute h-full bg-indigo-600' : 'absolute h-full bg-amber-400'} />
+        <Slider.Range  className={background} />
       </Slider.Track>
       <Slider.Thumb className={styles.SliderThumb} />
     </Slider.Root>
   </form>
-);
+  )
+  };
 
 export { RadixSlider };
 

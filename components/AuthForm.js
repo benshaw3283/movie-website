@@ -23,7 +23,7 @@ async function createUser(email, username, password) {
   return data;
 }
 
-function AuthFormSU() {
+function AuthFormSU(props) {
   const emailInputRef = useRef();
   const usernameInputRef = useRef();
   const passwordInputRef = useRef();
@@ -34,8 +34,8 @@ function AuthFormSU() {
 
   const router = useRouter();
 
-  async function submitHandler(event) {
-    event.preventDefault();
+  async function submitHandler() {
+    
 
     const enteredEmail = emailInputRef.current.value;
     const enteredUsername = usernameInputRef.current.value;
@@ -52,11 +52,13 @@ function AuthFormSU() {
           enteredPassword
         );
         if (result.ok) {
+          props.closeOnSuccess;
+          
           router.push("/login");
         }
       } catch (error) {
         alert("Unable to create account: " + error.message);
-        router.push("/login");
+        router.push("/signup");
       }
     }
   }

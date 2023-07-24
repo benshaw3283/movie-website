@@ -256,9 +256,8 @@ const MovieAutocomplete = () => {
               </div>
               <div
                 className={
-                  sliderValue !== 100
-                    ? "flex text-white pl-6"
-                    : "flex text-amber-300 pl-6 "
+                   "flex text-white pl-6 font-semibold"
+                    
                 }
               >
                 <strong>{sliderValue}</strong>
