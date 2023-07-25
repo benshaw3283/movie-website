@@ -5,6 +5,8 @@ import classes from "../styles/auth-form.module.css";
 import { HiEye, HiEyeOff } from "react-icons/hi";
 
 async function createUser(email, username, password) {
+
+  try {
   const response = await fetch("/api/auth/signup", {
     method: "POST",
     body: JSON.stringify({ email, username, password }),
@@ -14,13 +16,10 @@ async function createUser(email, username, password) {
   });
 
   const data = await response.json();
-
-  if (!response.ok) {
-    console.log(data);
-    throw new Error(data.message || "Something went wrong!");
-  }
-
   return data;
+}catch(err){
+  console.log(err)
+}
 }
 
 function AuthFormSU(props) {
@@ -51,7 +50,7 @@ function AuthFormSU(props) {
           enteredUsername,
           enteredPassword
         );
-        if (result.ok) {
+        if (result) {
           props.closeOnSuccess;
           
           router.push("/login");
