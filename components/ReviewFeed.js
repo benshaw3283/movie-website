@@ -199,7 +199,7 @@ const ReviewFeed = () => {
                   </div>
 
                   <div className="order-2 flex w-full h-5/6  overflow-clip">
-                    <div id="main-left" className="flex lg:w-1/3 w-2/5  ">
+                    <div id="main-left" className="flex lg:w-1/3 w-full  ">
                       <Image
                         alt="movieImage"
                         src={review.movieData.Poster}
@@ -210,7 +210,7 @@ const ReviewFeed = () => {
 
                     <div
                       id="main-right"
-                      className=" bg-slate-800 w-full lg:w-2/3 md:w-2/3 sm:w-2/3 border-l-2 border-slate-700 "
+                      className=" bg-slate-800 w-2/3 lg:w-2/3 md:w-2/3  border-l-2 border-slate-700 "
                     >
                       <div className=" flex justify-center  border-b-2 border-b-slate-700 cursor-pointer ">
                         {review.movieData.Title.length <= 22 ? (
