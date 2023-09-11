@@ -199,11 +199,11 @@ const ReviewFeed = () => {
                   </div>
 
                   <div className="order-2 flex w-full h-5/6  overflow-clip">
-                    <div id="main-left" className="flex lg:w-1/3 w-full  ">
+                    <div id="main-left" className="flex lg:w-1/3 w-full ">
                       <Image
                         alt="movieImage"
                         src={review.movieData.Poster}
-                        width={230}
+                        width={330}
                         height={320}
                       ></Image>
                     </div>
