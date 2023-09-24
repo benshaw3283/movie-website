@@ -15,21 +15,20 @@ const Nav = () => {
     return (
       <div className="flex flex-row items-center w-full bg-gray-900 border-b-2 border-slate-800 sticky py-2 top-0 z-[20] ">
         <div className={navBar.nav1}>
-
-        <Link href="/" className="pl-8 font-mono font-bold text-xl">Home</Link>
+          <Link
+            href="/"
+            className="pl-8 font-mono font-bold text-xl text-white"
+          >
+            Home
+          </Link>
         </div>
 
-        <div className={navBar.nav2}>
-          
-          
-        </div>
+        <div className={navBar.nav2}></div>
 
         <div className={navBar.nav3}>
-        <div
-            className="flex pr-4 "
-          >
+          <div className="flex pr-4 ">
             <nav>
-              <ul className='font-semibold flex'>
+              <ul className="font-semibold flex">
                 <li className="flex pr-2">
                   <RadixDialogSign />
                 </li>
@@ -46,7 +45,7 @@ const Nav = () => {
     return (
       <div className="flex flex-row items-center w-full bg-gray-900 border-b-2 pt-2 border-slate-800 sticky top-0 z-[20] ">
         <div className="flex order-1 w-1/5">
-          <nav className="lg:pl-24 pl-2  flex font-mono font-bold text-lg">
+          <nav className="lg:pl-24 pl-2  flex font-mono font-bold text-lg text-white">
             <Link href="/">Home</Link>
           </nav>
         </div>
@@ -57,15 +56,12 @@ const Nav = () => {
           <div className="flex  lg:ml-2 mb-1">
             <Search />
           </div>
-
-          
         </div>
         <div className={navBar.nav3}>
-        <nav className="lg:pr-10 ">
+          <nav className="lg:pr-10 ">
             <DropdownMenu.Root>
               <DropdownMenu.Trigger asChild>
                 <div style={{ position: "center", cursor: "pointer" }}>
-
                   <div className="flex lg:pr-2 pr-2 align-middle place-self-center">
                     <UserImage height={40} width={42} />
                   </div>

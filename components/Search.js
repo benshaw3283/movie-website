@@ -12,18 +12,12 @@ const Search = () => {
   const [userList, setUserList] = useState([]);
   const router = useRouter();
 
+  async function fetchUsers() {
+    const data = await fetch("/api/mongoReviews/mongoGetUsers");
+    const users = await data.json();
 
-
- 
-    async function fetchUsers() {
-      const data = await fetch("/api/mongoReviews/mongoGetUsers");
-      const users = await data.json();
-
-      setUserList(() => users);
-    }
-    
-    
-  
+    setUserList(() => users);
+  }
 
   const handleSwitchSearch = () => {
     setSwitchSearchType(!switchSearchType);
@@ -71,7 +65,10 @@ const Search = () => {
             </div>
           )}
         </div>
-        <div className="flex order-1 place-self-center " onClick={()=> fetchUsers()}>
+        <div
+          className="flex order-1 place-self-center "
+          onClick={() => fetchUsers()}
+        >
           {switchSearchType ? (
             <Autocomplete
               options={titles}
@@ -82,17 +79,12 @@ const Search = () => {
                   label="Search"
                   variant="outlined"
                   className="bg-slate-700 rounded-lg w-36 lg:w-48"
-                  size='small'
-                  style={{width: 154}}
-                  onKeyDown={(e) =>
-                    e.key === "Enter"
-                      ? handleSearch()
-                      : null
-                  }
+                  size="small"
+                  style={{ width: 154 }}
+                  onKeyDown={(e) => (e.key === "Enter" ? handleSearch() : null)}
                 />
               )}
               getOptionLabel_={(option) => option.name}
-              
               freeSolo={true}
               autoSelect={true}
               value={selected}
@@ -103,7 +95,6 @@ const Search = () => {
           ) : (
             <Autocomplete
               options={userList}
-              
               id="users"
               renderInput={(params) => (
                 <TextField
@@ -112,18 +103,11 @@ const Search = () => {
                   variant="outlined"
                   className="bg-slate-700 rounded-lg w-36 lg:w-48"
                   size="small"
-                  onKeyDown={(e) =>
-                    e.key === "Enter"
-                      ? handleSearch()
-                      : null
-                  }
-                  style={{width:154}}
-                  
+                  onKeyDown={(e) => (e.key === "Enter" ? handleSearch() : null)}
+                  style={{ width: 154 }}
                 />
               )}
               getOptionLabel_={(option) => option.name}
-              
-              
               freeSolo={false}
               autoSelect={true}
               value={selected}
@@ -143,7 +127,7 @@ const Search = () => {
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="lg:w-6 lg:h-6 w-4 h-4 text-whitefloat-right ml-1"
+            className="lg:w-6 lg:h-6 w-4 h-4 text-white float-right ml-1"
           >
             <path
               strokeLinecap="round"
