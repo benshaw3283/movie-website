@@ -38,9 +38,9 @@ const CommentSection = (props) => {
   }
 
   async function createComment() {
-    if (commentRef.current.value === '') {
-      return null
-    } 
+    if (commentRef.current.value === "") {
+      return null;
+    }
     const response = await fetch("/api/userActions/createComment", {
       method: "PATCH",
       headers: {
@@ -50,20 +50,23 @@ const CommentSection = (props) => {
         id: props.postId,
         user: session.user.username,
         comment: commentRef.current.value,
+        poster: props.postCreator,
       }),
     });
     commentRef.current.value = "";
-  
-    if (response.ok) {fetchComments()}
+
+    if (response.ok) {
+      fetchComments();
+    }
     return response;
   }
-
- 
 
   return (
     <Popover.Root>
       <Popover.Trigger asChild>
-        <button onClick={() => fetchComments()} className="font-semibold ">Comment</button>
+        <button onClick={() => fetchComments()} className="font-semibold ">
+          Comment
+        </button>
       </Popover.Trigger>
 
       <Popover.Portal>

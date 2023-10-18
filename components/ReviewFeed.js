@@ -304,7 +304,10 @@ const ReviewFeed = () => {
                           likes={review.likes}
                         />
                       </div>
-                      <CommentSection postId={review._id} />
+                      <CommentSection
+                        postId={review._id}
+                        postCreator={review.user}
+                      />
                       <p className="text-gray-400 self-center ">Share</p>
 
                       {session &&

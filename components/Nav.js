@@ -7,6 +7,7 @@ import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import radixStyle from "../styles/radixSign.module.css";
 import UserImage from "./UserImageNav";
 import Search from "./Search";
+import Notifications from "./Notifications";
 
 const Nav = () => {
   const { data: session } = useSession();
@@ -56,6 +57,9 @@ const Nav = () => {
           <div className="flex  lg:ml-2 mb-1">
             <Search />
           </div>
+        </div>
+        <div className={navBar.nav3}>
+          <Notifications />
         </div>
         <div className={navBar.nav3}>
           <nav className="lg:pr-10 ">

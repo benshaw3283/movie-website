@@ -1,14 +1,13 @@
-import { MongoClient, ObjectId } from "mongodb";
+import { ObjectId } from "mongodb";
 import connectToDatabase from "../../../lib/connectToDatabase";
-
 
 export default async function createComment(req, res) {
   if (req.method === "PATCH") {
-    const { id, user, comment } = req.body;
+    const { id, user, comment, postCreator } = req.body;
 
     try {
-      const client =  await connectToDatabase()
-      
+      const client = await connectToDatabase();
+
       const db = client.db();
 
       const data = await db
@@ -18,8 +17,16 @@ export default async function createComment(req, res) {
           { $addToSet: { comments: { user, comment } } },
           { returnDocument: "after" }
         );
-        
-      res.status(201).json({ message: "Comment created!", ...data });
+
+      const notif = await db
+        .collection("users")
+        .findOneAndUpdate(
+          { username: postCreator },
+          { $addToSet: { notifications: { user, id, seen: false } } },
+          { returnDocument: "after" }
+        );
+
+      res.status(201).json({ message: "Comment created!", ...data, ...notif });
     } catch (err) {
       // Log the error and return an error response
       console.error(err);
@@ -29,4 +36,3 @@ export default async function createComment(req, res) {
     }
   }
 }
-
