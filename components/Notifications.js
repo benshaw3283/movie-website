@@ -1,14 +1,58 @@
 import React from "react";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import radixStyle from "../styles/radixSign.module.css";
+import { useQuery } from "@tanstack/react-query";
 
-const Notifications = () => {
+const Notifications = (props) => {
+  async function fetchNotifications() {
+    try {
+      const response = await fetch(
+        `/api/mongoReviews/mongoGetNotifications?user=${props.user}`
+      );
+
+      if (response.status === 204) {
+        // 204 No Content status indicates an empty response, so return an empty array
+        return [];
+      }
+
+      if (response.ok) {
+        return response.json();
+      } else {
+        return [];
+      }
+    } catch (error) {
+      console.error("Error fetching notifications:", error);
+      throw error;
+    }
+  }
+
+  const { isLoading, error, data, isSuccess } = useQuery({
+    queryKey: ["notifications"],
+    queryFn: fetchNotifications,
+  });
+
+  let sortedNotifications = [];
+
+  if (data && data.length > 0) {
+    sortedNotifications = data.sort((a, b) => {
+      return a.date.localeCompare(b.date);
+    });
+    return sortedNotifications;
+  } else {
+    sortedNotifications = [];
+  }
+
+  const unseenNotifs = sortedNotifications.filter(
+    (notif) => notif.seen === false
+  );
+  const unseenNotifications = unseenNotifs.length;
+  if (data) console.log(isSuccess, sortedNotifications);
   return (
     <div>
       <DropdownMenu.Root>
         <DropdownMenu.Trigger asChild>
           <div style={{ position: "center", cursor: "pointer" }}>
-            <div className="flex align-middle place-self-center">
+            <div className="flex  align-middle ">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
@@ -21,9 +65,21 @@ const Notifications = () => {
                   clipRule="evenodd"
                 />
               </svg>
-              <div className="w-5 h-5 rounded-full bg-red-600 absolute top-2 ml-2">
-                <p className=" text-white font-semibold ml-[6px] -mt-[3px]">
-                  1
+              <div
+                className={
+                  unseenNotifications === 0
+                    ? "invisible "
+                    : "w-5 h-5 rounded-full bg-red-600 absolute top-2 ml-2"
+                }
+              >
+                <p
+                  className={
+                    unseenNotifications >= 10
+                      ? " text-white font-semibold ml-[2px] -mt-[1px] text-sm"
+                      : " text-white font-semibold ml-[6px] -mt-[1px] text-sm"
+                  }
+                >
+                  {unseenNotifications}
                 </p>
               </div>
             </div>
@@ -32,9 +88,18 @@ const Notifications = () => {
 
         <DropdownMenu.Portal>
           <DropdownMenu.Content className={radixStyle.DropdownMenuContent}>
-            <DropdownMenu.Item
-              className={radixStyle.DropdownMenuItem}
-            ></DropdownMenu.Item>
+            {isSuccess ? (
+              sortedNotifications.map((notification, index) => (
+                <DropdownMenu.Item
+                  className={radixStyle.DropdownMenuItem}
+                  key={index}
+                >
+                  <p>{notification.user}</p>
+                </DropdownMenu.Item>
+              ))
+            ) : (
+              <p>Unable to load notifications</p>
+            )}
 
             <div>
               <DropdownMenu.Item></DropdownMenu.Item>

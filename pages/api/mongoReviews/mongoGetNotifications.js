@@ -1,4 +1,3 @@
-import { ObjectId } from "mongodb";
 import connectToDatabase from "../../../lib/connectToDatabase";
 
 export default async function mongoGetNotifications(req, res) {
@@ -11,13 +10,16 @@ export default async function mongoGetNotifications(req, res) {
       const { user } = req.query;
 
       // Fetch the specific post using the postId
-      const sessionUser = await db.collection("users").findOne({ user: user });
+      const sessionUser = await db
+        .collection("users")
+        .findOne({ username: user });
 
       if (sessionUser) {
-        let notifications = sessionUser.notifications || [];
-        res.status(200).json(likes);
+        let notifications = sessionUser?.notifications || [];
+
+        res.status(200).json(...notifications);
       } else {
-        res.status(404).json({ message: "Post not found" });
+        res.status(404).json({ message: "Notifications not found" });
       }
     } catch (err) {
       console.error(err);

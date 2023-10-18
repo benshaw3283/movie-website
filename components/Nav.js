@@ -58,10 +58,11 @@ const Nav = () => {
             <Search />
           </div>
         </div>
+
         <div className={navBar.nav3}>
-          <Notifications />
-        </div>
-        <div className={navBar.nav3}>
+          <div className="place-self-center">
+            <Notifications user={session.user.username || session.user.email} />
+          </div>
           <nav className="lg:pr-10 ">
             <DropdownMenu.Root>
               <DropdownMenu.Trigger asChild>

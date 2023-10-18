@@ -4,6 +4,7 @@ import connectToDatabase from "../../../lib/connectToDatabase";
 export default async function createComment(req, res) {
   if (req.method === "PATCH") {
     const { id, user, comment, postCreator } = req.body;
+    const date = new Date();
 
     try {
       const client = await connectToDatabase();
@@ -14,7 +15,7 @@ export default async function createComment(req, res) {
         .collection("posts")
         .findOneAndUpdate(
           { _id: new ObjectId(id) },
-          { $addToSet: { comments: { user, comment } } },
+          { $addToSet: { comments: { user, comment, date } } },
           { returnDocument: "after" }
         );
 
@@ -22,7 +23,11 @@ export default async function createComment(req, res) {
         .collection("users")
         .findOneAndUpdate(
           { username: postCreator },
-          { $addToSet: { notifications: { user, id, seen: false } } },
+          {
+            $addToSet: {
+              notifications: { user, id, seen: false, date, comment },
+            },
+          },
           { returnDocument: "after" }
         );
 
