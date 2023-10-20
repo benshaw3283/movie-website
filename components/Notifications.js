@@ -5,8 +5,10 @@ import { useQuery } from "@tanstack/react-query";
 import Overlay from "./Overlay";
 import SingleReview from "./SingleReview";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 
 const Notifications = (props) => {
+  const router = useRouter();
   const { data: session } = useSession();
   const [isOverlayOpen, setIsOverlayOpen] = useState(false);
   const [reviewX, setReviewX] = useState({});
@@ -63,6 +65,10 @@ const Notifications = (props) => {
 
   const closeOverlay = () => {
     setIsOverlayOpen(false);
+  };
+
+  const goToNotificationFollower = (follower) => {
+    router.replace(`/user/${follower}`);
   };
 
   const { isLoading, error, data, isSuccess } = useQuery({
@@ -165,27 +171,41 @@ const Notifications = (props) => {
                         }
                         key={index}
                         onClick={() =>
-                          goToNotificationsPost(
-                            notification.commentID,
-                            notification.postObjectID
-                          )
+                          notification.comment
+                            ? goToNotificationsPost(
+                                notification.commentID,
+                                notification.postObjectID
+                              )
+                            : goToNotificationFollower(notification.follower)
                         }
                       >
-                        <div className="flex-col flex">
-                          <p>
-                            <strong>{notification.user}</strong> commented on
-                            your review:
-                          </p>
-                          <div className="flex-row flex ">
+                        {notification.comment ? (
+                          <div className="flex-col flex">
+                            <p>
+                              <strong>{notification.user}</strong> commented on
+                              your review:
+                            </p>
+                            <div className="flex-row flex ">
+                              <p className="text-slate-400 place-self-center">
+                                {timeDifference(notification.date)}
+                              </p>
+
+                              <p className="text-[12px] pl-2 place-self-center text-slate-200">
+                                {notification.comment}
+                              </p>
+                            </div>
+                          </div>
+                        ) : (
+                          <div className="flex-row flex">
                             <p className="text-slate-400 place-self-center">
                               {timeDifference(notification.date)}
                             </p>
-
-                            <p className="text-[12px] pl-2 place-self-center text-slate-200">
-                              {notification.comment}
+                            <p className="text-slate-200 place-self-center">
+                              <strong>{notification.follower}</strong> followed
+                              you.
                             </p>
                           </div>
-                        </div>
+                        )}
                       </DropdownMenu.Item>
                     ))
                   ) : (

@@ -52,9 +52,17 @@ export async function getServerSideProps(context) {
     return { notFound: true };
   }
 
-  // Convert Date objects to ISO strings
-  user.notifications.forEach((notification) => {
-    notification.date = notification.date.toISOString();
+  // Convert Date objects to ISO strings (if not already a string)
+  user?.notifications?.forEach((notification) => {
+    if (typeof notification?.date !== "string") {
+      notification.date = notification.date.toISOString();
+    }
+    if (notification.postObjectID) {
+      notification.postObjectID = JSON.stringify(notification.postObjectID);
+    }
+    if (notification.commentID) {
+      notification.commentID = JSON.stringify(notification.commentID);
+    }
   });
 
   // Fetch user's posts

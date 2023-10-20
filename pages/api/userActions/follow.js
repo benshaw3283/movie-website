@@ -3,6 +3,8 @@ import connectToDatabase from "../../../lib/connectToDatabase";
 export default async function addFollower(req, res) {
   if (req.method === "PATCH") {
     const { username, follower } = req.body;
+    const datE = new Date();
+    const date = datE.toISOString();
 
     try {
       const client = await connectToDatabase();
@@ -11,15 +13,23 @@ export default async function addFollower(req, res) {
 
       const data = await db.collection("users").findOneAndUpdate(
         { username: username },
-        { $addToSet: { followers: follower } }, // Use $addToSet to add the user to the followers array
+        {
+          $addToSet: {
+            followers: follower,
+            notifications: { follower, seen: false, date },
+          },
+        },
         { returnDocument: "after" }
       );
 
-      const data2 = await db.collection("users").findOneAndUpdate(
-        { username: follower },
-        { $addToSet: { follows: username } }, // Use $addToSet to add the user to the followers array
-        { returnDocument: "after" }
-      );
+      const data2 = await db
+        .collection("users")
+        .findOneAndUpdate(
+          { username: follower },
+          { $addToSet: { follows: username } },
+          { returnDocument: "after" }
+        );
+
       res.status(201).json({ message: "Follower added!", ...data, ...data2 });
     } catch (err) {
       // Log the error and return an error response
