@@ -47,6 +47,7 @@
   padding-left: 5px;
   user-select: none;
   outline: none;
+  background-color: #334155;
 }
 .DropdownMenuSubTrigger[data-state="open"] {
   background-color: var(--violet4);
@@ -181,5 +182,4 @@
   padding-left: 5px;
   user-select: none;
   outline: none;
-  background-color: #475569;
 }

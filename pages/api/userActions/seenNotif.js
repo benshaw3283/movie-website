@@ -18,7 +18,7 @@ export default async function seenNotif(req, res) {
           },
         }
       );
-      console.log(data);
+
       res.status(201).json({ message: "Comment seen!", data });
     } catch (err) {
       // Log the error and return an error response
