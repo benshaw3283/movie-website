@@ -321,6 +321,7 @@ const ReviewFeed = () => {
                           postId={review._id}
                           reviewLikes={review.likes}
                           likes={review.likes}
+                          poster={review.user}
                         />
                       </div>
                       <CommentSection

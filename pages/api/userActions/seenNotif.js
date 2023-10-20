@@ -3,21 +3,38 @@ import connectToDatabase from "../../../lib/connectToDatabase";
 
 export default async function seenNotif(req, res) {
   if (req.method === "PATCH") {
-    const { user, commentID } = req.body;
+    const { user, commentID, notifDate } = req.body;
+    const datE = new Date(notifDate);
+    const date = datE.toISOString();
 
     try {
       const client = await connectToDatabase();
 
       const db = client.db();
-
-      const data = await db.collection("users").findOneAndUpdate(
-        { username: user, "notifications.commentID": new ObjectId(commentID) },
-        {
-          $set: {
-            "notifications.$.seen": true,
+      let data;
+      if (commentID) {
+        data = await db.collection("users").findOneAndUpdate(
+          {
+            username: user,
+            "notifications.commentID": new ObjectId(commentID),
           },
-        }
-      );
+          {
+            $set: {
+              "notifications.$.seen": true,
+            },
+          }
+        );
+      }
+      if (!commentID) {
+        data = await db.collection("users").findOneAndUpdate(
+          { username: user, "notifications.date": date },
+          {
+            $set: {
+              "notifications.$.seen": true,
+            },
+          }
+        );
+      }
 
       res.status(201).json({ message: "Comment seen!", data });
     } catch (err) {

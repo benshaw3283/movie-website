@@ -34,7 +34,7 @@ const Notifications = (props) => {
     }
   }
 
-  const goToNotificationsPost = async (commentid, postid) => {
+  const goToNotificationsPost = async (commentid, postid, notifDate) => {
     const response = await fetch("/api/userActions/seenNotif", {
       method: "PATCH",
       headers: {
@@ -43,6 +43,7 @@ const Notifications = (props) => {
       body: JSON.stringify({
         user: session.user.username,
         commentID: commentid,
+        notifDate: notifDate,
       }),
     });
     const response2 = await fetch(
@@ -176,7 +177,13 @@ const Notifications = (props) => {
                                 notification.commentID,
                                 notification.postObjectID
                               )
-                            : goToNotificationFollower(notification.follower)
+                            : notification.follower
+                            ? goToNotificationFollower(notification.follower)
+                            : goToNotificationsPost(
+                                notification.commentID,
+                                notification.postObjectID,
+                                notification.date
+                              )
                         }
                       >
                         {notification.comment ? (
@@ -195,7 +202,7 @@ const Notifications = (props) => {
                               </p>
                             </div>
                           </div>
-                        ) : (
+                        ) : notification.follower ? (
                           <div className="flex-row flex">
                             <p className="text-slate-400 place-self-center">
                               {timeDifference(notification.date)}
@@ -203,6 +210,16 @@ const Notifications = (props) => {
                             <p className="text-slate-200 place-self-center">
                               <strong>{notification.follower}</strong> followed
                               you.
+                            </p>
+                          </div>
+                        ) : (
+                          <div className="flex-row flex">
+                            <p className="text-slate-400 place-self-center">
+                              {timeDifference(notification.date)}
+                            </p>
+                            <p className="text-slate-200 place-self-center pl-2">
+                              <strong>{notification.user}</strong> liked your
+                              review.
                             </p>
                           </div>
                         )}

@@ -3,7 +3,9 @@ import connectToDatabase from "../../../lib/connectToDatabase";
 
 export default async function like(req, res) {
   if (req.method === "PATCH") {
-    const { user, id } = req.body;
+    const { user, id, poster } = req.body;
+    const datE = new Date();
+    const date = datE.toISOString();
 
     try {
       const client = await connectToDatabase();
@@ -17,7 +19,21 @@ export default async function like(req, res) {
           { $addToSet: { likes: user } },
           { returnDocument: "after" }
         );
-      res.status(201).json({ message: "Liked!", ...data });
+
+      const data2 = await db.collection("users").findOneAndUpdate(
+        { username: poster },
+        {
+          $addToSet: {
+            notifications: {
+              user,
+              seen: false,
+              date,
+              postObjectID: new ObjectId(id),
+            },
+          },
+        }
+      );
+      res.status(201).json({ message: "Liked!", ...data, ...data2 });
     } catch (err) {
       // Log the error and return an error response
       console.error(err);
