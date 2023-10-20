@@ -52,6 +52,11 @@ export async function getServerSideProps(context) {
     return { notFound: true };
   }
 
+  // Convert Date objects to ISO strings
+  user.notifications.forEach((notification) => {
+    notification.date = notification.date.toISOString();
+  });
+
   // Fetch user's posts
   const data = await client
     .db()

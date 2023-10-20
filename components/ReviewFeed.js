@@ -105,6 +105,25 @@ const ReviewFeed = () => {
     }
   }
 
+  const timeDifference = (date) => {
+    const current = new Date();
+    const commentDate = new Date(date);
+    const differenceMilli = current.getTime() - commentDate.getTime();
+    const differenceMinutes = differenceMilli / 60000;
+    const number = parseInt(differenceMinutes);
+    let output = 0;
+    if (number < 60) {
+      output = `${parseInt(number)}m`;
+    } else if (number >= 60 && number < 1440) {
+      output = `${parseInt(number / 60)}h`;
+    } else if (number >= 1440 && number < 10080) {
+      output = `${parseInt(number / 1440)}d`;
+    } else if (number >= 10080) {
+      output = `${parseInt(number / 10080)}w`;
+    }
+    return output;
+  };
+
   return (
     <div>
       <div className=" sticky top-20 left-1/2 lg:pl-64 pl-32">
@@ -183,9 +202,9 @@ const ReviewFeed = () => {
                               {review.user}
                             </h1>
                           </div>
-                          <div className="flex order-2">
+                          <div className="flex order-2 pl-2 ">
                             <p className="text-gray-400  text-sm">
-                              {formatLocalDate(review.createdAt)}
+                              {timeDifference(review.createdAt)}
                             </p>
                           </div>
                         </div>

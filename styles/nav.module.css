@@ -1,56 +1,48 @@
-
 .nav {
-    display:flex;
-    flex-direction: row;
-    align-items:center;
-    background-color:#0c0a09;
-    
-    
-    
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: #0c0a09;
 }
 
 .nav1 {
-    order:1;
-    width:20%;
+  order: 1;
+  width: 20%;
 }
 
 .nav2 {
-    order:2;
-    width:60%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  order: 2;
+  width: 60%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .nav3 {
-    order:3;
-    width: 20%;
-    display: flex;
-    justify-content: flex-end;
+  order: 3;
+  width: 20%;
+  display: flex;
+  justify-content: flex-end;
 }
 
 .home {
-    color: whitesmoke;
-    padding-left: 25px;
-    font-weight: bolder;
-    display: inline-block;
+  color: whitesmoke;
+  padding-left: 25px;
+  font-weight: bolder;
+  display: inline-block;
 }
 
 .account {
-    color: whitesmoke;
-    padding-right: 35px;
-    padding-bottom: 3px;
-    padding-top: 3px;
-    font-weight: bolder;
-    display: inline-block;
-    
+  color: whitesmoke;
+  padding-right: 35px;
+  padding-bottom: 3px;
+  padding-top: 3px;
+  font-weight: bolder;
+  display: inline-block;
 }
 
-
 .sign {
-    
-    list-style-type: none;
-    color:white;
-    font-weight: bolder;
-    
+  list-style-type: none;
+  color: white;
+  font-weight: bolder;
 }

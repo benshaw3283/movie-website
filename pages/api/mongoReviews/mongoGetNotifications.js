@@ -17,7 +17,7 @@ export default async function mongoGetNotifications(req, res) {
       if (sessionUser) {
         let notifications = sessionUser?.notifications || [];
 
-        res.status(200).json(...notifications);
+        res.status(200).json([...notifications]);
       } else {
         res.status(404).json({ message: "Notifications not found" });
       }

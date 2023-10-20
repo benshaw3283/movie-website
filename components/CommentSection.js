@@ -7,6 +7,8 @@ import commentIcon from "../public/commentIcon.png";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
+import * as AlertDialog from "@radix-ui/react-alert-dialog";
+import alertStyles from "../styles/radixAlertDialog.module.css";
 
 const CommentSection = (props) => {
   const [comments, setComments] = useState([]);
@@ -47,10 +49,10 @@ const CommentSection = (props) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        id: props.postId,
+        postID: props.postId,
         user: session.user.username,
         comment: commentRef.current.value,
-        poster: props.postCreator,
+        postCreator: props.postCreator,
       }),
     });
     commentRef.current.value = "";
@@ -60,6 +62,42 @@ const CommentSection = (props) => {
     }
     return response;
   }
+
+  const deleteComment = async (commentid) => {
+    const response = await fetch("/api/userActions/deleteComment", {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        postID: props.postId,
+        commentID: commentid,
+      }),
+    });
+    if (response.ok) {
+      fetchComments();
+    }
+    return response;
+  };
+
+  const timeDifference = (date) => {
+    const current = new Date();
+    const commentDate = new Date(date);
+    const differenceMilli = current.getTime() - commentDate.getTime();
+    const differenceMinutes = differenceMilli / 60000;
+    const number = parseInt(differenceMinutes);
+    let output = 0;
+    if (number < 60) {
+      output = `${parseInt(number)}m`;
+    } else if (number >= 60 && number < 1440) {
+      output = `${parseInt(number / 60)}h`;
+    } else if (number >= 1440 && number < 10080) {
+      output = `${parseInt(number / 1440)}d`;
+    } else if (number >= 10080) {
+      output = `${parseInt(number / 10080)}w`;
+    }
+    return output;
+  };
 
   return (
     <Popover.Root>
@@ -84,16 +122,79 @@ const CommentSection = (props) => {
                 comments.map((comment, index) => (
                   <div key={index} className="flex my-2 ">
                     <div className="flex ">
-                      <p className="text-white bg-slate-900 h-fit rounded-lg p-2 text-sm">
-                        <p
-                          onClick={() => router.push(`user/${comment.user}`)}
-                          className="cursor-pointer"
-                        >
-                          <strong> {comment.user}</strong>
-                        </p>
+                      <div className="text-white bg-slate-900 h-fit rounded-lg p-2 text-sm ">
+                        <div className="flex flex-row w-full justify-between">
+                          <p
+                            onClick={() => router.push(`user/${comment.user}`)}
+                            className="cursor-pointer"
+                          >
+                            <strong> {comment.user}</strong>
+                          </p>
+                          <div
+                            className={
+                              comment.user === session.user.username ||
+                              comment.user === session.user.email
+                                ? "flex justify-end pl-2"
+                                : "flex justify-end invisible"
+                            }
+                          >
+                            <AlertDialog.Root {...props}>
+                              <AlertDialog.Trigger asChild>
+                                <p className="text-slate-200 cursor-pointer">
+                                  x
+                                </p>
+                              </AlertDialog.Trigger>
+                              <AlertDialog.Portal>
+                                <AlertDialog.Overlay
+                                  className={alertStyles.AlertDialogOverlay2}
+                                />
+                                <AlertDialog.Content
+                                  className={alertStyles.AlertDialogContent2}
+                                >
+                                  <AlertDialog.Title
+                                    className={alertStyles.AlertDialogTitle2}
+                                  >
+                                    Delete Comment?
+                                  </AlertDialog.Title>
 
-                        {comment.comment}
-                      </p>
+                                  <div
+                                    style={{
+                                      display: "flex",
+                                      gap: 4,
+                                      justifyContent: "center",
+                                    }}
+                                  >
+                                    <AlertDialog.Cancel asChild>
+                                      <button
+                                        type="button"
+                                        className="bg-slate-700 border-2 border-slate-800 rounded py-0.5 px-0.5 h-6 text-sm "
+                                      >
+                                        Cancel
+                                      </button>
+                                    </AlertDialog.Cancel>
+                                    <AlertDialog.Action
+                                      asChild
+                                      onClick={() =>
+                                        deleteComment(comment.commentID)
+                                      }
+                                    >
+                                      <button className="bg-slate-700 border-2 border-slate-800 rounded py-0.5 px-0.5 h-6 text-sm ">
+                                        Delete
+                                      </button>
+                                    </AlertDialog.Action>
+                                  </div>
+                                </AlertDialog.Content>
+                              </AlertDialog.Portal>
+                            </AlertDialog.Root>
+                          </div>
+                        </div>
+                        <div className="flex flex-row">
+                          <p className="text-slate-300 pr-2">
+                            {timeDifference(comment.date)}
+                          </p>
+                          <p>{comment.comment}</p>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 ))

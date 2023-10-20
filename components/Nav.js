@@ -76,6 +76,7 @@ const Nav = () => {
               <DropdownMenu.Portal>
                 <DropdownMenu.Content
                   className={radixStyle.DropdownMenuContent}
+                  sideOffset={3}
                 >
                   <DropdownMenu.Item className={radixStyle.DropdownMenuItem}>
                     <Link
