@@ -31,7 +31,7 @@ async function createPost(
       movieData,
       textReview,
       userImage,
-      likes
+      likes,
     }),
   });
 
@@ -58,7 +58,7 @@ const MovieAutocomplete = () => {
   const { data: session } = useSession();
   const router = useRouter();
   const [switchType, setSwitchType] = useState(true);
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
 
   async function submitHandler(event) {
     event.preventDefault();
@@ -70,21 +70,20 @@ const MovieAutocomplete = () => {
 
     const userImage = await getUserImage(user);
 
-    //movieTitle only used for url now
     const movieTitle = selectedMovie;
     let url = `https://www.omdbapi.com/?apikey=4f46879e&r=json&t=${movieTitle}`;
     const options = {
       method: "GET",
     };
-    if (movieTitle === 'Oppenheimer' || movieTitle === 'oppenheimer') {
-      url = `https://www.omdbapi.com/?apikey=4f46879e&r=json&t=Oppenheimer&y=2023` 
+    if (movieTitle === "Oppenheimer" || movieTitle === "oppenheimer") {
+      url = `https://www.omdbapi.com/?apikey=4f46879e&r=json&t=Oppenheimer&y=2023`;
     }
 
     const response = await fetch(url, options);
     const result = await response.json();
 
     const movieData = result;
-    const likes = []
+    const likes = [];
 
     if (
       movieData.Title === "Null" ||
@@ -94,8 +93,15 @@ const MovieAutocomplete = () => {
       alert("Failed to find film - Please try again");
     } else {
       try {
-        setLoading(!loading)
-        await createPost(sliderRating, user, movieData, textReview, userImage, likes);
+        setLoading(!loading);
+        await createPost(
+          sliderRating,
+          user,
+          movieData,
+          textReview,
+          userImage,
+          likes
+        );
 
         router.reload();
       } catch (error) {
@@ -111,10 +117,14 @@ const MovieAutocomplete = () => {
   return (
     <div>
       <div className="absolute left-1/2 top-14">
-      <FadeLoader color='grey' loading={loading} aria-label="loading" height={10}
-      />
+        <FadeLoader
+          color="grey"
+          loading={loading}
+          aria-label="loading"
+          height={10}
+        />
       </div>
-      <div className='w-fit h-fit flex justify-around border-slate-600 border-double'>
+      <div className="w-fit h-fit flex justify-around border-slate-600 border-double">
         <div className={styles.content}>
           <br></br>
 
@@ -153,47 +163,47 @@ const MovieAutocomplete = () => {
               </div>
               <div className="flex order-1 pr-2 ">
                 {switchType ? (
-                <Autocomplete
-                  options={ movieList}
-                  id="titles"
-                  renderInput={(params) => (
-                    <TextField
-                      {...params}
-                      label={ "Movie"}
-                      variant="outlined"
-                      className="bg-slate-700 rounded-lg w-56 lg:w-72 z-0"
-                    />
-                  )}
-                  getOptionLabel_={(option) => option.name}
-                  style={{width: 200}}
-                  freeSolo={true}
-                  autoSelect={true}
-                  value={selectedMovie}
-                  onChange={(_event, newMovie) => {
-                    setSelectedMovie(newMovie);
-                  }}
-                />
+                  <Autocomplete
+                    options={movieList}
+                    id="titles"
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        label={"Movie"}
+                        variant="outlined"
+                        className="bg-slate-700 rounded-lg w-56 lg:w-72 z-0"
+                      />
+                    )}
+                    getOptionLabel_={(option) => option.name}
+                    style={{ width: 200 }}
+                    freeSolo={true}
+                    autoSelect={true}
+                    value={selectedMovie}
+                    onChange={(_event, newMovie) => {
+                      setSelectedMovie(newMovie);
+                    }}
+                  />
                 ) : (
                   <Autocomplete
-                  options={ tvList}
-                  id="titles"
-                  renderInput={(params) => (
-                    <TextField
-                      {...params}
-                      label={"TV show"}
-                      variant="outlined"
-                      className="bg-slate-700 rounded-lg w-56 lg:w-72 z-0"
-                    />
-                  )}
-                  getOptionLabel_={(option) => option.name}
-                  style={{width: 200}}
-                  freeSolo={true}
-                  autoSelect={true}
-                  value={selectedMovie}
-                  onChange={(_event, newMovie) => {
-                    setSelectedMovie(newMovie);
-                  }}
-                />
+                    options={tvList}
+                    id="titles"
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        label={"TV show"}
+                        variant="outlined"
+                        className="bg-slate-700 rounded-lg w-56 lg:w-72 z-0"
+                      />
+                    )}
+                    getOptionLabel_={(option) => option.name}
+                    style={{ width: 200 }}
+                    freeSolo={true}
+                    autoSelect={true}
+                    value={selectedMovie}
+                    onChange={(_event, newMovie) => {
+                      setSelectedMovie(newMovie);
+                    }}
+                  />
                 )}
               </div>
               <div className="flex order-2 place-self-center ">
@@ -250,16 +260,10 @@ const MovieAutocomplete = () => {
                   defaultValue={[80]}
                   value={[sliderValue]}
                   onValueChange={([value]) => setSliderValue(value)}
-                  
                   rating={sliderValue}
                 />
               </div>
-              <div
-                className={
-                   "flex text-white pl-6 font-semibold"
-                    
-                }
-              >
+              <div className={"flex text-white pl-6 font-semibold"}>
                 <strong>{sliderValue}</strong>
               </div>
             </div>
@@ -278,11 +282,7 @@ const MovieAutocomplete = () => {
         </div>
       </div>
 
-      <div
-        
-
-        className="flex lg:mt-10 mt-4 justify-center pb-1"
-      >
+      <div className="flex lg:mt-10 mt-4 justify-center pb-1">
         <button
           className="bg-slate-900 border-2 border-slate-600 hover:bg-slate-600 hover:border-slate-900 text-white hover:text-black 
           font-bold py-2 px-4 rounded-full hover:font-bold "
