@@ -216,9 +216,20 @@ const ReviewFeed = () => {
                       </div>
                     </div>
                   </div>
+                  <div className="order-2 flex justify-center  border-b-2 border-b-slate-700 cursor-pointer ">
+                    <h1
+                      className="text-white lg:text-2xl md:text-xl text-xl font-semibold px-[2px]"
+                      onClick={() =>
+                        setLoading(!loading) &
+                        router.push(`titles/${review.movieData.Title}`)
+                      }
+                    >
+                      {review.movieData.Title}
+                    </h1>
+                  </div>
 
-                  <div className="order-2 flex w-full h-5/6  overflow-clip">
-                    <div id="main-left" className="flex lg:w-1/3 w-full ">
+                  <div className="order-3 flex w-full h-5/6  overflow-clip">
+                    <div id="main-left" className="flex lg:w-1/3 w-2/3 ">
                       <Image
                         alt="movieImage"
                         src={review.movieData.Poster}
@@ -229,52 +240,30 @@ const ReviewFeed = () => {
 
                     <div
                       id="main-right"
-                      className=" bg-slate-800 w-2/3 lg:w-2/3 md:w-2/3  border-l-2 border-slate-700 "
+                      className=" bg-slate-800 w-full lg:w-2/3 md:w-2/3  border-l-2 border-slate-700 "
                     >
-                      <div className=" flex justify-center  border-b-2 border-b-slate-700 cursor-pointer ">
-                        {review.movieData.Title.length <= 22 ? (
-                          <h1
-                            className="text-white lg:text-3xl md:text-2xl text-lg font-semibold "
-                            onClick={() =>
-                              setLoading(!loading) &
-                              router.push(`titles/${review.movieData.Title}`)
-                            }
-                          >
-                            {review.movieData.Title}
-                          </h1>
-                        ) : (
-                          <h1
-                            className="text-white lg:text-2xl md:text-xl text-base font-semibold "
-                            onClick={() =>
-                              setLoading(!loading) &
-                              router.push(`titles/${review.movieData.Title}`)
-                            }
-                          >
-                            {review.movieData.Title}
-                          </h1>
-                        )}
-                      </div>
-
-                      <div className="bg-slate-800 flex  justify-center  border-b-2 border-b-slate-700 ">
-                        <div className=" flex place-self-center md:text-sm place-items-center ">
-                          <p className="text-white pr-1 font-semibold lg:text-lg ml-1 lg:ml-0">
-                            {review.movieData.Year}
-                          </p>{" "}
-                          <p className="text-slate-500 text-xs lg:text-lg px-2 flex">
+                      <div className="bg-slate-800 flex flex-col   border-b-2 border-b-slate-700 ">
+                        <div className="order-1 flex justify-center">
+                          <p className="text-slate-500 text-xs lg:text-lg px-2 flex place-self-center ">
                             {review.movieData.Genre}{" "}
                           </p>
                         </div>
-                        <div className="text-white place-self-center flex lg:flex p-1 ">
-                          <Link
-                            className="text-xs bg-yellow-500 font-bold text-black rounded-md p-1 cursor-pointer"
-                            href={`https://www.imdb.com/title/${review.movieData.imdbID}`}
-                            target="_blank"
-                          >
-                            <strong>IMDb</strong>
-                          </Link>
-                          <p className="pl-1 font-semibold">
-                            {review.movieData.imdbRating}
-                          </p>
+                        <div className="order-2 flex flex-row  md:text-sm place-items-center justify-between ">
+                          <p className="text-white pr-1 font-semibold lg:text-lg ml-1 lg:ml-0">
+                            {review.movieData.Year}
+                          </p>{" "}
+                          <div className="text-white place-self-center flex lg:flex p-1 ">
+                            <Link
+                              className="text-xs bg-yellow-500 font-bold text-black rounded-md p-1  cursor-pointer"
+                              href={`https://www.imdb.com/title/${review.movieData.imdbID}`}
+                              target="_blank"
+                            >
+                              <strong>IMDb</strong>
+                            </Link>
+                            <p className="pl-1 font-semibold">
+                              {review.movieData.imdbRating}
+                            </p>
+                          </div>
                         </div>
                       </div>
 

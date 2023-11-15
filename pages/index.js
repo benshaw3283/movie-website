@@ -39,12 +39,11 @@ export default function Home() {
             <MovieAutocomplete />
           </div>
 
-          
           <div className="order-2 ">
             <br></br>
           </div>
 
-          <div className="bg-slate-900 lg:w-3/5 w-5/6 h-2/5 flex justify-center container items-center rounded-lg order-3  ">
+          <div className="bg-slate-900 lg:w-3/5 w-full h-2/5 flex justify-center container items-center rounded-lg order-3  ">
             <div className="w-full">
               <ReviewFeed />
             </div>
