@@ -248,7 +248,7 @@ const ReviewFeed = () => {
                             {review.movieData.Genre}{" "}
                           </p>
                         </div>
-                        <div className="order-2 flex flex-row  md:text-sm place-items-center justify-between ">
+                        <div className="order-2 flex flex-row  md:text-sm place-items-center justify-around ">
                           <p className="text-white pr-1 font-semibold lg:text-lg ml-1 lg:ml-0">
                             {review.movieData.Year}
                           </p>{" "}
@@ -268,14 +268,20 @@ const ReviewFeed = () => {
                       </div>
 
                       {review.textReview !== "" ? (
-                        <div className="bg-slate-900 h-5/6 flex flex-col container lg:justify-center border-b-2 border-b-slate-700 pt-1">
+                        <div className="bg-slate-900 h-full flex flex-col container lg:justify-center border-b-2 border-b-slate-700 pt-1">
                           <div className="self-center flex order-1 ">
-                            <h1 className="text-white lg:text-3xl px-1 md:text-xl border-2 border-slate-700 rounded-lg font-semibold">
-                              {review.sliderRating}
-                            </h1>
+                            {review.sliderRating !== 100 ? (
+                              <h1 className="text-white lg:text-3xl text-3xl px-1 md:text-xl border-2 border-slate-700 rounded-lg font-semibold">
+                                {review.sliderRating}
+                              </h1>
+                            ) : (
+                              <h1 className="text-amber-400 shadow-lg shadow-amber-400 lg:text-3xl text-3xl px-1 md:text-xl border-2 border-slate-700 rounded-lg font-semibold">
+                                {review.sliderRating}
+                              </h1>
+                            )}
                           </div>
                           <div className=" self-center flex order-2 ">
-                            <p className="text-white pl-2 mt-1 lg:text-sm text-xs lg:w-72 md:h-44 md:text-xs md:w-48 h-28">
+                            <p className="text-white pl-2 mt-3 lg:text-sm text-xs lg:w-72 md:h-44 w-52 h-28">
                               {review.textReview}
                             </p>
                           </div>
@@ -288,14 +294,14 @@ const ReviewFeed = () => {
                                 {review.sliderRating}
                               </h1>
                             ) : (
-                              <h1 className="text-amber-400 lg:text-3xl px-1 md:text-xl border-2 border-slate-700 rounded-lg font-semibold">
+                              <h1 className="text-amber-400 shadow-lg shadow-amber-400 lg:text-3xl px-1 md:text-xl border-2 border-slate-700 rounded-lg font-semibold">
                                 {review.sliderRating}
                               </h1>
                             )}
                           </div>
 
                           <div className="place-self-center  flex order-2 mt-2">
-                            <p className="text-gray-500 pl-2  lg:text-sm lg:w-72 md:h-44 md:text-xs md:w-48 text-xs">
+                            <p className="text-gray-500 pl-2  lg:text-sm lg:w-72 md:h-44 md:text-xs md:w-48 w-52 text-xs">
                               {review.movieData.Plot}
                             </p>
                           </div>
@@ -313,10 +319,15 @@ const ReviewFeed = () => {
                           poster={review.user}
                         />
                       </div>
-                      <CommentSection
-                        postId={review._id}
-                        postCreator={review.user}
-                      />
+                      <div className="flex flex-row place-items-center">
+                        <CommentSection
+                          postId={review._id}
+                          postCreator={review.user}
+                        />
+                        <p className="pl-2  text-slate-400">
+                          {review.comments?.length}
+                        </p>
+                      </div>
                       <p className="text-gray-400 self-center ">Share</p>
 
                       {session &&
