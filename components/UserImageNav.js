@@ -18,17 +18,16 @@ const UserImage = (props) => {
     queryFn: fetchUserImage,
   });
 
-  fetchUserImage();
-
   return (
     <div>
-      {isSuccess && (
+      {isSuccess && data && (
         <Image
           alt="userImage"
           src={data}
           width={props.width}
           height={props.height}
           className="rounded-full"
+          placeholder="empty"
           priority={true}
         />
       )}
