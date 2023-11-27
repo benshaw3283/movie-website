@@ -238,7 +238,6 @@ const ReviewFeed = () => {
                         src={review.movieData.Poster}
                         width={350}
                         height={320}
-                        priority={true}
                       />
                     </div>
 
