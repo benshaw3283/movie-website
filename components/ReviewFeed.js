@@ -31,6 +31,8 @@ const ReviewFeed = () => {
   const { data: session } = useSession();
   const [followed, setFollowed] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [isLCP, setIsLCP] = useState(false);
+  const imageRef = useRef();
 
   const router = useRouter();
   const intersectionRef = useRef(null);
@@ -84,18 +86,18 @@ const ReviewFeed = () => {
     }
   }
 
-  function formatLocalDate(date) {
-    const options = {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-      hour: "numeric",
-      minute: "numeric",
-      hour12: true,
-    };
-    const newDate = new Date(date);
-    return newDate.toLocaleDateString(undefined, options);
-  }
+  const checkLCP = () => {
+    const imgElement = imageRef.current;
+
+    // Check if the browser supports the decode method
+    const supportsImageDecoding = imgElement && imgElement.decode !== undefined;
+
+    // Set the LCP state based on whether image decoding is supported
+    setIsLCP(supportsImageDecoding);
+  };
+  useEffect(() => {
+    checkLCP();
+  }, []);
 
   async function handleSwitchFeed() {
     try {
@@ -168,7 +170,7 @@ const ReviewFeed = () => {
             page.map((review, index) => (
               <div key={index}>
                 <div className="bg-slate-800 container rounded-lg flex flex-col h-2/5 w-full  my-10 border-2 border-slate-700">
-                  <div className="order-1  w-full h-12  rounded-t-lg   border-b-2 border-b-slate-700">
+                  <div className="order-1  w-full h-[50px]  rounded-t-lg   border-b-2 border-b-slate-700">
                     <div className="flex flex-row ">
                       <div className="flex order-1 w-full">
                         <div
@@ -231,11 +233,13 @@ const ReviewFeed = () => {
                   <div className="order-3 flex w-full h-5/6  overflow-clip">
                     <div id="main-left" className="flex lg:w-1/3 w-2/3 ">
                       <Image
+                        ref={imageRef}
                         alt="movieImage"
                         src={review.movieData.Poster}
                         width={350}
                         height={320}
-                      ></Image>
+                        priority={true}
+                      />
                     </div>
 
                     <div

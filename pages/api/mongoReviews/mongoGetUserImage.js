@@ -1,17 +1,15 @@
-
-import { useSession, getSession } from "next-auth/react";
+import { getSession } from "next-auth/react";
 import connectToDatabase from "../../../lib/connectToDatabase";
 
 export default async function mongoGetUser(req, res) {
   if (req.method === "GET") {
     try {
-     const client =  await connectToDatabase();
-      
-      const collection = client.db().collection('users');
+      const client = await connectToDatabase();
+
+      const collection = client.db().collection("users");
 
       // Retrieve the session
       const session = await getSession({ req });
-
 
       if (session) {
         // Fetch the user from the database based on the username
