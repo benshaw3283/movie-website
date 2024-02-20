@@ -46,6 +46,12 @@ const Notifications = (props) => {
         notifDate: notifDate,
       }),
     });
+
+    if (!response.ok) {
+      console.error("Error updating notification.");
+      return;
+    }
+
     const response2 = await fetch(
       `/api/userActions/seenNotif?postID=${postid}`,
       { method: "GET" }

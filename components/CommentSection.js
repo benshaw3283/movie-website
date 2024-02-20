@@ -113,117 +113,130 @@ const CommentSection = (props) => {
           sideOffset={5}
           hideWhenDetached={true}
         >
-          <div className="container flex flex-col ">
-            <div className="flex justify-center order-1 sticky top-0 ">
-              <h1 className=" text-lg font-semibold underline">Comments</h1>
-            </div>
-            <div className="h-80 w-full order-2 flex  py-2 px-2 rounded-lg flex-col overflow-y-scroll ">
-              {comments.length ? (
-                comments.map((comment, index) => (
-                  <div key={index} className="flex my-2 ">
-                    <div className="flex ">
-                      <div className="text-white bg-slate-900 h-fit rounded-lg p-2 text-sm ">
-                        <div className="flex flex-row w-full justify-between">
-                          <p
-                            onClick={() => router.push(`user/${comment.user}`)}
-                            className="cursor-pointer"
-                          >
-                            <strong> {comment.user}</strong>
-                          </p>
-                          <div
-                            className={
-                              comment.user === session.user.username ||
-                              comment.user === session.user.email
-                                ? "flex justify-end pl-2"
-                                : "flex justify-end invisible"
-                            }
-                          >
-                            <AlertDialog.Root {...props}>
-                              <AlertDialog.Trigger asChild>
-                                <p className="text-slate-200 cursor-pointer">
-                                  x
-                                </p>
-                              </AlertDialog.Trigger>
-                              <AlertDialog.Portal>
-                                <AlertDialog.Overlay
-                                  className={alertStyles.AlertDialogOverlay2}
-                                />
-                                <AlertDialog.Content
-                                  className={alertStyles.AlertDialogContent2}
-                                >
-                                  <AlertDialog.Title
-                                    className={alertStyles.AlertDialogTitle2}
+          {session?.user ? (
+            <div className="container flex flex-col ">
+              <div className="flex justify-center order-1 sticky top-0 ">
+                <h1 className=" text-lg font-semibold underline">Comments</h1>
+              </div>
+              <div className="h-80 w-full order-2 flex  py-2 px-2 rounded-lg flex-col overflow-y-scroll ">
+                {comments.length ? (
+                  comments.map((comment, index) => (
+                    <div key={index} className="flex my-2 ">
+                      <div className="flex ">
+                        <div className="text-white bg-slate-900 h-fit rounded-lg p-2 text-sm ">
+                          <div className="flex flex-row w-full justify-between">
+                            <p
+                              onClick={() =>
+                                router.push(`user/${comment.user}`)
+                              }
+                              className="cursor-pointer"
+                            >
+                              <strong> {comment.user}</strong>
+                            </p>
+                            <div
+                              className={
+                                comment.user === session.user.username ||
+                                comment.user === session.user.email
+                                  ? "flex justify-end pl-2"
+                                  : "flex justify-end invisible"
+                              }
+                            >
+                              <AlertDialog.Root {...props}>
+                                <AlertDialog.Trigger asChild>
+                                  <p className="text-slate-200 cursor-pointer">
+                                    x
+                                  </p>
+                                </AlertDialog.Trigger>
+                                <AlertDialog.Portal>
+                                  <AlertDialog.Overlay
+                                    className={alertStyles.AlertDialogOverlay2}
+                                  />
+                                  <AlertDialog.Content
+                                    className={alertStyles.AlertDialogContent2}
                                   >
-                                    Delete Comment?
-                                  </AlertDialog.Title>
-
-                                  <div
-                                    style={{
-                                      display: "flex",
-                                      gap: 4,
-                                      justifyContent: "center",
-                                    }}
-                                  >
-                                    <AlertDialog.Cancel asChild>
-                                      <button
-                                        type="button"
-                                        className="bg-slate-700 border-2 border-slate-800 rounded py-0.5 px-0.5 h-6 text-sm "
-                                      >
-                                        Cancel
-                                      </button>
-                                    </AlertDialog.Cancel>
-                                    <AlertDialog.Action
-                                      asChild
-                                      onClick={() =>
-                                        deleteComment(comment.commentID)
-                                      }
+                                    <AlertDialog.Title
+                                      className={alertStyles.AlertDialogTitle2}
                                     >
-                                      <button className="bg-slate-700 border-2 border-slate-800 rounded py-0.5 px-0.5 h-6 text-sm ">
-                                        Delete
-                                      </button>
-                                    </AlertDialog.Action>
-                                  </div>
-                                </AlertDialog.Content>
-                              </AlertDialog.Portal>
-                            </AlertDialog.Root>
+                                      Delete Comment?
+                                    </AlertDialog.Title>
+
+                                    <div
+                                      style={{
+                                        display: "flex",
+                                        gap: 4,
+                                        justifyContent: "center",
+                                      }}
+                                    >
+                                      <AlertDialog.Cancel asChild>
+                                        <button
+                                          type="button"
+                                          className="bg-slate-700 border-2 border-slate-800 rounded py-0.5 px-0.5 h-6 text-sm "
+                                        >
+                                          Cancel
+                                        </button>
+                                      </AlertDialog.Cancel>
+                                      <AlertDialog.Action
+                                        asChild
+                                        onClick={() =>
+                                          deleteComment(comment.commentID)
+                                        }
+                                      >
+                                        <button className="bg-slate-700 border-2 border-slate-800 rounded py-0.5 px-0.5 h-6 text-sm ">
+                                          Delete
+                                        </button>
+                                      </AlertDialog.Action>
+                                    </div>
+                                  </AlertDialog.Content>
+                                </AlertDialog.Portal>
+                              </AlertDialog.Root>
+                            </div>
                           </div>
-                        </div>
-                        <div className="flex flex-row">
-                          <p className="text-slate-300 pr-2">
-                            {timeDifference(comment.date)}
-                          </p>
-                          <p>{comment.comment}</p>
+                          <div className="flex flex-row">
+                            <p className="text-slate-300 pr-2">
+                              {timeDifference(comment.date)}
+                            </p>
+                            <p>{comment.comment}</p>
+                          </div>
                         </div>
                       </div>
                     </div>
+                  ))
+                ) : (
+                  <div className="flex pl-28">
+                    <p className="text-black flex ">No comments to display</p>
                   </div>
-                ))
-              ) : (
-                <div className="flex pl-28">
-                  <p className="text-black flex ">No comments to display</p>
+                )}
+              </div>
+              <div className="sticky bottom-0 flex z-10 order-3  w-full   rounded-lg h-10">
+                <div className="flex items-center w-full">
+                  <UserImage width={30} height={30} />
+                  <input
+                    ref={commentRef}
+                    className="h-full rounded-lg w-full px-2 mx-1 bg-slate-700 "
+                    onKeyDown={(e) =>
+                      e.key === "Enter" ? createComment(props.postId) : null
+                    }
+                  ></input>
+                  <button
+                    type="submit"
+                    className="self-center flex ml-1"
+                    onClick={() => createComment(props.postId)}
+                  >
+                    <Image
+                      src={commentIcon}
+                      width={30}
+                      height={30}
+                      alt="icon"
+                    />
+                  </button>
                 </div>
-              )}
-            </div>
-            <div className="sticky bottom-0 flex z-10 order-3  w-full   rounded-lg h-10">
-              <div className="flex items-center w-full">
-                <UserImage width={30} height={30} />
-                <input
-                  ref={commentRef}
-                  className="h-full rounded-lg w-full px-2 mx-1 bg-slate-700 "
-                  onKeyDown={(e) =>
-                    e.key === "Enter" ? createComment(props.postId) : null
-                  }
-                ></input>
-                <button
-                  type="submit"
-                  className="self-center flex ml-1"
-                  onClick={() => createComment(props.postId)}
-                >
-                  <Image src={commentIcon} width={30} height={30} alt="icon" />
-                </button>
               </div>
             </div>
-          </div>
+          ) : (
+            <p className="flex justify-center text-3xl bg-slate-700">
+              Please sign in
+            </p>
+          )}
           <Popover.Close />
           <Popover.Arrow />
         </Popover.Content>
