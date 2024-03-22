@@ -30,7 +30,7 @@ async function deleteReview(_id) {
 const ReviewFeed = () => {
   const { data: session } = useSession();
   const [followed, setFollowed] = useState(false);
-
+  const [loading, setLoading] = useState(true);
   const imageRef = useRef();
 
   const router = useRouter();
@@ -154,7 +154,9 @@ const ReviewFeed = () => {
 
       <div>
         {isLoading && (
-          <div className="bg-slate-800 container rounded-lg flex flex-col h-[420px] w-full  my-10 border-2 border-slate-700"></div>
+          <div className="flex justify-center pt-10">
+            <FadeLoader color="grey" loading={loading} aria-label="loading" />
+          </div>
         )}
         {isSuccess ? (
           data.pages.map((page) =>
@@ -376,7 +378,6 @@ const ReviewFeed = () => {
                                   <AlertDialog.Action asChild>
                                     <button
                                       onClick={() =>
-                                        setLoading(!loading) &
                                         handleDeleteReview(review._id)
                                       }
                                       className="bg-slate-700 border-2 border-slate-800 rounded py-0.5 px-0.5"
@@ -399,12 +400,12 @@ const ReviewFeed = () => {
             ))
           )
         ) : (
-          <div className="h-screen bg-slate-900"></div>
+          <div className="h-screen bg-slate-950"></div>
         )}
         {isFetchingNextPage && (
-          <p className="flex self-center text-slate-500 justify-center">
-            Loading...
-          </p>
+          <div className="flex justify-center pt-2">
+            <FadeLoader color="grey" loading={loading} aria-label="loading" />
+          </div>
         )}
       </div>
       <div ref={intersectionRef}></div>
