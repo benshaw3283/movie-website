@@ -86,10 +86,10 @@ const Like = (props) => {
     <div>
       {!liked ? (
         <div className="flex">
-          <p className="flex">{likesNum}</p>
+          <p className="flex text-white">{likesNum}</p>
           <button
             onClick={() => handleLike(props.postId)}
-            className="pl-2 flex"
+            className="pl-2 flex text-white"
           >
             <Image
               width={25}
@@ -101,13 +101,13 @@ const Like = (props) => {
         </div>
       ) : (
         <div className="flex ">
-          <p className="flex lg:text-base text-sm ">{`You and ${
+          <p className="flex lg:text-base text-sm text-white">{`You and ${
             likesNum - 1
           } others`}</p>
 
           <button
             onClick={() => handleUnlike(props.postId)}
-            className="pl-2 flex"
+            className="pl-2 flex text-white"
           >
             <Image
               width={25}

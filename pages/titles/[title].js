@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import { useSession, getSession } from "next-auth/react";
 import { useEffect, useState, useRef } from "react";
 import * as AlertDialog from "@radix-ui/react-alert-dialog";
-import Image from "next/dist/client/image";
+import Image from "next/image";
 import styles from "/styles/radixAlertDialog.module.css";
 import Link from "next/link";
 

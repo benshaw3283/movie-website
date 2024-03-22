@@ -138,12 +138,12 @@ const MovieAutocomplete = () => {
               <div>
                 {switchType ? (
                   <div className="flex flex-col mt-1.5 bg-slate-700 rounded-lg border-2 border-slate-600 mr-1 ">
-                    <button className="flex order-1 px-1 bg-slate-800 lg:text-lg text-sm rounded-t-lg">
+                    <button className="flex order-1 px-1 bg-slate-800 lg:text-lg text-sm rounded-t-lg text-white">
                       Movie
                     </button>
 
                     <button
-                      className="flex order-2 lg:text-lg text-sm px-1 "
+                      className="flex order-2 lg:text-lg text-sm px-1 text-white"
                       onClick={() =>
                         !session ? alert("Please sign in") : handleSwitch()
                       }
@@ -154,13 +154,13 @@ const MovieAutocomplete = () => {
                 ) : (
                   <div className="flex flex-col justify-center bg-slate-700 rounded-lg border-2 border-slate-600 mr-2">
                     <button
-                      className="flex order-1 px-1  lg:text-lg text-sm rounded-lg"
+                      className="flex order-1 px-1  lg:text-lg text-sm rounded-lg text-white"
                       onClick={() => handleSwitch()}
                     >
                       Movie
                     </button>
 
-                    <button className="flex order-2 lg:text-lg text-sm px-1 bg-slate-800 rounded-b-lg">
+                    <button className="flex order-2 lg:text-lg text-sm px-1 bg-slate-800 rounded-b-lg text-white">
                       TV show
                     </button>
                   </div>
@@ -176,7 +176,7 @@ const MovieAutocomplete = () => {
                         {...params}
                         label={"Movie"}
                         variant="outlined"
-                        className="bg-slate-700 rounded-lg w-56 lg:w-72 z-0"
+                        className="bg-slate-700 rounded-lg w-56 lg:w-72 z-0 lg:mt-2"
                       />
                     )}
                     getOptionLabel_={(option) => option.name}
@@ -197,7 +197,7 @@ const MovieAutocomplete = () => {
                         {...params}
                         label={"TV show"}
                         variant="outlined"
-                        className="bg-slate-700 rounded-lg w-56 lg:w-72 z-0"
+                        className="bg-slate-700 rounded-lg w-56 lg:w-72 z-0 lg:mt-2"
                       />
                     )}
                     getOptionLabel_={(option) => option.name}
@@ -247,7 +247,9 @@ const MovieAutocomplete = () => {
           </fieldset>
 
           <div className="flex justify-center">
-            <h1 className="font-serif:Georgia">{selectedMovie}</h1>
+            <h1 className="font-serif:Georgia text-xl font-semibold">
+              {selectedMovie}
+            </h1>
           </div>
 
           <div className="flex flex-col justify-center place-items-center">

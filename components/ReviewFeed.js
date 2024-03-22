@@ -1,6 +1,6 @@
-import { useEffect, useState, useRef } from "react";
+import { useState, useRef } from "react";
 
-import Image from "next/dist/client/image";
+import Image from "next/image";
 import { useSession } from "next-auth/react";
 
 import * as AlertDialog from "@radix-ui/react-alert-dialog";
@@ -139,13 +139,13 @@ const ReviewFeed = () => {
         ) : (
           <div className="flex flex-row justify-center bg-slate-700 rounded-lg border-2 border-slate-600">
             <button
-              className="flex order-1 px-1  text-lg rounded-lg"
+              className="flex order-1 px-1  text-lg rounded-lg text-white"
               onClick={() => handleSwitchFeed()}
             >
               Public
             </button>
 
-            <button className="flex order-2 text-lg px-1 bg-slate-800 rounded-lg">
+            <button className="flex order-2 text-lg px-1 bg-slate-800 rounded-lg text-white">
               Followed
             </button>
           </div>
@@ -271,7 +271,7 @@ const ReviewFeed = () => {
                             )}
                           </div>
                           <div className=" self-center flex order-2 ">
-                            <p className="text-white pl-2 mt-3 lg:text-sm text-xs lg:w-72 md:h-44 w-52 h-28">
+                            <p className="text-white pl-2 mt-3 lg:text-base text-base lg:w-72 md:h-44 w-52 h-28">
                               {review.textReview}
                             </p>
                           </div>

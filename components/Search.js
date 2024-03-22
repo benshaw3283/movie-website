@@ -39,12 +39,12 @@ const Search = () => {
         <div className="flex   justify-center mr-1">
           {switchSearchType ? (
             <div className="flex flex-col justify-center bg-slate-700 rounded-lg border-2 border-slate-600">
-              <button className="flex order-1 px-1 bg-slate-800 lg:text-sm text-xs rounded-lg">
+              <button className="flex order-1 px-1 bg-slate-800 lg:text-sm text-xs rounded-lg text-white">
                 Movies/TV
               </button>
 
               <button
-                className="flex order-2 lg:text-sm text-xs px-1 "
+                className="flex order-2 lg:text-sm text-xs px-1 text-white"
                 onClick={() => handleSwitchSearch()}
               >
                 Users
@@ -53,13 +53,13 @@ const Search = () => {
           ) : (
             <div className="flex flex-col justify-center bg-slate-700 rounded-lg border-2 border-slate-600">
               <button
-                className="flex order-1 px-1  lg:text-sm text-xs rounded-lg"
+                className="flex order-1 px-1  lg:text-sm text-xs rounded-lg text-white"
                 onClick={() => handleSwitchSearch()}
               >
                 Movies/TV
               </button>
 
-              <button className="flex order-2 lg:text-sm text-xs px-1 bg-slate-800 rounded-lg">
+              <button className="flex order-2 lg:text-sm text-xs px-1 bg-slate-800 rounded-lg text-white">
                 Users
               </button>
             </div>

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import Image from "next/dist/client/image";
+import Image from "next/image";
 
 import * as AlertDialog from "@radix-ui/react-alert-dialog";
 import styles from "../styles/radixAlertDialog.module.css";
