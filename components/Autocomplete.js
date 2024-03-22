@@ -62,9 +62,7 @@ const MovieAutocomplete = () => {
   const [loading, setLoading] = useState(false);
   const [isOverlayOpen, setIsOverlayOpen] = useState(false);
 
-  async function submitHandler(event) {
-    event.preventDefault();
-
+  async function submitHandler() {
     const sliderRating = sliderValue;
     const user =
       session.user.username || session.user.name || session.user.email;
