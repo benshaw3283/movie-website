@@ -12,6 +12,7 @@ const Notifications = (props) => {
   const { data: session } = useSession();
   const [isOverlayOpen, setIsOverlayOpen] = useState(false);
   const [reviewX, setReviewX] = useState({});
+
   async function fetchNotifications() {
     try {
       const response = await fetch(
@@ -120,7 +121,7 @@ const Notifications = (props) => {
   return (
     <div>
       {isOverlayOpen ? (
-        <Overlay isOpen={isOverlayOpen} onClose={closeOverlay}>
+        <Overlay isOpen={isOverlayOpen} onClose={closeOverlay} type="review">
           <SingleReview review={review} session={session} />
         </Overlay>
       ) : (

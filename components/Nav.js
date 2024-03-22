@@ -14,13 +14,23 @@ const Nav = () => {
 
   if (!session) {
     return (
-      <div className="flex flex-row items-center w-full bg-gray-900 border-b-2 border-slate-800 sticky py-2 top-0 z-[20] ">
+      <div className="flex flex-row items-center w-full bg-gray-950 border-b-2 border-slate-800 sticky py-2 top-0 z-[20] ">
         <div className={navBar.nav1}>
-          <Link
-            href="/"
-            className="pl-8 font-mono font-bold text-xl text-white"
-          >
-            Home
+          <Link href="/" className="self-center pl-2 flex">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={2}
+              stroke="currentColor"
+              className="w-8 h-8 "
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"
+              />
+            </svg>
           </Link>
         </div>
 
@@ -46,8 +56,23 @@ const Nav = () => {
     return (
       <div className="flex flex-row items-center w-full bg-gray-900 border-b-2 pt-2 border-slate-800 sticky top-0 z-[20] ">
         <div className="flex order-1 w-1/5">
-          <nav className="lg:pl-24 pl-2  flex font-mono font-bold text-lg text-white">
-            <Link href="/">Home</Link>
+          <nav className="lg:pl-24 pl-2  flex self-center">
+            <Link href="/">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={2}
+                stroke="currentColor"
+                className="w-8 h-8"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"
+                />
+              </svg>
+            </Link>
           </nav>
         </div>
         <div

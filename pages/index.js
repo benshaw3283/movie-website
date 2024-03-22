@@ -12,8 +12,8 @@ export default function Home() {
     <div>
       <title>ShawReviews</title>
 
-      <div className="lg:flex flex-row  justify-between  h-fit lg:h-full bg-slate-900">
-        <div className="bg-slate-900  lg:w-1/3 w-0 text-slate-500 lg:sticky top-0 lg:h-full h-0 invisible lg:visible grid place-items-center">
+      <div className="lg:flex flex-row  justify-between  h-fit lg:h-full bg-slate-950">
+        <div className="bg-slate-950  lg:w-1/3 w-0 text-slate-500 lg:sticky top-0 lg:h-full h-0 invisible lg:visible grid place-items-center">
           <br></br>
           <br></br>
           <br></br>
@@ -23,7 +23,7 @@ export default function Home() {
 
         <div
           //mainDivMiddle
-          className="bg-slate-900  flex flex-col container items-center lg:w-full  h-fit "
+          className="bg-slate-950  flex flex-col container items-center lg:w-full  h-fit "
         >
           <div className="flex flex-row justify-around place-items-center w-full">
             <div className="flex order-1 visible lg:invisible text-slate-500 font-semibold">
@@ -43,7 +43,7 @@ export default function Home() {
             <br></br>
           </div>
 
-          <div className="bg-slate-900 lg:w-3/5 w-full h-2/5 flex justify-center container items-center rounded-lg order-3  ">
+          <div className="bg-slate-950 lg:w-3/5 w-full h-2/5 flex justify-center container items-center rounded-lg order-3  ">
             <div className="w-full">
               <ReviewFeed />
             </div>
@@ -55,7 +55,7 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="bg-slate-900 text-slate-500 lg:w-1/3 w-0 lg:sticky  lg:top-0 bottom-0 lg:h-full h-0 lg:visible collapse lg:grid place-items-center absolute">
+        <div className="bg-slate-950 text-slate-500 lg:w-1/3 w-0 lg:sticky  lg:top-0 bottom-0 lg:h-full h-0 lg:visible collapse lg:grid place-items-center absolute">
           <br></br>
           <br></br>
           <br></br>

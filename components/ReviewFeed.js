@@ -30,8 +30,7 @@ async function deleteReview(_id) {
 const ReviewFeed = () => {
   const { data: session } = useSession();
   const [followed, setFollowed] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [isLCP, setIsLCP] = useState(false);
+
   const imageRef = useRef();
 
   const router = useRouter();
@@ -55,17 +54,23 @@ const ReviewFeed = () => {
     return response.json();
   }
 
-  const { data, isSuccess, hasNextPage, fetchNextPage, isFetchingNextPage } =
-    useInfiniteQuery(
-      ["reviews", followed],
-      ({ pageParam = 1 }) =>
-        !followed ? fetchReviews(pageParam) : fetchFollowedReviews(pageParam),
-      {
-        getNextPageParam: (lastPage, allPages) => {
-          return lastPage.length === limit ? allPages.length + 1 : undefined;
-        },
-      }
-    );
+  const {
+    data,
+    isSuccess,
+    hasNextPage,
+    fetchNextPage,
+    isFetchingNextPage,
+    isLoading,
+  } = useInfiniteQuery(
+    ["reviews", followed],
+    ({ pageParam = 1 }) =>
+      !followed ? fetchReviews(pageParam) : fetchFollowedReviews(pageParam),
+    {
+      getNextPageParam: (lastPage, allPages) => {
+        return lastPage.length === limit ? allPages.length + 1 : undefined;
+      },
+    }
+  );
 
   const intersection = useIntersection(intersectionRef, {
     root: null,
@@ -85,19 +90,6 @@ const ReviewFeed = () => {
       console.log(err);
     }
   }
-
-  const checkLCP = () => {
-    const imgElement = imageRef.current;
-
-    // Check if the browser supports the decode method
-    const supportsImageDecoding = imgElement && imgElement.decode !== undefined;
-
-    // Set the LCP state based on whether image decoding is supported
-    setIsLCP(supportsImageDecoding);
-  };
-  useEffect(() => {
-    checkLCP();
-  }, []);
 
   async function handleSwitchFeed() {
     try {
@@ -128,10 +120,6 @@ const ReviewFeed = () => {
 
   return (
     <div>
-      <div className=" sticky top-20 left-1/2 lg:pl-64 pl-32">
-        <FadeLoader color="grey" loading={loading} aria-label="loading" />
-      </div>
-
       <div className="flex container  justify-center">
         {!followed ? (
           <div className="flex flex-row justify-center bg-slate-700 rounded-lg border-2 border-slate-600">
@@ -165,6 +153,9 @@ const ReviewFeed = () => {
       </div>
 
       <div>
+        {isLoading && (
+          <div className="bg-slate-800 container rounded-lg flex flex-col h-[420px] w-full  my-10 border-2 border-slate-700"></div>
+        )}
         {isSuccess ? (
           data.pages.map((page) =>
             page.map((review, index) => (
@@ -175,10 +166,7 @@ const ReviewFeed = () => {
                       <div className="flex order-1 w-full">
                         <div
                           className=" flex inset-x-0 top-0 justify-start float-left cursor-pointer"
-                          onClick={() =>
-                            setLoading(!loading) &
-                            router.push(`user/${review.user}`)
-                          }
+                          onClick={() => router.push(`user/${review.user}`)}
                         >
                           {review.userImage ? (
                             <Image
@@ -195,10 +183,7 @@ const ReviewFeed = () => {
                         <div className="flex flex-col">
                           <div
                             className="pl-2 flex cursor-pointer w-fit order-1"
-                            onClick={() =>
-                              setLoading(!loading) &
-                              router.push(`user/${review.user}`)
-                            }
+                            onClick={() => router.push(`user/${review.user}`)}
                           >
                             <h1 className="text-white font-semibold text-lg">
                               {review.user}
@@ -222,7 +207,6 @@ const ReviewFeed = () => {
                     <h1
                       className="text-white lg:text-2xl md:text-xl text-xl font-semibold px-[2px]"
                       onClick={() =>
-                        setLoading(!loading) &
                         router.push(`titles/${review.movieData.Title}`)
                       }
                     >
@@ -238,6 +222,7 @@ const ReviewFeed = () => {
                         src={review.movieData.Poster}
                         width={350}
                         height={320}
+                        loading="eager"
                       />
                     </div>
 
@@ -274,11 +259,11 @@ const ReviewFeed = () => {
                         <div className="bg-slate-900 h-full flex flex-col container lg:justify-center border-b-2 border-b-slate-700 pt-1">
                           <div className="self-center flex order-1 ">
                             {review.sliderRating !== 100 ? (
-                              <h1 className="text-white lg:text-3xl text-3xl px-1 md:text-xl border-2 border-slate-700 rounded-lg font-semibold">
+                              <h1 className="text-white lg:text-5xl text-5xl px-1 md:text-xl border-2 border-slate-700 rounded-lg font-semibold">
                                 {review.sliderRating}
                               </h1>
                             ) : (
-                              <h1 className="text-amber-400 shadow-lg shadow-amber-400 lg:text-3xl text-3xl px-1 md:text-xl border-2 border-slate-700 rounded-lg font-semibold">
+                              <h1 className="text-amber-400 shadow-lg shadow-amber-400 lg:text-5xl text-5xl px-1 md:text-xl border-2 border-slate-700 rounded-lg font-semibold">
                                 {review.sliderRating}
                               </h1>
                             )}
@@ -293,11 +278,11 @@ const ReviewFeed = () => {
                         <div className="bg-slate-900 h-5/6 flex flex-col lg:justify-center  border-b-2 border-b-slate-700 pt-1">
                           <div className="self-center flex order-1 ">
                             {review.sliderRating !== 100 ? (
-                              <h1 className="text-white lg:text-3xl px-1 md:text-xl border-2 border-slate-700 rounded-lg font-semibold">
+                              <h1 className="text-white lg:text-5xl text-5xl px-1 md:text-xl border-2 border-slate-700 rounded-lg font-semibold">
                                 {review.sliderRating}
                               </h1>
                             ) : (
-                              <h1 className="text-amber-400 shadow-lg shadow-amber-400 lg:text-3xl px-1 md:text-xl border-2 border-slate-700 rounded-lg font-semibold">
+                              <h1 className="text-amber-400 shadow-lg shadow-amber-400 lg:text-5xl px-1 text-5xl border-2 border-slate-700 rounded-lg font-semibold">
                                 {review.sliderRating}
                               </h1>
                             )}

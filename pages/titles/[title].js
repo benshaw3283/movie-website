@@ -106,7 +106,7 @@ const Title = ({ posts, values, averageRating }) => {
 
   return (
     <div>
-      <div className="bg-slate-900  w-full h-full min-h-screen">
+      <div className="bg-slate-950  w-full h-full min-h-screen">
         <div className="flex flex-col items-center w-full h-full">
           <div className="order-1 ">
             <br></br>
@@ -228,7 +228,7 @@ const Title = ({ posts, values, averageRating }) => {
           <div className="flex order-3">
             <br></br>
           </div>
-          <div className="bg-slate-900 border-4 border-double border-slate-700 rounded-lg container grid lg:grid-cols-2 grid-cols-1 w-full h-full order-4 py-2 ">
+          <div className="bg-slate-950 border-4 border-double border-slate-700 rounded-lg container grid lg:grid-cols-2 grid-cols-1 w-full h-full order-4 py-2 ">
             <h1 className="absolute justify-self-center font-semibold text-slate-500 text-xl">
               REVIEWS
             </h1>

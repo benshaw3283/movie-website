@@ -11,6 +11,7 @@ import { useRouter } from "next/router";
 import tvList from "./TvList";
 import * as Tooltip from "@radix-ui/react-tooltip";
 import { FadeLoader } from "react-spinners";
+import Overlay from "./Overlay";
 
 async function createPost(
   sliderRating,
@@ -59,6 +60,7 @@ const MovieAutocomplete = () => {
   const router = useRouter();
   const [switchType, setSwitchType] = useState(true);
   const [loading, setLoading] = useState(false);
+  const [isOverlayOpen, setIsOverlayOpen] = useState(false);
 
   async function submitHandler(event) {
     event.preventDefault();
@@ -93,7 +95,6 @@ const MovieAutocomplete = () => {
       alert("Failed to find film - Please try again");
     } else {
       try {
-        setLoading(!loading);
         await createPost(
           sliderRating,
           user,
@@ -102,7 +103,8 @@ const MovieAutocomplete = () => {
           userImage,
           likes
         );
-
+        setIsOverlayOpen(true);
+        setLoading(true);
         router.reload();
       } catch (error) {
         console.log(error);
@@ -114,16 +116,21 @@ const MovieAutocomplete = () => {
     setSwitchType(!switchType);
   };
 
+  function alertSign() {
+    alert("Please sign in");
+  }
+
+  const closeOverlay = () => {
+    setIsOverlayOpen(false);
+  };
+
   return (
     <div>
-      <div className="absolute left-1/2 top-14">
-        <FadeLoader
-          color="grey"
-          loading={loading}
-          aria-label="loading"
-          height={10}
-        />
-      </div>
+      {isOverlayOpen && (
+        <Overlay isOpen={isOverlayOpen} onClose={closeOverlay} type="spinner">
+          <FadeLoader color="grey" loading={loading} aria-label="loading" />
+        </Overlay>
+      )}
       <div className="w-fit h-fit flex justify-around border-slate-600 border-double">
         <div className={styles.content}>
           <br></br>
@@ -132,7 +139,7 @@ const MovieAutocomplete = () => {
             <div className="flex flex-row ">
               <div>
                 {switchType ? (
-                  <div className="flex flex-col justify-center bg-slate-700 rounded-lg border-2 border-slate-600 mr-2 ">
+                  <div className="flex flex-col mt-1.5 bg-slate-700 rounded-lg border-2 border-slate-600 mr-1 ">
                     <button className="flex order-1 px-1 bg-slate-800 lg:text-lg text-sm rounded-t-lg">
                       Movie
                     </button>
@@ -248,7 +255,7 @@ const MovieAutocomplete = () => {
           <div className="flex flex-col justify-center place-items-center">
             <br></br>
 
-            <div className="flex justify-center border-2 lg:w-fit  place-items-center p-1 border-slate-700 rounded-lg ">
+            <div className="flex justify-center  lg:w-fit  place-items-center p-1  ">
               <div className=" cursor-pointer flex ">
                 <RadixSlider
                   min={0}
@@ -263,7 +270,7 @@ const MovieAutocomplete = () => {
                   rating={sliderValue}
                 />
               </div>
-              <div className={"flex text-white pl-6 font-semibold"}>
+              <div className="flex text-white text-xl pl-6 font-semibold">
                 <strong>{sliderValue}</strong>
               </div>
             </div>
@@ -287,7 +294,7 @@ const MovieAutocomplete = () => {
           className="bg-slate-900 border-2 border-slate-600 hover:bg-slate-600 hover:border-slate-900 text-white hover:text-black 
           font-bold py-2 px-4 rounded-full hover:font-bold "
           role="submit"
-          onClick={submitHandler}
+          onClick={() => (session ? submitHandler() : alertSign())}
         >
           Create Review
         </button>
