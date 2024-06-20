@@ -176,7 +176,7 @@ const MovieAutocomplete = () => {
                         {...params}
                         label={"Movie"}
                         variant="outlined"
-                        className="bg-slate-700 rounded-lg w-56 lg:w-72 z-0 lg:mt-2"
+                        className="bg-slate-700 rounded-lg w-52 lg:w-72 z-0 lg:mt-2"
                       />
                     )}
                     getOptionLabel_={(option) => option.name}
@@ -197,7 +197,7 @@ const MovieAutocomplete = () => {
                         {...params}
                         label={"TV show"}
                         variant="outlined"
-                        className="bg-slate-700 rounded-lg w-56 lg:w-72 z-0 lg:mt-2"
+                        className="bg-slate-700 rounded-lg w-52 lg:w-72 z-0 lg:mt-2"
                       />
                     )}
                     getOptionLabel_={(option) => option.name}
