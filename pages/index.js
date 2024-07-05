@@ -25,7 +25,7 @@ export default function Home() {
           //mainDivMiddle
           className="bg-slate-950  flex flex-col container items-center lg:w-full  h-fit "
         >
-          <div className="flex flex-row justify-around place-items-center w-full">
+          <div className="flex flex-row justify-center gap-4 place-items-start w-full pb-2">
             <div className="flex order-1 visible lg:invisible text-slate-500 font-semibold">
               <PhoneTopMovies />
             </div>

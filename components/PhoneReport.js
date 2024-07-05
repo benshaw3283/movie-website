@@ -1,13 +1,20 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { useSession } from "next-auth/react";
 import { useRef } from "react";
-import { FadeLoader } from "react-spinners";
+import { useToast } from "@/components/ui/use-toast";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 
 const PhoneReport = () => {
   const { data: session } = useSession();
   const reportRef = useRef("");
-  const [loading, setLoading] = useState(false)
-  const [show, setShow] = useState(false)
+  const { toast } = useToast();
 
   async function reportBug() {
     let input = reportRef.current.value;
@@ -21,68 +28,56 @@ const PhoneReport = () => {
         report: input,
       }),
     });
-    
-    if (!session)  {
-      alert('Please sign in') 
-  } else {
-    setLoading(false)
-    reportRef.current.value = ''
-    
-  }
-  
-  return response;
-  }
 
-  const handleShow = ()=> {
-    setShow(!show)
-  }
+    if (!session) {
+      toast({
+        title: "Please sign in to report a bug!",
+        className: "bg-slate-900 text-white",
+      });
+    } else {
+      reportRef.current.value = "";
+    }
 
+    return response;
+  }
 
   return (
     <div>
-        {show ? (
-      <div className="mr-40">
-    
-      <div className=" absolute left-3/4 top-1/4">
-      <FadeLoader color='grey' loading={loading} aria-label="loading" height={10}
-      />
+      <div className="bg-slate-800 w-fit h-fit rounded-b-lg border-2 border-slate-700 px-1  z-10">
+        <Dialog>
+          <DialogTrigger>
+            <h2 className="flex text-base">Report Bugs</h2>
+          </DialogTrigger>
+          <DialogContent className="bg-slate-900 rounded-lg">
+            <DialogHeader>
+              <DialogTitle className="text-white pb-1">
+                Report a bug
+              </DialogTitle>
+              <DialogDescription>
+                <textarea
+                  ref={reportRef}
+                  className="bg-slate-800 w-full  rounded-lg h-16 border border-slate-700 text-sm resize-none p-1 "
+                  maxLength="400"
+                  wrap="soft"
+                />
+                <button
+                  onClick={() => {
+                    !session
+                      ? toast({
+                          title: "Please sign in to report a bug!",
+                          className: "bg-slate-900 text-white",
+                        })
+                      : reportBug();
+                  }}
+                  className="flex place-self-center border rounded-lg px-1 bg-slate-800 border-slate-700"
+                >
+                  Submit
+                </button>
+              </DialogDescription>
+            </DialogHeader>
+          </DialogContent>
+        </Dialog>
       </div>
-      <div className="flex justify-center" onClick={()=> handleShow()}>
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-  <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
-</svg>
-</div>
-    <div className="bg-slate-800 w-fit h-fit rounded-lg border-2 border-slate-700 px-1 absolute z-10">
-        <h2 className="flex justify-center text-lg">Report Bugs</h2>
-        <textarea
-          ref={reportRef}
-          className="bg-slate-800  rounded-lg h-16 border border-slate-700 text-sm resize-none p-1 "
-          maxLength="400"
-          wrap="soft"
-        />
-        <div className="  flex justify-end">
-          <button
-            onClick={() => !session ? alert('Please sign in') : setLoading(true) & reportBug()}
-            type="text"
-            className="flex place-self-center border rounded-lg px-1 bg-slate-800 border-slate-700"
-          >
-            Submit
-          </button>
-        </div>
-        </div>
-      </div>
-      ) : (
-        <div>
-            <h2 className="text-xs ">Report Bugs</h2>
-        <div className="flex justify-center " onClick={()=> handleShow()}>
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-  <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
-</svg>
-
-        </div>
-        </div>
-    )
-    }
     </div>
   );
 };
