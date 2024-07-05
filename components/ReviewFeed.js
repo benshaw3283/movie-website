@@ -122,7 +122,7 @@ const ReviewFeed = () => {
     <div>
       <div className="flex container  justify-center">
         {!followed ? (
-          <div className="flex flex-row justify-center bg-slate-700 rounded-lg border-2 border-slate-600">
+          <div className="flex flex-row justify-center text-white bg-slate-700 rounded-lg border-2 border-slate-600">
             <button className="flex order-1 px-1 bg-slate-800 text-lg rounded-lg">
               Public
             </button>
@@ -207,7 +207,7 @@ const ReviewFeed = () => {
                   </div>
                   <div className="order-2 flex justify-center  border-b-2 border-b-slate-700 cursor-pointer ">
                     <h1
-                      className="text-white lg:text-2xl md:text-xl text-xl font-semibold px-[2px]"
+                      className="text-white lg:text-2xl md:text-xl text-2xl font-semibold px-[2px]"
                       onClick={() =>
                         router.push(`titles/${review.movieData.Title}`)
                       }

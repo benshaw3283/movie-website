@@ -127,7 +127,7 @@ const Search = () => {
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="lg:w-6 lg:h-6 w-4 h-4 text-white float-right ml-1"
+            className="lg:w-6 lg:h-6 w-6 h-6 text-white float-right ml-1"
           >
             <path
               strokeLinecap="round"

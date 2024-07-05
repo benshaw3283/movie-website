@@ -2,11 +2,13 @@ import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
 import React from "react";
+import { useToast } from "@/components/ui/use-toast";
 
 const Like = (props) => {
   const [liked, setLiked] = useState(false);
   const { data: session } = useSession();
   const [likesNum, setLikesNum] = useState(0);
+  const { toast } = useToast();
 
   async function handleLike() {
     try {
@@ -88,7 +90,14 @@ const Like = (props) => {
         <div className="flex">
           <p className="flex text-white">{likesNum}</p>
           <button
-            onClick={() => handleLike(props.postId)}
+            onClick={() => {
+              session
+                ? handleLike(props.postId)
+                : toast({
+                    title: "Please sign in to leave a like!",
+                    className: "bg-slate-900 text-white",
+                  });
+            }}
             className="pl-2 flex text-white"
           >
             <Image

@@ -2,6 +2,7 @@ import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import React, { useEffect, useRef, useState } from "react";
 import movieList from "./MovieList";
+import { useToast } from "@/components/ui/use-toast";
 
 import styles from "../styles/review.module.css";
 import { useSession } from "next-auth/react";
@@ -62,6 +63,8 @@ const MovieAutocomplete = () => {
   const [loading, setLoading] = useState(false);
   const [isOverlayOpen, setIsOverlayOpen] = useState(false);
 
+  const { toast } = useToast();
+
   async function submitHandler() {
     const sliderRating = sliderValue;
     const user =
@@ -70,14 +73,12 @@ const MovieAutocomplete = () => {
 
     const userImage = await getUserImage(user);
 
+    //free api - exposed key is fine
     const movieTitle = selectedMovie;
     let url = `https://www.omdbapi.com/?apikey=4f46879e&r=json&t=${movieTitle}`;
     const options = {
       method: "GET",
     };
-    if (movieTitle === "Oppenheimer" || movieTitle === "oppenheimer") {
-      url = `https://www.omdbapi.com/?apikey=4f46879e&r=json&t=Oppenheimer&y=2023`;
-    }
 
     const response = await fetch(url, options);
     const result = await response.json();
@@ -90,7 +91,11 @@ const MovieAutocomplete = () => {
       movieData.Response === "False" ||
       movieData.Error
     ) {
-      alert("Failed to find film - Please try again");
+      toast({
+        title: "Failed to find film - check spelling",
+        className: "bg-slate-900 text-white ",
+        variant: "destructive",
+      });
     } else {
       try {
         await createPost(
@@ -138,7 +143,7 @@ const MovieAutocomplete = () => {
               <div>
                 {switchType ? (
                   <div className="flex flex-col mt-1.5 bg-slate-700 rounded-lg border-2 border-slate-600 mr-1 ">
-                    <button className="flex order-1 px-1 bg-slate-800 lg:text-lg text-sm rounded-t-lg text-white">
+                    <button className="flex order-1 justify-center file:px-1 bg-slate-800 lg:text-lg text-sm rounded-t-lg text-white">
                       Movie
                     </button>
 
@@ -152,9 +157,9 @@ const MovieAutocomplete = () => {
                     </button>
                   </div>
                 ) : (
-                  <div className="flex flex-col justify-center bg-slate-700 rounded-lg border-2 border-slate-600 mr-2">
+                  <div className="flex flex-col mt-1.5 justify-center bg-slate-700 rounded-lg border-2 border-slate-600 mr-1">
                     <button
-                      className="flex order-1 px-1  lg:text-lg text-sm rounded-lg text-white"
+                      className="flex order-1 px-1 justify-center  lg:text-lg text-sm rounded-lg text-white"
                       onClick={() => handleSwitch()}
                     >
                       Movie
@@ -294,7 +299,14 @@ const MovieAutocomplete = () => {
           className="bg-slate-900 border-2 border-slate-600 hover:bg-slate-600 hover:border-slate-900 text-white hover:text-black 
           font-bold py-2 px-4 rounded-full hover:font-bold "
           role="submit"
-          onClick={() => (session ? submitHandler() : alertSign())}
+          onClick={() =>
+            session
+              ? submitHandler()
+              : toast({
+                  title: "Please sign in to post a review!",
+                  className: "bg-slate-900 text-white",
+                })
+          }
         >
           Create Review
         </button>
