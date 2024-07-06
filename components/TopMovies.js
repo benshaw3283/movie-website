@@ -1,140 +1,159 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { FadeLoader } from "react-spinners";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
+import { useQuery } from "@tanstack/react-query";
+import Autoplay from "embla-carousel-autoplay";
 
 function TopMovies() {
-  const [topReviews, setTopReviews] = useState([]);
   const router = useRouter();
-  const [open, setOpen] = useState(true);
-  const [loading, setLoading] = useState(false);
 
-  // Function to calculate the average sliderRating for a group of reviews
   const calculateAverageRating = (reviews) => {
-    const totalRating = reviews.reduce(
-      (sum, review) => sum + review.sliderRating,
-      0
-    );
+    if (!reviews || reviews.length === 0) return "0.0"; // handle undefined, null, or empty reviews
+
+    const totalRating = reviews.reduce((sum, title) => {
+      if (typeof title.sliderRating !== "number") return sum; // skip invalid ratings
+      return sum + title.sliderRating;
+    }, 0); // provide initial value of 0
     const averageRating = totalRating / reviews.length;
-    return averageRating.toFixed(1);
+    const averageString = averageRating.toFixed(1).toString();
+    const lastChar = averageString.charAt(averageString.length - 1);
+    return lastChar === "0"
+      ? averageRating.toFixed(0)
+      : averageRating.toFixed(1);
   };
 
-  useEffect(()=> {
-
-  
   async function getHighestReviews() {
-    
     const data = await fetch("./api/mongoReviews/mongoGetHighestReviews");
-    const response = await data.json()
-    
+    const response = await data.json();
 
     try {
       // Sort the reviews based on average sliderRating in descending order
-      const sortedReviews = response.sort(
-        (a, b) =>
-          calculateAverageRating(b.reviews) - calculateAverageRating(a.reviews)
-      );
+      const sortedReviews = response.sort((a, b) => {
+        const ratingDiff =
+          calculateAverageRating(b.reviews) - calculateAverageRating(a.reviews);
+        if (ratingDiff !== 0) return ratingDiff;
+        return a._id.localeCompare(b._id); // secondary sort by _id for stability
+      });
 
-      // Get the top 3 reviews
-      const top3Reviews = sortedReviews.slice(0, 3);
+      const top10Reviews = sortedReviews.slice(0, 10);
 
-      // Set the topReviews state
-      setTopReviews(top3Reviews);
+      return top10Reviews;
     } catch (err) {
       console.log(err);
     }
   }
 
-  getHighestReviews();
+  const { data, isSuccess, isPending, isError } = useQuery({
+    queryKey: ["topMovies"],
+    queryFn: getHighestReviews,
+  });
 
-}, [])
+  if (isPending) {
+    return <span>loading...</span>;
+  }
 
-  const handleOpen = () => {
-    setOpen(!open);
-  };
+  if (isError) {
+    console.log(isError);
+    return <span>Error: {isError.message}</span>;
+  }
 
   return (
     <div className=" w-fit  p-2 ">
-      <div className="absolute right-36 top-4">
-        <FadeLoader
-          color="grey"
-          loading={loading}
-          aria-label="loading"
-          height={10}
-        />
-      </div>
-      <h1 className="lg:text-xl text-xs flex justify-center">Top Rated</h1>
-
-      {open ? (
-        <div>
-          <div className="flex justify-center" onClick={() => handleOpen()}>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className="w-6 h-6"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M4.5 15.75l7.5-7.5 7.5 7.5"
-              />
-            </svg>
+      {!isSuccess ? (
+        <div className="h-[760px] flex flex-col">
+          <div className=" h-[240px] border-b-2 border-l-2 border-slate-600 w-[400px] flex flex-col pt-2 pl-4 ml-[34px] rounded-lg mt-6">
+            <div className="w-[350px] bg-slate-600 h-6  rounded-lg mb-3"></div>
+            <div className="flex flex-row  ">
+              <div className="w-[120px] h-[185px] bg-slate-600 mb-4"></div>
+              <div className="flex flex-col self-center items-center ml-2 w-fit  font-semibold justify-center  h-fit">
+                <div className="w-28 h-4 bg-slate-600 rounded-lg "></div>
+                <div className="w-14 mr-3 h-8 bg-slate-600 rounded-lg mt-1"></div>
+              </div>
+            </div>
           </div>
-          <ul>
-            {topReviews.map((review, index) => (
-              <li
-                key={index}
-                className=" mt-2  flex flex-col items-center cursor-pointer "
-                onClick={() =>
-                  setLoading(!loading) & router.push(`../titles/${review._id}`)
-                }
-              >
-                <div className="border-2 border-slate-800 p-1 rounded-lg lg:w-40">
-                  {review._id.length < 16 ? (
-                    <h1 className="lg:text-xl text-sm text-white flex justify-center">
-                      {review._id}
-                    </h1>
-                  ) : (
-                    <h1 className=" text-white lg:text-lg text-sm flex justify-center break-normal">
-                      {review._id}
-                    </h1>
-                  )}
-                  <p className="lg:text-sm text-xs flex justify-center ">
-                    Average Rating: {" "} <strong>{calculateAverageRating(review.reviews)}</strong>
-                  </p>
-                  <div className="flex justify-center">
-                    <Image
-                      alt="g"
-                      src={review.Poster}
-                      height={175}
-                      width={125}
-                    />
-                  </div>
-                </div>
-              </li>
-            ))}
-          </ul>
+
+          <div className=" h-[240px] border-b-2 border-l-2 border-slate-600 w-[400px] flex flex-col pt-2 pl-4 ml-[34px] rounded-lg mt-6">
+            <div className="w-[350px] bg-slate-600 h-6  rounded-lg mb-3"></div>
+            <div className="flex flex-row  ">
+              <div className="w-[120px] h-[185px] bg-slate-600 mb-4"></div>
+              <div className="flex flex-col self-center items-center ml-2 w-fit  font-semibold justify-center  h-fit">
+                <div className="w-28 h-4 bg-slate-600 rounded-lg "></div>
+                <div className="w-14 mr-3 h-8 bg-slate-600 rounded-lg mt-1"></div>
+              </div>
+            </div>
+          </div>
+
+          <div className="h-[240px] border-b-2 border-l-2 border-slate-600 w-[400px] flex flex-col pt-2 pl-4 ml-[34px] rounded-lg mt-6">
+            <div className="w-[350px] bg-slate-600 h-6  rounded-lg mb-3"></div>
+            <div className="flex flex-row  ">
+              <div className="w-[120px] h-[185px] bg-slate-600 mb-4"></div>
+              <div className="flex flex-col self-center items-center ml-2 w-fit  font-semibold justify-center  h-fit">
+                <div className="w-28 h-4 bg-slate-600 rounded-lg "></div>
+                <div className="w-14 mr-3 h-8 bg-slate-600 rounded-lg mt-1"></div>
+              </div>
+            </div>
+          </div>
         </div>
       ) : (
-        <div className="flex justify-center" onClick={() => handleOpen()}>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1.5}
-            stroke="currentColor"
-            className="w-6 h-6"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M19.5 8.25l-7.5 7.5-7.5-7.5"
-            />
-          </svg>
-        </div>
+        <Carousel
+          orientation="vertical"
+          opts={{
+            align: "start",
+            loop: true,
+            slidesToScroll: 3,
+          }}
+          plugins={[
+            Autoplay({
+              delay: 3000,
+              stopOnInteraction: true,
+            }),
+          ]}
+        >
+          <CarouselContent className="h-[760px]">
+            {data?.map((title, index) => (
+              <CarouselItem
+                key={index}
+                className=" mt-2 basis-1/3 flex flex-row items-center justify-end  gap-4"
+              >
+                <div>{index + 1}</div>
+                <div className="flex-col flex items-start">
+                  <div className="border-l-2 border-b-2 border-slate-800 p-1 rounded-lg w-[400px]">
+                    <h1 className="text-2xl font-semibold text-white flex justify-start pl-3 ">
+                      {title._id}
+                    </h1>
+
+                    <div className="flex flex-row">
+                      <div className="flex justify-start p-2 cursor-pointer">
+                        <Image
+                          alt="g"
+                          src={title.Poster}
+                          height={175}
+                          width={125}
+                          onClick={() => router.push(`../titles/${title._id}`)}
+                        />
+                      </div>
+                      <div className=" self-center">
+                        <p>Average Rating</p>
+                        <p className="flex self-center pl-6 text-3xl font-semibold">
+                          {calculateAverageRating(title.reviews)}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+          <CarouselPrevious />
+          <CarouselNext />
+        </Carousel>
       )}
     </div>
   );

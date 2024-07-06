@@ -16,7 +16,7 @@ const Nav = () => {
     return (
       <div className="flex flex-row items-center w-full bg-gray-950 border-b-2 border-slate-800 sticky py-2 top-0 z-[20] ">
         <div className={navBar.nav1}>
-          <Link href="/" className="self-center pl-2 flex text-white">
+          <Link href="/" className="self-center pl-2 lg:ml-10 flex text-white">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -56,7 +56,7 @@ const Nav = () => {
     return (
       <div className="flex flex-row items-center w-full bg-gray-900 border-b-2 pt-2 border-slate-800 sticky top-0 z-[20] ">
         <div className="flex order-1 w-1/5">
-          <nav className="lg:pl-2 pl-2  flex self-center">
+          <nav className="lg:ml-10 pl-2  flex self-center">
             <Link href="/" className="text-white">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
