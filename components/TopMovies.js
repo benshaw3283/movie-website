@@ -65,7 +65,7 @@ function TopMovies() {
   }
 
   return (
-    <div className=" w-fit  p-2 ">
+    <div className=" w-fit  p-2 lg:visible invisible absolute lg:relative lg:flex">
       {!isSuccess ? (
         <div className="h-[760px] flex flex-col">
           <div className=" h-[240px] border-b-2 border-l-2 border-slate-600 w-[400px] flex flex-col pt-2 pl-4 ml-[34px] rounded-lg mt-6">
